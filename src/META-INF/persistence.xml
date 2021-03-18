@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="evaluacion-bombero" transaction-type="RESOURCE_LOCAL">
+		<class>com.bombero.model.entity.AsignarGuardia</class>
+		<class>com.bombero.model.entity.Aspirante</class>
+		<class>com.bombero.model.entity.CabeceraAsignarEquipo</class>
+		<class>com.bombero.model.entity.Calificacion</class>
+		<class>com.bombero.model.entity.Canton</class>
+		<class>com.bombero.model.entity.Cirugia</class>
+		<class>com.bombero.model.entity.Compania</class>
+		<class>com.bombero.model.entity.DetalleAsignarEquipo</class>
+		<class>com.bombero.model.entity.Documento</class>
+		<class>com.bombero.model.entity.Empresa</class>
+		<class>com.bombero.model.entity.EquipoVestimenta</class>
+		<class>com.bombero.model.entity.EstadoCivil</class>
+		<class>com.bombero.model.entity.Evaluacion</class>
+		<class>com.bombero.model.entity.Familiar</class>
+		<class>com.bombero.model.entity.FichaMedica</class>
+		<class>com.bombero.model.entity.Genero</class>
+		<class>com.bombero.model.entity.Horario</class>
+		<class>com.bombero.model.entity.Instructor</class>
+		<class>com.bombero.model.entity.Matricula</class>
+		<class>com.bombero.model.entity.Menu</class>
+		<class>com.bombero.model.entity.Modulo</class>
+		<class>com.bombero.model.entity.ModuloAsignado</class>
+		<class>com.bombero.model.entity.Pai</class>
+		<class>com.bombero.model.entity.Perfil</class>
+		<class>com.bombero.model.entity.Periodo</class>
+		<class>com.bombero.model.entity.Permiso</class>
+		<class>com.bombero.model.entity.PersonalAutorizado</class>
+		<class>com.bombero.model.entity.Pregunta</class>
+		<class>com.bombero.model.entity.Profesion</class>
+		<class>com.bombero.model.entity.Provincia</class>
+		<class>com.bombero.model.entity.Respuesta</class>
+		<class>com.bombero.model.entity.RespuestaSeleccionada</class>
+		<class>com.bombero.model.entity.ResultadoEvaluacion</class>
+		<class>com.bombero.model.entity.TipoDocumento</class>
+		<class>com.bombero.model.entity.TipoFamiliar</class>
+		<class>com.bombero.model.entity.TipoSangre</class>
+		<class>com.bombero.model.entity.Usuario</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/evaluacion_bombero"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="admin123"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,81 @@
+package com.bombero.model.entity;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+
+/**
+ * The persistent class for the tipo_familiar database table.
+ * 
+ */
+@Entity
+@Table(name="tipo_familiar")
+@NamedQuery(name="TipoFamiliar.findAll", query="SELECT t FROM TipoFamiliar t")
+public class TipoFamiliar implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_tipo_familiar")
+	private int idTipoFamiliar;
+
+	private String estado;
+
+	@Column(name="tipo_familiar")
+	private String tipoFamiliar;
+
+	//bi-directional many-to-one association to Familiar
+	@OneToMany(mappedBy="tipoFamiliar")
+	private List<Familiar> familiars;
+
+	public TipoFamiliar() {
+	}
+
+	public int getIdTipoFamiliar() {
+		return this.idTipoFamiliar;
+	}
+
+	public void setIdTipoFamiliar(int idTipoFamiliar) {
+		this.idTipoFamiliar = idTipoFamiliar;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getTipoFamiliar() {
+		return this.tipoFamiliar;
+	}
+
+	public void setTipoFamiliar(String tipoFamiliar) {
+		this.tipoFamiliar = tipoFamiliar;
+	}
+
+	public List<Familiar> getFamiliars() {
+		return this.familiars;
+	}
+
+	public void setFamiliars(List<Familiar> familiars) {
+		this.familiars = familiars;
+	}
+
+	public Familiar addFamiliar(Familiar familiar) {
+		getFamiliars().add(familiar);
+		familiar.setTipoFamiliar(this);
+
+		return familiar;
+	}
+
+	public Familiar removeFamiliar(Familiar familiar) {
+		getFamiliars().remove(familiar);
+		familiar.setTipoFamiliar(null);
+
+		return familiar;
+	}
+
+}
