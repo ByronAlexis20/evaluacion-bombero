@@ -34,13 +34,13 @@ public class PerfilListaC {
 	List<Perfil> perfilLista;
 	@Wire private Listbox lstPerfiles;
 	
-	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
 		textoBuscar="";
 		buscar();
 	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GlobalCommand("Perfil.buscarPorPatron")
 	@Command
@@ -55,11 +55,13 @@ public class PerfilListaC {
 			Clients.showNotification("No hay datos para mostrar.!!");
 		}
 	}
+	
 	@Command
 	public void nuevo(){
-		Window ventanaCargar = (Window) Executions.createComponents("/forms/seguridad/perfiles/perfilEditar.zul", null, null);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/seguridad/perfilEditar.zul", null, null);
 		ventanaCargar.doModal();
 	}
+	
 	@Command
 	public void editar(@BindingParam("perfil") Perfil perfilSeleccionado){
 		if(perfilSeleccionado == null) {
@@ -70,18 +72,17 @@ public class PerfilListaC {
 		perfilDAO.getEntityManager().refresh(perfilSeleccionado);		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("Perfil", perfilSeleccionado);
-		Window ventanaCargar = (Window) Executions.createComponents("/forms/seguridad/perfiles/perfilEditar.zul", null, params);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/seguridad/perfilEditar.zul", null, params);
 		ventanaCargar.doModal();
 	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void eliminar(@BindingParam("perfil") Perfil perfilSeleccionado){
-
 		if (perfilSeleccionado == null) {
 			Clients.showNotification("Seleccione una opción de la lista.");
 			return; 
 		}
-
 		Messagebox.show("Desea dar de baja el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
 
 			@Override
@@ -105,16 +106,18 @@ public class PerfilListaC {
 		});		
 	}
 
-	
 	public List<Perfil> getPerfilLista() {
 		return perfilLista;
 	}
+	
 	public void setPerfilLista(List<Perfil> perfilLista) {
 		this.perfilLista = perfilLista;
 	}
+	
 	public String getTextoBuscar() {
 		return textoBuscar;
 	}
+	
 	public void setTextoBuscar(String textoBuscar) {
 		this.textoBuscar = textoBuscar;
 	}

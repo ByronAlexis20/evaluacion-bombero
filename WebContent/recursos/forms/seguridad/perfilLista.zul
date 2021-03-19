@@ -18,7 +18,7 @@
 					<hbox align="center">
 						<textbox value="@bind(vm.textoBuscar)" onOK="@command('buscar')"
 							width="300px" class="form-control tamanio-textbox"
-							placeholder="Búsqueda por nombre" />
+							placeholder="Búsqueda por perfil" />
 						<button iconSclass="z-icon-search" class="but btn-form btn-sm"
 							onClick="@command('buscar')" />
 					</hbox>
@@ -28,13 +28,15 @@
 				<listbox id="lstPerfiles" model="@load(vm.perfilLista)" autopaging="true"
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
-						<listheader label="Perfil" align="center" width="30%" class="lb-listheader"/>
-						<listheader label="Descripción" align="center" class="lb-listheader"/>
-						<listheader label="Estado" width="30%" class="lb-listheader"/>
+						<listheader label="Código" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="Perfil" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="Descripción" class="lb-listheader"/>
+						<listheader label="Estado" width="7%" align="center" class="lb-listheader"/>
 						<listheader label="Acción" width="min" align="center" class="lb-listheader"/>
 					</listhead>
 					<template name="model">
 						<listitem>
+							<listcell label="@load(each.idPerfil)" class="lb-listcell"/>
 							<listcell label="@load(each.perfil)" class="lb-listcell"/>
 							<listcell label="@load(each.descripcion)" class="lb-listcell"/>
 							<listcell label="@load(each.estado)" class="lb-listcell"/>
