@@ -9,14 +9,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Empresa.findAll", query="SELECT e FROM Empresa e")
+@NamedQuery(name="Empresa.findAll", query="SELECT e FROM Empresa e where e.estado = 'A'")
 public class Empresa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_empresa")
-	private int idEmpresa;
+	private Integer idEmpresa;
 
 	private String direccion;
 
@@ -39,11 +39,11 @@ public class Empresa implements Serializable {
 	public Empresa() {
 	}
 
-	public int getIdEmpresa() {
+	public Integer getIdEmpresa() {
 		return this.idEmpresa;
 	}
 
-	public void setIdEmpresa(int idEmpresa) {
+	public void setIdEmpresa(Integer idEmpresa) {
 		this.idEmpresa = idEmpresa;
 	}
 
