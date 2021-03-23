@@ -18,7 +18,7 @@ public class Periodo implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_periodo")
-	private int idPeriodo;
+	private Integer idPeriodo;
 
 	private String descripcion;
 
@@ -43,11 +43,11 @@ public class Periodo implements Serializable {
 	public Periodo() {
 	}
 
-	public int getIdPeriodo() {
+	public Integer getIdPeriodo() {
 		return this.idPeriodo;
 	}
 
-	public void setIdPeriodo(int idPeriodo) {
+	public void setIdPeriodo(Integer idPeriodo) {
 		this.idPeriodo = idPeriodo;
 	}
 
