@@ -1,9 +1,9 @@
-<?page title="Modulos" contentType="text/html;charset=UTF-8"?>
+<?page title="Compañías" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winModuloEditar" width="455px" vflex="1"
+	<window id="winCompaniaEditar" width="455px" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
 		mode="overlapped" class="modal-title"
-		viewModel="@id('vm') @init('com.bombero.control.administracion.ModuloEditarC')">
+		viewModel="@id('vm') @init('com.bombero.control.administracion.CompaniaEditarC')">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid>
@@ -14,11 +14,15 @@
 				<rows>
 					<row>
 						<label value="Código: " class="label-form"/>
-						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.modulo.idModulo)" />
+						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.compania.idCompania)" />
 					</row>
 					<row>
-						<label value="Descripción: " class="label-form"/>
-						<textbox id="txtModulo" hflex="1" value="@bind(vm.modulo.modulo)" />
+						<label value="Nombre: " class="label-form"/>
+						<textbox id="txtNombre" multiline="true" height="30px" hflex="1" value="@bind(vm.compania.nombre)" />
+					</row>
+					<row>
+						<label value="Dirección: " class="label-form"/>
+						<textbox id="txtDireccion" hflex="1" multiline="true" height="50px" value="@bind(vm.compania.direccion)" />
 					</row>
 				</rows>
 			</grid>

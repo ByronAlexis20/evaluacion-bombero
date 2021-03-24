@@ -1,6 +1,6 @@
 <?page title="Modulos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winModuloEditar" width="455px" vflex="1"
+	<window id="winTipoSangreEditar" width="455px" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
 		mode="overlapped" class="modal-title"
 		viewModel="@id('vm') @init('com.bombero.control.administracion.ModuloEditarC')">
@@ -17,8 +17,8 @@
 						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.modulo.idModulo)" />
 					</row>
 					<row>
-						<label value="Descripción: " class="label-form"/>
-						<textbox id="txtModulo" hflex="1" value="@bind(vm.modulo.modulo)" />
+						<label value="Tipo de Sangre " class="label-form"/>
+						<textbox id="txtTipoSangre" hflex="1" value="@bind(vm.modulo.modulo)" />
 					</row>
 				</rows>
 			</grid>

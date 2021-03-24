@@ -24,14 +24,14 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import com.bombero.model.dao.CompaniaDAO;
-import com.bombero.model.entity.Compania;
+import com.bombero.model.dao.TipoSangreDAO;
+import com.bombero.model.entity.TipoSangre;
 
-public class CompaniaListaC {
+public class TipoSangreListaC {
 	public String textoBuscar;
-	CompaniaDAO companiaDAO = new CompaniaDAO();
-	List<Compania> companiaLista;
-	@Wire private Listbox lstCompanias;
+	TipoSangreDAO tipoSangreDAO = new TipoSangreDAO();
+	List<TipoSangre> tipoSangreLista;
+	@Wire private Listbox lstTipoSangre;
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -41,44 +41,44 @@ public class CompaniaListaC {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@GlobalCommand("Compania.buscarPorPatron")
+	@GlobalCommand("TipoSangre.buscarPorPatron")
 	@Command
-	@NotifyChange({"companiaLista"})
+	@NotifyChange({"tipoSangreLista"})
 	public void buscar(){
-		if (companiaLista != null) {
-			companiaLista = null; 
+		if (tipoSangreLista != null) {
+			tipoSangreLista = null; 
 		}
-		companiaLista = companiaDAO.getCompaniaPorDescripcion(textoBuscar);
-		lstCompanias.setModel(new ListModelList(companiaLista));
-		if(companiaLista.size() == 0) {
+		tipoSangreLista = tipoSangreDAO.getTipoSangrePorDescripcion(textoBuscar);
+		lstTipoSangre.setModel(new ListModelList(tipoSangreLista));
+		if(tipoSangreLista.size() == 0) {
 			Clients.showNotification("No hay datos para mostrar.!!");
 		}
 	}
 	
 	@Command
 	public void nuevo(){
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/administracion/companiaEditar.zul", null, null);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/administracion/tipoSangreEditar.zul", null, null);
 		ventanaCargar.doModal();
 	}
 	
 	@Command
-	public void editar(@BindingParam("compania") Compania companiaSeleccionado){
-		if(companiaSeleccionado == null) {
+	public void editar(@BindingParam("tipoSangre") TipoSangre tipoSangreSeleccionado){
+		if(tipoSangreSeleccionado == null) {
 			Clients.showNotification("Seleccione una opción de la lista.");
 			return;
 		}
 		// Actualiza la instancia antes de enviarla a editar.
-		companiaDAO.getEntityManager().refresh(companiaSeleccionado);		
+		tipoSangreDAO.getEntityManager().refresh(tipoSangreSeleccionado);		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Compania", companiaSeleccionado);
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/administracion/companiaEditar.zul", null, params);
+		params.put("TipoSangre", tipoSangreSeleccionado);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/administracion/tipoSangreEditar.zul", null, params);
 		ventanaCargar.doModal();
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
-	public void eliminar(@BindingParam("compania") Compania companiaSeleccionado){
-		if (companiaSeleccionado == null) {
+	public void eliminar(@BindingParam("tipoSangre") TipoSangre tipoSangreSeleccionado){
+		if (tipoSangreSeleccionado == null) {
 			Clients.showNotification("Seleccione una opción de la lista.");
 			return; 
 		}
@@ -88,27 +88,27 @@ public class CompaniaListaC {
 			public void onEvent(Event event) throws Exception {
 				if (event.getName().equals("onYes")) {
 					try {
-						companiaDAO.getEntityManager().getTransaction().begin();
-						companiaSeleccionado.setEstado("I");
-						companiaDAO.getEntityManager().merge(companiaSeleccionado);
-						companiaDAO.getEntityManager().getTransaction().commit();;
+						tipoSangreDAO.getEntityManager().getTransaction().begin();
+						tipoSangreSeleccionado.setEstado("I");
+						tipoSangreDAO.getEntityManager().merge(tipoSangreSeleccionado);
+						tipoSangreDAO.getEntityManager().getTransaction().commit();;
 						buscar();
 						Clients.showNotification("Transaccion ejecutada con exito.");
 					} catch (Exception e) {
 						e.printStackTrace();
-						companiaDAO.getEntityManager().getTransaction().rollback();
+						tipoSangreDAO.getEntityManager().getTransaction().rollback();
 					}
 				}
 			}
 		});		
 	}
 
-	public List<Compania> getCompaniaLista() {
-		return companiaLista;
+	public List<TipoSangre> getTipoSangreLista() {
+		return tipoSangreLista;
 	}
 
-	public void setCompaniaLista(List<Compania> companiaLista) {
-		this.companiaLista = companiaLista;
+	public void setTipoSangreLista(List<TipoSangre> tipoSangreLista) {
+		this.tipoSangreLista = tipoSangreLista;
 	}
 
 	public String getTextoBuscar() {

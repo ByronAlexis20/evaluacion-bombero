@@ -1,4 +1,4 @@
-<?page title="Lista de periodos" contentType="text/html;charset=UTF-8"?>
+<?page title="Lista de modulos" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window apply="org.zkoss.bind.BindComposer" border="none"
 		viewModel="@id('vm') @init('com.bombero.control.administracion.ModuloListaC')"

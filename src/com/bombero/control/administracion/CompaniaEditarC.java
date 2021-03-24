@@ -16,34 +16,34 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import com.bombero.model.dao.ModuloDAO;
-import com.bombero.model.entity.Modulo;
+import com.bombero.model.dao.CompaniaDAO;
+import com.bombero.model.entity.Compania;
 
-public class ModuloEditarC {
-	@Wire private Window winModuloEditar;
+public class CompaniaEditarC {
+	@Wire private Window winCompaniaEditar;
 	@Wire private Textbox txtCodigo;
-	@Wire private Textbox txtModulo;
+	@Wire private Textbox txtNombre;
 
-	private ModuloDAO moduloDAO = new ModuloDAO();
-	private Modulo modulo;
+	private CompaniaDAO companiaDAO = new CompaniaDAO();
+	private Compania compania;
 	
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
 		// Recupera el objeto pasado como parametro. 
-		modulo = (Modulo) Executions.getCurrent().getArg().get("Modulo");
-		if (modulo == null) {
-			modulo = new Modulo();
-			modulo.setEstado("A");
+		compania = (Compania) Executions.getCurrent().getArg().get("Compania");
+		if (compania == null) {
+			compania = new Compania();
+			compania.setEstado("A");
 		}
 	}
 
 	public boolean isValidarDatos() {
 		try {
 			Boolean retorna = true;
-			if(txtModulo.getText().isEmpty()) {
-				Clients.showNotification("Obligatoria regitrar la Descripción","info",txtModulo,"end_center",2000);
-				txtModulo.setFocus(true);
+			if(txtNombre.getText().isEmpty()) {
+				Clients.showNotification("Obligatoria regitrar el nombre de la Comañia","info",txtNombre,"end_center",2000);
+				txtNombre.setFocus(true);
 				return retorna;
 			}
 		} catch (Exception e) {
@@ -65,19 +65,19 @@ public class ModuloEditarC {
 				if (event.getName().equals("onYes")) {		
 					try {
 						
-						moduloDAO.getEntityManager().getTransaction().begin();			
-						if (modulo.getIdModulo() == null) {
-							moduloDAO.getEntityManager().persist(modulo);
+						companiaDAO.getEntityManager().getTransaction().begin();
+						if (compania.getIdCompania() == null) {
+							companiaDAO.getEntityManager().persist(compania);
 						}else{
-							modulo = (Modulo) moduloDAO.getEntityManager().merge(modulo);
+							compania = (Compania) companiaDAO.getEntityManager().merge(compania);
 						}			
-						moduloDAO.getEntityManager().getTransaction().commit();
+						companiaDAO.getEntityManager().getTransaction().commit();
 						Clients.showNotification("Proceso Ejecutado con exito.");
 						
 						salir();						
 					} catch (Exception e) {
 						e.printStackTrace();
-						moduloDAO.getEntityManager().getTransaction().rollback();
+						companiaDAO.getEntityManager().getTransaction().rollback();
 					}
 				}
 			}
@@ -86,16 +86,15 @@ public class ModuloEditarC {
 
 	@Command
 	public void salir(){
-		BindUtils.postGlobalCommand(null, null, "Modulo.buscarPorPatron", null);
-		winModuloEditar.detach();
+		BindUtils.postGlobalCommand(null, null, "Compania.buscarPorPatron", null);
+		winCompaniaEditar.detach();
 	}
 
-	public Modulo getModulo() {
-		return modulo;
+	public Compania getCompania() {
+		return compania;
 	}
 
-	public void setModulo(Modulo modulo) {
-		this.modulo = modulo;
+	public void setCompania(Compania compania) {
+		this.compania = compania;
 	}
-
 }

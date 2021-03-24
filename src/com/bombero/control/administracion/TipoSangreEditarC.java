@@ -16,34 +16,34 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import com.bombero.model.dao.ModuloDAO;
-import com.bombero.model.entity.Modulo;
+import com.bombero.model.dao.TipoSangreDAO;
+import com.bombero.model.entity.TipoSangre;
 
-public class ModuloEditarC {
-	@Wire private Window winModuloEditar;
+public class TipoSangreEditarC {
+	@Wire private Window winTipoSangreEditar;
 	@Wire private Textbox txtCodigo;
-	@Wire private Textbox txtModulo;
+	@Wire private Textbox txtTipoSangre;
 
-	private ModuloDAO moduloDAO = new ModuloDAO();
-	private Modulo modulo;
+	private TipoSangreDAO tipoSangreDAO = new TipoSangreDAO();
+	private TipoSangre tipoSangre;
 	
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
 		// Recupera el objeto pasado como parametro. 
-		modulo = (Modulo) Executions.getCurrent().getArg().get("Modulo");
-		if (modulo == null) {
-			modulo = new Modulo();
-			modulo.setEstado("A");
+		tipoSangre = (TipoSangre) Executions.getCurrent().getArg().get("TipoSangre");
+		if (tipoSangre == null) {
+			tipoSangre = new TipoSangre();
+			tipoSangre.setEstado("A");
 		}
 	}
 
 	public boolean isValidarDatos() {
 		try {
 			Boolean retorna = true;
-			if(txtModulo.getText().isEmpty()) {
-				Clients.showNotification("Obligatoria regitrar la Descripción","info",txtModulo,"end_center",2000);
-				txtModulo.setFocus(true);
+			if(txtTipoSangre.getText().isEmpty()) {
+				Clients.showNotification("Obligatoria regitrar el tipo de sangre","info",txtTipoSangre,"end_center",2000);
+				txtTipoSangre.setFocus(true);
 				return retorna;
 			}
 		} catch (Exception e) {
@@ -65,19 +65,19 @@ public class ModuloEditarC {
 				if (event.getName().equals("onYes")) {		
 					try {
 						
-						moduloDAO.getEntityManager().getTransaction().begin();			
-						if (modulo.getIdModulo() == null) {
-							moduloDAO.getEntityManager().persist(modulo);
+						tipoSangreDAO.getEntityManager().getTransaction().begin();
+						if (tipoSangre.getIdTipoSangre() == null) {
+							tipoSangreDAO.getEntityManager().persist(tipoSangre);
 						}else{
-							modulo = (Modulo) moduloDAO.getEntityManager().merge(modulo);
+							tipoSangre = (TipoSangre) tipoSangreDAO.getEntityManager().merge(tipoSangre);
 						}			
-						moduloDAO.getEntityManager().getTransaction().commit();
+						tipoSangreDAO.getEntityManager().getTransaction().commit();
 						Clients.showNotification("Proceso Ejecutado con exito.");
 						
 						salir();						
 					} catch (Exception e) {
 						e.printStackTrace();
-						moduloDAO.getEntityManager().getTransaction().rollback();
+						tipoSangreDAO.getEntityManager().getTransaction().rollback();
 					}
 				}
 			}
@@ -86,16 +86,15 @@ public class ModuloEditarC {
 
 	@Command
 	public void salir(){
-		BindUtils.postGlobalCommand(null, null, "Modulo.buscarPorPatron", null);
-		winModuloEditar.detach();
+		BindUtils.postGlobalCommand(null, null, "TipoSangre.buscarPorPatron", null);
+		winTipoSangreEditar.detach();
 	}
 
-	public Modulo getModulo() {
-		return modulo;
+	public TipoSangre getTipoSangre() {
+		return tipoSangre;
 	}
 
-	public void setModulo(Modulo modulo) {
-		this.modulo = modulo;
+	public void setTipoSangre(TipoSangre tipoSangre) {
+		this.tipoSangre = tipoSangre;
 	}
-
 }
