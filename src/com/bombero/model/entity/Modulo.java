@@ -10,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Modulo.findAll", query="SELECT m FROM Modulo m")
+@NamedQuery(name="Modulo.buscarPorPatron", query="SELECT m FROM Modulo m where lower(m.modulo) like lower(:patron)")
 public class Modulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

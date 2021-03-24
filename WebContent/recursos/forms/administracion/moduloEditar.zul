@@ -1,9 +1,9 @@
-<?page title="Periodos" contentType="text/html;charset=UTF-8"?>
+<?page title="Modulos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winPeriodoEditar" width="455px" vflex="1"
+	<window id="winModuloEditar" width="455px" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
 		mode="overlapped" class="modal-title"
-		viewModel="@id('vm') @init('com.bombero.control.administracion.PeriodoEditarC')">
+		viewModel="@id('vm') @init('com.bombero.control.administracion.ModuloEditarC')">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid>
@@ -13,16 +13,12 @@
 				</columns>
 				<rows>
 					<row>
-						<label value="Descripcion: " class="label-form"/>
-						<textbox id="txtDescripcion" hflex="1" maxlength="250" value="@bind(vm.periodo.descripcion)" />
+						<label value="Código: " class="label-form"/>
+						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.)" />
 					</row>
 					<row>
-						<label value="Fecha de inicio:  " class="label-form"/>
-						<datebox id="dtpFechaInicio" hflex="1" onChange="@command('seleccionaFechaFin')"/>
-					</row>
-					<row>
-						<label value="Fecha Fin:  " class="label-form"/>
-						<datebox id="dtpFechaFin" hflex="1"/>
+						<label value="Código: " class="label-form"/>
+						<textbox id="txtModulo" hflex="1" readonly="true" value="@bind(vm.)" />
 					</row>
 				</rows>
 			</grid>
