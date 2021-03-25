@@ -1,8 +1,16 @@
 package com.bombero.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -11,14 +19,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="tipo_documento")
-@NamedQuery(name="TipoDocumento.findAll", query="SELECT t FROM TipoDocumento t")
+@NamedQuery(name="TipoDocumento.buscarPorPatron", query="SELECT t FROM TipoDocumento t where lower(t.tipoDocumento) like lower(:patron)")
 public class TipoDocumento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_tipo_documento")
-	private int idTipoDocumento;
+	private Integer idTipoDocumento;
 
 	private String estado;
 
@@ -32,11 +40,11 @@ public class TipoDocumento implements Serializable {
 	public TipoDocumento() {
 	}
 
-	public int getIdTipoDocumento() {
+	public Integer getIdTipoDocumento() {
 		return this.idTipoDocumento;
 	}
 
-	public void setIdTipoDocumento(int idTipoDocumento) {
+	public void setIdTipoDocumento(Integer idTipoDocumento) {
 		this.idTipoDocumento = idTipoDocumento;
 	}
 

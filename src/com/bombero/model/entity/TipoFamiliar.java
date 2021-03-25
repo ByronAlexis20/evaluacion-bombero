@@ -11,14 +11,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="tipo_familiar")
-@NamedQuery(name="TipoFamiliar.findAll", query="SELECT t FROM TipoFamiliar t")
+@NamedQuery(name="TipoFamiliar.buscarPorPatron", query="SELECT t FROM TipoFamiliar t where lower(t.tipoFamiliar) like lower(:patron)")
 public class TipoFamiliar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_tipo_familiar")
-	private int idTipoFamiliar;
+	private Integer idTipoFamiliar;
 
 	private String estado;
 
@@ -32,11 +32,11 @@ public class TipoFamiliar implements Serializable {
 	public TipoFamiliar() {
 	}
 
-	public int getIdTipoFamiliar() {
+	public Integer getIdTipoFamiliar() {
 		return this.idTipoFamiliar;
 	}
 
-	public void setIdTipoFamiliar(int idTipoFamiliar) {
+	public void setIdTipoFamiliar(Integer idTipoFamiliar) {
 		this.idTipoFamiliar = idTipoFamiliar;
 	}
 

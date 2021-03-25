@@ -10,14 +10,14 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Profesion.findAll", query="SELECT p FROM Profesion p")
+@NamedQuery(name="Profesion.buscarPorPatron", query="SELECT p FROM Profesion p where lower(p.profesion) like lower(:patron)")
 public class Profesion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_profesion")
-	private int idProfesion;
+	private Integer idProfesion;
 
 	private String estado;
 
@@ -30,11 +30,11 @@ public class Profesion implements Serializable {
 	public Profesion() {
 	}
 
-	public int getIdProfesion() {
+	public Integer getIdProfesion() {
 		return this.idProfesion;
 	}
 
-	public void setIdProfesion(int idProfesion) {
+	public void setIdProfesion(Integer idProfesion) {
 		this.idProfesion = idProfesion;
 	}
 

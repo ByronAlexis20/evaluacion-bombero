@@ -1,9 +1,9 @@
 <?page title="Modulos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winTipoSangreEditar" width="455px" vflex="1"
+	<window id="winTipoFamiliaEditar" width="455px" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
 		mode="overlapped" class="modal-title"
-		viewModel="@id('vm') @init('com.bombero.control.administracion.TipoSangreEditarC')">
+		viewModel="@id('vm') @init('com.bombero.control.administracion.TipoFamiliaEditarC')">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid>
@@ -14,11 +14,11 @@
 				<rows>
 					<row>
 						<label value="Código: " class="label-form"/>
-						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.tipoSangre.idTipoSangre)" />
+						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.tipoFamilia.idTipoFamiliar)" />
 					</row>
 					<row>
 						<label value="Tipo de Sangre " class="label-form"/>
-						<textbox id="txtTipoSangre" hflex="1" value="@bind(vm.tipoSangre.tipoSangre)" />
+						<textbox id="txtTipoFamilia" hflex="1" value="@bind(vm.tipoFamilia.tipoFamiliar)" />
 					</row>
 				</rows>
 			</grid>
