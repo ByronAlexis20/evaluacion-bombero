@@ -1,4 +1,4 @@
-<?page title="Modulos" contentType="text/html;charset=UTF-8"?>
+<?page title="Tipo de sangre" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window id="winTipoSangreEditar" width="455px" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"

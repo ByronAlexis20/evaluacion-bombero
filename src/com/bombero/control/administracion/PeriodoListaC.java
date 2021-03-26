@@ -21,11 +21,13 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.PeriodoDAO;
 import com.bombero.model.entity.Periodo;
+import com.bombero.util.Globals;
 
 public class PeriodoListaC {
 	public String textoBuscar;
@@ -57,6 +59,17 @@ public class PeriodoListaC {
 	
 	@Command
 	public void nuevo(){
+		boolean bandera = false;
+		for(Listitem item : lstPeriodos.getItems()) {
+			Periodo per = (Periodo)item.getValue();
+			if(per.getEstadoPeriodo().equals(Globals.ESTADO_PERIODO_EN_PROCESO)) {
+				bandera = true;
+			}
+		}
+		if(bandera == true) {
+			Messagebox.show("Existe un periodo EN PROCESO, se debe finalizar antes de crear uno nuevo");
+			return;
+		}
 		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/administracion/periodoEditar.zul", null, null);
 		ventanaCargar.doModal();
 	}
@@ -77,13 +90,48 @@ public class PeriodoListaC {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
+	public void finalizar() {
+		if(lstPeriodos.getSelectedItem().getValue() == null) {
+			Messagebox.show("Debe seleccionar un periodo");
+			return;
+		}
+		Periodo periodoSeleccionado = (Periodo) lstPeriodos.getSelectedItem().getValue();
+		if(periodoSeleccionado.getEstadoPeriodo().equals(Globals.ESTADO_PERIODO_FINALIZADO)) {
+			Messagebox.show("El Periodo ya ha sido FINALIZADO anteriormente");
+			return;
+		}
+		Messagebox.show("Desea dar por finalizado el periodo?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+			@Override
+			public void onEvent(Event event) throws Exception {
+				if (event.getName().equals("onYes")) {
+					try {
+						periodoDAO.getEntityManager().getTransaction().begin();
+						periodoSeleccionado.setEstadoPeriodo(Globals.ESTADO_PERIODO_FINALIZADO);
+						periodoDAO.getEntityManager().merge(periodoSeleccionado);
+						periodoDAO.getEntityManager().getTransaction().commit();;
+						buscar();
+						Clients.showNotification("Transaccion ejecutada con exito.");
+					} catch (Exception e) {
+						e.printStackTrace();
+						periodoDAO.getEntityManager().getTransaction().rollback();
+					}
+				}
+			}
+		});
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Command
 	public void eliminar(@BindingParam("periodo") Periodo periodoSeleccionado){
 		if (periodoSeleccionado == null) {
 			Clients.showNotification("Seleccione una opción de la lista.");
 			return; 
 		}
+		if(periodoSeleccionado.getEstadoPeriodo().equals(Globals.ESTADO_PERIODO_FINALIZADO)) {
+			Messagebox.show("No se puede eliminar un periodo FINALIZADO");
+			return;
+		}
 		Messagebox.show("Desea dar de baja el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
-
 			@Override
 			public void onEvent(Event event) throws Exception {
 				if (event.getName().equals("onYes")) {

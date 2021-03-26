@@ -21,6 +21,7 @@ import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.PeriodoDAO;
 import com.bombero.model.entity.Periodo;
+import com.bombero.util.Globals;
 
 public class PeriodoEditarC {
 	@Wire private Window winPeriodoEditar;
@@ -92,6 +93,7 @@ public class PeriodoEditarC {
 						periodo.setDescripcion(txtDescripcion.getText());
 						periodo.setFechaInicio(dtpFechaInicio.getValue());
 						periodo.setFechaFin(dtpFechaFin.getValue());
+						periodo.setEstadoPeriodo(Globals.ESTADO_PERIODO_EN_PROCESO);
 						
 						periodoDAO.getEntityManager().getTransaction().begin();			
 						if (periodo.getIdPeriodo() == null) {

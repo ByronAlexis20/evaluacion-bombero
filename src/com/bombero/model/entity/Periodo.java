@@ -31,6 +31,9 @@ public class Periodo implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_inicio")
 	private Date fechaInicio;
+	
+	@Column(name="estado_periodo")
+	private String estadoPeriodo;
 
 	//bi-directional many-to-one association to Evaluacion
 	@OneToMany(mappedBy="periodo")
@@ -125,6 +128,14 @@ public class Periodo implements Serializable {
 		matricula.setPeriodo(null);
 
 		return matricula;
+	}
+
+	public String getEstadoPeriodo() {
+		return estadoPeriodo;
+	}
+
+	public void setEstadoPeriodo(String estadoPeriodo) {
+		this.estadoPeriodo = estadoPeriodo;
 	}
 
 }

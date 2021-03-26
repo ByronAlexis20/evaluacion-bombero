@@ -18,7 +18,7 @@ public class EquipoVestimenta implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_equipo")
-	private int idEquipo;
+	private Integer idEquipo;
 
 	private String descripcion;
 
@@ -36,11 +36,11 @@ public class EquipoVestimenta implements Serializable {
 	public EquipoVestimenta() {
 	}
 
-	public int getIdEquipo() {
+	public Integer getIdEquipo() {
 		return this.idEquipo;
 	}
 
-	public void setIdEquipo(int idEquipo) {
+	public void setIdEquipo(Integer idEquipo) {
 		this.idEquipo = idEquipo;
 	}
 
