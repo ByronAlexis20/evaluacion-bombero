@@ -1,6 +1,88 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Lista de compañias" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+	<style>
+		.lb-listheader-as *{
+			background:#3c8dbc;
+			text-transform:uppercase;
+			color: white !important;
+		}
+	</style>
+	<window id="winAspirantesLista" border="none" hflex="1" vflex="1">
+		<vlayout hflex="1" vflex="1">
+			<div style="margin-top:10px">
+				<label value="Inscripción de Aspirantes a Bomberos"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			
+			
+			
+			
+			<hbox hflex="1" vflex="1" align="center">
+				<vbox vflex="1" width="70%">
+					<listbox id="lstPeriodo" hflex="1" vflex="1">
+						<listhead>
+							<listheader label="Periodos" class="lb-listheader"/>
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell />
+							</listitem>
+						</template>
+					</listbox>
+				</vbox>
+				<vbox vflex="1" hflex="1">
+					<groupbox hflex="1" vflex="1" closable="false">
+						<caption label="Aspirantes a bomberos"></caption>
+
+						<vbox hflex="1" vflex="1">
+							<div>
+								<label value="Seleccionado: " style="font:100% sans-serif"></label>
+								<label value="periodo " style="font:100% sans-serif" id="lblPeriodoSeleccionado"></label>
+							</div>
+							<div>
+								<label value="Estado: " style="font:100% sans-serif"></label>
+								<label value="estado " style="font:100% sans-serif" id="lblEstado"></label>
+							</div>
+							<div>
+								<button id="btnNuevoAspirante" class="but btn-form btn-sm"
+									iconSclass="z-icon-plus" height="32px" width="80px">
+									Nuevo
+								</button>
+								<button id="btnEditarAspirante" class="but btn-form btn-sm"
+									iconSclass="z-icon-pencil" height="32px" width="80px">
+									Editar
+								</button>
+								<button id="btnEliminarAspirante" class="but btn-form btn-sm"
+									iconSclass="z-icon-trash-o" height="32px" width="80px">
+									Eliminar
+								</button>
+							</div>
+							<listbox id="lstAspirantes" hflex="1" 
+								vflex="1" >
+								<listhead>
+									<listheader label="Cedula" class="lb-listheader-as"/>
+									<listheader label="Nombres" class="lb-listheader-as"/>
+									<listheader label="Tipo de Sangre" class="lb-listheader-as"/>
+									<listheader label="Antecedentes" class="lb-listheader-as"/>
+									<listheader label="Genero" class="lb-listheader-as"/>
+									<listheader label="Fecha Nacimiento" class="lb-listheader-as"/>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell />
+										<listcell />
+										<listcell />
+										<listcell />
+										<listcell />
+										<listcell />
+									</listitem>
+								</template>
+							</listbox>
+						</vbox>
+					</groupbox>
+				</vbox>
+			</hbox>
+		</vlayout>
+	</window>
 </zk>

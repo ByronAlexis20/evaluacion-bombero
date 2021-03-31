@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="equipo_vestimenta")
-@NamedQuery(name="EquipoVestimenta.findAll", query="SELECT e FROM EquipoVestimenta e")
+@NamedQuery(name="EquipoVestimenta.buscarPorPatron", query="SELECT e FROM EquipoVestimenta e where lower(e.descripcion) like lower(:patron)")
 public class EquipoVestimenta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
