@@ -63,12 +63,12 @@ public class Aspirante implements Serializable {
 	//bi-directional many-to-one association to Canton
 	@ManyToOne
 	@JoinColumn(name="id_canton_nacimiento")
-	private Canton canton1;
+	private Canton cantonNacimiento;
 
 	//bi-directional many-to-one association to Canton
 	@ManyToOne
 	@JoinColumn(name="id_canton_residencia")
-	private Canton canton2;
+	private Canton cantonResidencia;
 
 	//bi-directional many-to-one association to EstadoCivil
 	@ManyToOne
@@ -249,20 +249,20 @@ public class Aspirante implements Serializable {
 		this.ultimoAnioEstudio = ultimoAnioEstudio;
 	}
 
-	public Canton getCanton1() {
-		return this.canton1;
+	public Canton getCantonNacimiento() {
+		return cantonNacimiento;
 	}
 
-	public void setCanton1(Canton canton1) {
-		this.canton1 = canton1;
+	public void setCantonNacimiento(Canton cantonNacimiento) {
+		this.cantonNacimiento = cantonNacimiento;
 	}
 
-	public Canton getCanton2() {
-		return this.canton2;
+	public Canton getCantonResidencia() {
+		return cantonResidencia;
 	}
 
-	public void setCanton2(Canton canton2) {
-		this.canton2 = canton2;
+	public void setCantonResidencia(Canton cantonResidencia) {
+		this.cantonResidencia = cantonResidencia;
 	}
 
 	public EstadoCivil getEstadoCivil() {

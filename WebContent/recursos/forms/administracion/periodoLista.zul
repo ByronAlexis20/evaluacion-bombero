@@ -42,8 +42,8 @@
 							<listcell label="@load(each.idPeriodo)" class="lb-listcell"/>
 							<listcell label="@load(each.descripcion)" class="lb-listcell"/>
 							<listcell label="@load(each.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
-							<listcell label="@load(each.estadoPeriodo)" class="lb-listcell"/>
 							<listcell label="@load(each.fechaFin) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
+							<listcell label="@load(each.estadoPeriodo)" class="lb-listcell"/>
 							<listcell>
 								<div align="center">
 									<button label="Editar" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"

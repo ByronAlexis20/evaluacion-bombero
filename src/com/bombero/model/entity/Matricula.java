@@ -6,12 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 
-/**
- * The persistent class for the matricula database table.
- * 
- */
 @Entity
-@NamedQuery(name="Matricula.findAll", query="SELECT m FROM Matricula m")
+@Table(name="matricula")
+@NamedQueries({
+	@NamedQuery(name="Matricula.buscarAspirantePorPeriodo", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo and m.estado = 'A'")
+})
 public class Matricula implements Serializable {
 	private static final long serialVersionUID = 1L;
 
