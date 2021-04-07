@@ -24,12 +24,12 @@ public class Canton implements Serializable {
 	private String estado;
 
 	//bi-directional many-to-one association to Aspirante
-	@OneToMany(mappedBy="canton1")
-	private List<Aspirante> aspirantes1;
+	@OneToMany(mappedBy="cantonNacimiento")
+	private List<Aspirante> aspirantesNacimiento;
 
 	//bi-directional many-to-one association to Aspirante
-	@OneToMany(mappedBy="canton2")
-	private List<Aspirante> aspirantes2;
+	@OneToMany(mappedBy="cantonResidencia")
+	private List<Aspirante> aspirantesResidencia;
 
 	//bi-directional many-to-one association to Provincia
 	@ManyToOne
@@ -63,46 +63,44 @@ public class Canton implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<Aspirante> getAspirantes1() {
-		return this.aspirantes1;
+	public List<Aspirante> getAspirantesNacimiento() {
+		return aspirantesNacimiento;
 	}
 
-	public void setAspirantes1(List<Aspirante> aspirantes1) {
-		this.aspirantes1 = aspirantes1;
+	public void setAspirantesNacimiento(List<Aspirante> aspirantesNacimiento) {
+		this.aspirantesNacimiento = aspirantesNacimiento;
 	}
 
-	public Aspirante addAspirantes1(Aspirante aspirantes1) {
-		getAspirantes1().add(aspirantes1);
-		aspirantes1.setCanton1(this);
-
-		return aspirantes1;
+	public Aspirante addAspirantesNacimiento(Aspirante aspirantesNacimiento) {
+		getAspirantesNacimiento().add(aspirantesNacimiento);
+		aspirantesNacimiento.setCantonNacimiento(this);
+		return aspirantesNacimiento;
 	}
 
-	public Aspirante removeAspirantes1(Aspirante aspirantes1) {
-		getAspirantes1().remove(aspirantes1);
-		aspirantes1.setCanton1(null);
-
-		return aspirantes1;
+	public Aspirante removeAspirantesNacimiento(Aspirante aspirantesNacimiento) {
+		getAspirantesNacimiento().remove(aspirantesNacimiento);
+		aspirantesNacimiento.setCantonNacimiento(null);
+		return aspirantesNacimiento;
 	}
 
-	public List<Aspirante> getAspirantes2() {
-		return this.aspirantes2;
+	public List<Aspirante> getAspirantesResidencia() {
+		return aspirantesResidencia;
 	}
 
-	public void setAspirantes2(List<Aspirante> aspirantes2) {
-		this.aspirantes2 = aspirantes2;
+	public void setAspirantesResidencia(List<Aspirante> aspirantesResidencia) {
+		this.aspirantesResidencia = aspirantesResidencia;
 	}
 
-	public Aspirante addAspirantes2(Aspirante aspirantes2) {
-		getAspirantes2().add(aspirantes2);
-		aspirantes2.setCanton2(this);
+	public Aspirante addAspirantesResidencia(Aspirante aspirantes2) {
+		getAspirantesResidencia().add(aspirantes2);
+		aspirantes2.setCantonResidencia(this);
 
 		return aspirantes2;
 	}
 
-	public Aspirante removeAspirantes2(Aspirante aspirantes2) {
-		getAspirantes2().remove(aspirantes2);
-		aspirantes2.setCanton2(null);
+	public Aspirante removeAspirantesResidencia(Aspirante aspirantes2) {
+		getAspirantesResidencia().remove(aspirantes2);
+		aspirantes2.setCantonResidencia(null);
 
 		return aspirantes2;
 	}

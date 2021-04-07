@@ -58,7 +58,7 @@
 							</div>
 							<div>
 								<button id="btnNuevoAspirante" class="but btn-form btn-sm"
-									iconSclass="z-icon-plus" height="32px" width="80px">
+									iconSclass="z-icon-plus" height="32px" width="80px" onClick="@command('nuevoAspirante')" >
 									Nuevo
 								</button>
 							</div>

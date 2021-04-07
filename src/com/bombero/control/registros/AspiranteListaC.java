@@ -10,11 +10,13 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.MatriculaDAO;
 import com.bombero.model.dao.PeriodoDAO;
@@ -65,6 +67,16 @@ public class AspiranteListaC {
 		if(matriculaLista.size() == 0) 
 			Clients.showNotification("No hay Aspirantes para mostrar.!!");
 		matriculaSeleccionado = null;
+	}
+	
+	@Command
+	public void nuevoAspirante() {
+		try {
+			Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspiranteEditar.zul", null, null);
+			ventanaCargar.doModal();
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 	
 	public List<Periodo> getPeriodoLista() {
