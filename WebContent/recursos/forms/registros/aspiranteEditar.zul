@@ -3,138 +3,254 @@
 	<window id="winAspirantesEditar" border="none"  width="50%" class="modal-title">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
-			<grid hflex="1">
-				<columns>
-					<column align="right" hflex="min" />
-					<column/>
-					<column align="right" hflex="min" />
-					<column/>
-				</columns>
-				<rows>
-					<row>
-						<cell>Cédula:</cell>
-						<cell>
-							<textbox class="form-control form-control-sm" maxlength="10" placeholder="Cédula"
-								id="txtCedula" width="50%" xmlns:w="client">
-								<attribute w:name="doKeyDown_"><![CDATA[
-									function (evt) {
-										var keyCode = event.keyCode;
-										if( keyCode == 8 // back space
-											|| keyCode == 13 // enter
-											|| keyCode == 16 // enter
-											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-											|| keyCode == 46) { // Delete
-											this.$doKeyDown_(evt);
-										} else if ( !evt.shiftKey &&  // only do without shift key
-											(keyCode >= 48 && keyCode <= 57)
-											|| (keyCode >= 96 && keyCode <= 105)) {// number range
-											this.$doKeyDown_(evt);
-										} else {
-											evt.stop();
-											return;
+			<groupbox hflex="1">
+				<caption label="Datos Personales" />
+				<grid hflex="1">
+					<columns>
+						<column align="right" hflex="min" />
+						<column/>
+						<column align="right" hflex="min" />
+						<column/>
+						<column align="right" hflex="min" />
+						<column/>
+					</columns>
+					<rows>
+						<row>
+							<cell>Cédula:</cell>
+							<cell>
+								<textbox class="form-control form-control-sm" maxlength="10" placeholder="Cédula"
+									id="txtCedula" hflex="1" xmlns:w="client">
+									<attribute w:name="doKeyDown_"><![CDATA[
+										function (evt) {
+											var keyCode = event.keyCode;
+											if( keyCode == 8 // back space
+												|| keyCode == 13 // enter
+												|| keyCode == 16 // enter
+												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+												|| keyCode == 46) { // Delete
+												this.$doKeyDown_(evt);
+											} else if ( !evt.shiftKey &&  // only do without shift key
+												(keyCode >= 48 && keyCode <= 57)
+												|| (keyCode >= 96 && keyCode <= 105)) {// number range
+												this.$doKeyDown_(evt);
+											} else {
+												evt.stop();
+												return;
+											}
 										}
-									}
-								]]></attribute>
-							</textbox>
-						</cell>
-						<cell sclass="row-title">Teléfono:</cell>
-						<cell>
-							<textbox maxlength="10" xmlns:w="client"
-								class="form-control form-control-sm" id="txtTelefono"
-								placeholder="Teléfono" width="50%">
-								<attribute w:name="doKeyDown_"><![CDATA[
-									function (evt) {
-										var keyCode = event.keyCode;
-										if( keyCode == 8 // back space
-											|| keyCode == 13 // enter
-											|| keyCode == 16 // enter
-											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-											|| keyCode == 46) { // Delete
-											this.$doKeyDown_(evt);
-										} else if ( !evt.shiftKey &&  // only do without shift key
-											(keyCode >= 48 && keyCode <= 57)
-											|| (keyCode >= 96 && keyCode <= 105)) {// number range
-											this.$doKeyDown_(evt);
-										} else {
-											evt.stop();
-											return;
+									]]></attribute>
+								</textbox>
+							</cell>
+							<cell sclass="row-title">Teléfono:</cell>
+							<cell>
+								<textbox maxlength="10" xmlns:w="client"
+									class="form-control form-control-sm" id="txtTelefono"
+									placeholder="Teléfono" hflex="1">
+									<attribute w:name="doKeyDown_"><![CDATA[
+										function (evt) {
+											var keyCode = event.keyCode;
+											if( keyCode == 8 // back space
+												|| keyCode == 13 // enter
+												|| keyCode == 16 // enter
+												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+												|| keyCode == 46) { // Delete
+												this.$doKeyDown_(evt);
+											} else if ( !evt.shiftKey &&  // only do without shift key
+												(keyCode >= 48 && keyCode <= 57)
+												|| (keyCode >= 96 && keyCode <= 105)) {// number range
+												this.$doKeyDown_(evt);
+											} else {
+												evt.stop();
+												return;
+											}
 										}
-									}
-								]]></attribute>
-							</textbox>
-						</cell>
-					</row>
-					<row>
-						<cell sclass="row-title">Nombres:</cell>
-						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtNombres"
-								placeholder="Nombres" />
-						</cell>
-						<cell sclass="row-title">Apellidos:</cell>
-						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtApellidos"
-								placeholder="Apellidos" />
-						</cell>
-					</row>
-					<row>
-						<cell sclass="row-title">Nacionalidad:</cell>
-						<cell>
-							<combobox id="cboNacionalidad">
-								
-							</combobox>
-						</cell>
-						<cell sclass="row-title">F. Nacimiento:</cell>
-						<cell>
-							<datebox id="dtpFechaNacimiento"/>
-						</cell>
-					</row>
-					<row>
-						<cell sclass="row-title">Provincia Nacimiento:</cell>
-						<cell>
-							<combobox id="cboProvinciaNacimiento">
-								
-							</combobox>
-						</cell>
-						<cell sclass="row-title">Cantón Nacimiento:</cell>
-						<cell>
-							<combobox id="cboCantonNacimiento">
-								
-							</combobox>
-						</cell>
-					</row>
-					<row>
-						<cell sclass="row-title">Género:</cell>
-						<cell>
-							<combobox id="cboGenero">
-								
-							</combobox>
-						</cell>
-						<cell sclass="row-title">No. Libreta Militar:</cell>
-						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtNoLibreta"
-								placeholder="No Libreta Militar" />
-						</cell>
-					</row>
-					
-					<row>
-						<cell sclass="row-title">Tipo Sangre:</cell>
-						<cell>
-							<combobox id="cboTipoSangre">
-								
-							</combobox>
-						</cell>
-						<cell sclass="row-title">Estado civil:</cell>
-						<cell>
-							<combobox id="cboAEstadoCivil">
-							</combobox>
-						</cell>
-					</row>
-					
-				</rows>
-			</grid>
+									]]></attribute>
+								</textbox>
+							</cell>
+							<cell sclass="row-title"># L. Militar:</cell>
+							<cell>
+								<textbox
+									class="form-control form-control-sm" id="txtNoLibreta"
+									placeholder="No Libreta Militar" hflex="1" />
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Nombres:</cell>
+							<cell colspan="2">
+								<textbox
+									class="form-control form-control-sm" id="txtNombres"
+									placeholder="Nombres" hflex="1"/>
+							</cell>
+							<cell sclass="row-title">Apellidos:</cell>
+							<cell colspan="2">
+								<textbox
+									class="form-control form-control-sm" id="txtApellidos"
+									placeholder="Apellidos" hflex="1"/>
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Nacionalidad:</cell>
+							<cell>
+								<combobox id="cboNacionalidad" hflex="1">
+									
+								</combobox>
+							</cell>
+							<cell sclass="row-title">P. Nacimiento:</cell>
+							<cell>
+								<combobox id="cboProvinciaNacimiento" hflex="1" placeholder="Provincia">
+									
+								</combobox>
+							</cell>
+							<cell sclass="row-title">C. Nacimiento:</cell>
+							<cell>
+								<combobox id="cboCantonNacimiento" hflex="1" placeholder="Cantón">
+									
+								</combobox>
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">F. Nacimiento:</cell>
+							<cell>
+								<datebox id="dtpFechaNacimiento" hflex="1"/>
+							</cell>
+							<cell sclass="row-title">Género:</cell>
+							<cell>
+								<combobox id="cboGenero" hflex="1">
+									
+								</combobox>
+							</cell>
+							<cell sclass="row-title">Tipo Sangre:</cell>
+							<cell>
+								<combobox id="cboTipoSangre" hflex="1">
+									
+								</combobox>
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Estado civil:</cell>
+							<cell>
+								<combobox id="cboAEstadoCivil" hflex="1">
+								</combobox>
+							</cell>
+							<cell sclass="row-title">Estatura:</cell>
+							<cell>
+								<textbox
+									class="form-control form-control-sm" id="txtEstatura"
+									placeholder="No Libreta Militar" />
+							</cell>
+						</row>
+						
+					</rows>
+				</grid>	
+			</groupbox>
+			
+			<groupbox hflex="1">
+				<caption label="Educación, Cónyuge, Dirección y contacto" />
+				<grid hflex="1">
+					<columns>
+						<column align="right" hflex="min" />
+						<column/>
+						<column align="right" hflex="min" />
+						<column/>
+						<column align="right" hflex="min" />
+						<column/>
+					</columns>
+					<rows>
+						<row>
+							<cell>Instrucción:</cell>
+							<cell>
+								<combobox id="cboInstruccion" hflex="1">
+								</combobox>
+							</cell>
+							<cell sclass="row-title">U. año estudio:</cell>
+							<cell>
+								<textbox
+									class="form-control form-control-sm" id="txtUltimoAnio"
+									placeholder="Último año" hflex="1"/>
+							</cell>
+							<cell sclass="row-title">Profesión:</cell>
+							<cell>
+								<combobox id="cboProfesion" hflex="1">
+								</combobox>
+							</cell>
+						</row>
+						
+						<row>
+							<cell>Nombre Cónyuge:</cell>
+							<cell>
+								<textbox
+									class="form-control form-control-sm" id="txtNomnbreConyuge"
+									placeholder="Cónyuge" hflex="1"/>
+							</cell>
+							<cell sclass="row-title"># Hijos:</cell>
+							<cell>
+								<textbox
+									class="form-control form-control-sm" id="txtCantidadHijos"
+									placeholder="Cantidad de hijos" hflex="1"/>
+							</cell>
+							<cell sclass="row-title">Celular:</cell>
+							<cell >
+								<textbox
+									class="form-control form-control-sm" id="txtCelular"
+									placeholder="Número de teléfono móvil" hflex="1"/>
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">P. Residencia:</cell>
+							<cell>
+								<combobox id="cboProvinciaResidencia" hflex="1" placeholder="Provincia">
+								</combobox>
+							</cell>
+							<cell sclass="row-title">C. Residencia:</cell>
+							<cell>
+								<combobox id="cboCantonResidencia" hflex="1" placeholder="Cantón">
+								</combobox>
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Dirección domiciliaria:</cell>
+							<cell colspan="3">
+								<textbox
+									class="form-control form-control-sm" id="txtDireccionDomiciliaria"
+									placeholder="Dirección Domiciliaria" />
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Calle Principal:</cell>
+							<cell colspan="3">
+								<textbox
+									class="form-control form-control-sm" id="txtCallePrincipal"
+									placeholder="Calle Principal" />
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Calle Secundaria:</cell>
+							<cell colspan="3">
+								<textbox
+									class="form-control form-control-sm" id="txtCalleSecundaria"
+									placeholder="Calle Principal" />
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">No. de Solar:</cell>
+							<cell >
+								<textbox
+									class="form-control form-control-sm" id="txtNoSolar"
+									placeholder="Número de solar" />
+							</cell>
+							
+						</row>
+						<row>
+							<cell sclass="row-title">Correo:</cell>
+							<cell colspan="3">
+								<textbox
+									class="form-control form-control-sm" id="txtCorreo"
+									placeholder="Correo electrónico" />
+							</cell>
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
 			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
 				<div hflex="1" align="center">
 					<button id="grabar" label="Grabar"

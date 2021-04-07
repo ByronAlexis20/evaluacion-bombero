@@ -1,4 +1,4 @@
-<?page title="Menú Principal - Hotel" contentType="text/html;charset=UTF-8"?>
+<?page title="Cuerpo de Bomberos La Libertad" contentType="text/html;charset=UTF-8"?>
 <?link rel="stylesheet" href="/recursos/css/estilos.css" ?>
 <?link rel="stylesheet" href="/recursos/css/bootstrap.css" ?>
 <?link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css"?>
