@@ -1,6 +1,7 @@
 <?page title="Aspirantes" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winAspirantesEditar" border="none"  width="50%" class="modal-title">
+	<window id="winAspirantesEditar" border="none"  width="50%" class="modal-title"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.bombero.control.registros.AspiranteEditarC')">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<groupbox hflex="1">
@@ -67,13 +68,13 @@
 									]]></attribute>
 								</textbox>
 							</cell>
-							<cell sclass="row-title"># L. Militar:</cell>
-							<cell>
+							<cell sclass="row-title">Celular:</cell>
+							<cell >
 								<textbox
-									class="form-control form-control-sm" id="txtNoLibreta"
-									placeholder="No Libreta Militar" hflex="1" />
+									class="form-control form-control-sm" id="txtCelular"
+									placeholder="Celular" hflex="1"/>
 							</cell>
-						</row>
+						</row>	
 						<row>
 							<cell sclass="row-title">Nombres:</cell>
 							<cell colspan="2">
@@ -91,8 +92,12 @@
 						<row>
 							<cell sclass="row-title">Nacionalidad:</cell>
 							<cell>
-								<combobox id="cboNacionalidad" hflex="1">
-									
+								<combobox id="cboNacionalidad" hflex="1"
+									model="@load(vm.paises)" readonly="true"
+									selectedItem="@bind(vm.paisSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.nacionalidad}" />
+									</template>
 								</combobox>
 							</cell>
 							<cell sclass="row-title">P. Nacimiento:</cell>
@@ -115,28 +120,47 @@
 							</cell>
 							<cell sclass="row-title">Género:</cell>
 							<cell>
-								<combobox id="cboGenero" hflex="1">
-									
+								<combobox id="cboGenero" hflex="1"
+									model="@load(vm.generos)" readonly="true"
+									selectedItem="@bind(vm.generoSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.genero}" />
+									</template>
 								</combobox>
 							</cell>
 							<cell sclass="row-title">Tipo Sangre:</cell>
 							<cell>
-								<combobox id="cboTipoSangre" hflex="1">
-									
+								<combobox id="cboTipoSangre" hflex="1"
+									model="@load(vm.tipoSangres)" readonly="true"
+									selectedItem="@bind(vm.tipoSangreSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.tipoSangre}" />
+									</template>
 								</combobox>
 							</cell>
 						</row>
 						<row>
 							<cell sclass="row-title">Estado civil:</cell>
 							<cell>
-								<combobox id="cboAEstadoCivil" hflex="1">
+								<combobox id="cboEstadoCivil" hflex="1"
+									model="@load(vm.estadoCivils)" readonly="true"
+									selectedItem="@bind(vm.estadoCivilSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.estadoCivil}" />
+									</template>
 								</combobox>
+							</cell>
+							<cell sclass="row-title"># L. Militar:</cell>
+							<cell>
+								<textbox
+									class="form-control form-control-sm" id="txtNoLibreta"
+									placeholder="Libreta Militar" hflex="1" />
 							</cell>
 							<cell sclass="row-title">Estatura:</cell>
 							<cell>
 								<textbox
 									class="form-control form-control-sm" id="txtEstatura"
-									placeholder="No Libreta Militar" />
+									placeholder="Estatura" />
 							</cell>
 						</row>
 						
@@ -186,20 +210,20 @@
 							<cell>
 								<textbox
 									class="form-control form-control-sm" id="txtCantidadHijos"
-									placeholder="Cantidad de hijos" hflex="1"/>
+									placeholder="No de hijos" hflex="1"/>
 							</cell>
-							<cell sclass="row-title">Celular:</cell>
-							<cell >
-								<textbox
-									class="form-control form-control-sm" id="txtCelular"
-									placeholder="Número de teléfono móvil" hflex="1"/>
-							</cell>
-						</row>
-						<row>
 							<cell sclass="row-title">P. Residencia:</cell>
 							<cell>
 								<combobox id="cboProvinciaResidencia" hflex="1" placeholder="Provincia">
 								</combobox>
+							</cell>
+						</row>
+						<row>
+							<cell sclass="row-title">Dirección:</cell>
+							<cell colspan="3">
+								<textbox
+									class="form-control form-control-sm" id="txtDireccionDomiciliaria"
+									placeholder="Dirección Domiciliaria" />
 							</cell>
 							<cell sclass="row-title">C. Residencia:</cell>
 							<cell>
@@ -208,24 +232,14 @@
 							</cell>
 						</row>
 						<row>
-							<cell sclass="row-title">Dirección domiciliaria:</cell>
-							<cell colspan="3">
-								<textbox
-									class="form-control form-control-sm" id="txtDireccionDomiciliaria"
-									placeholder="Dirección Domiciliaria" />
-							</cell>
-						</row>
-						<row>
 							<cell sclass="row-title">Calle Principal:</cell>
-							<cell colspan="3">
+							<cell colspan="2">
 								<textbox
 									class="form-control form-control-sm" id="txtCallePrincipal"
 									placeholder="Calle Principal" />
 							</cell>
-						</row>
-						<row>
 							<cell sclass="row-title">Calle Secundaria:</cell>
-							<cell colspan="3">
+							<cell colspan="2">
 								<textbox
 									class="form-control form-control-sm" id="txtCalleSecundaria"
 									placeholder="Calle Principal" />
@@ -238,14 +252,18 @@
 									class="form-control form-control-sm" id="txtNoSolar"
 									placeholder="Número de solar" />
 							</cell>
-							
-						</row>
-						<row>
 							<cell sclass="row-title">Correo:</cell>
 							<cell colspan="3">
 								<textbox
 									class="form-control form-control-sm" id="txtCorreo"
 									placeholder="Correo electrónico" />
+							</cell>
+						</row>
+						<row>
+							<cell colspan="6" align="center">
+								<label value="Documentos: "/>
+								<button class="but btn-form btn-sm" label="Documentos"
+									iconSclass="z-icon-plus" height="32px" onClick="@command('documentos')" />
 							</cell>
 						</row>
 					</rows>

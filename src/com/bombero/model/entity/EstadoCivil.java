@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="estado_civil")
-@NamedQuery(name="EstadoCivil.findAll", query="SELECT e FROM EstadoCivil e")
+@NamedQuery(name="EstadoCivil.buscarEstadoCivil", query="SELECT e FROM EstadoCivil e where e.estado = 'A'")
 public class EstadoCivil implements Serializable {
 	private static final long serialVersionUID = 1L;
 

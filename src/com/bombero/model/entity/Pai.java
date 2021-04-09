@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="pais")
-@NamedQuery(name="Pai.findAll", query="SELECT p FROM Pai p")
+@NamedQuery(name="Pai.buscarPaises", query="SELECT p FROM Pai p where p.estado = 'A'")
 public class Pai implements Serializable {
 	private static final long serialVersionUID = 1L;
 

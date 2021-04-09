@@ -39,8 +39,6 @@ public class Aspirante implements Serializable {
 	@Column(name="fecha_nacimiento")
 	private Date fechaNacimiento;
 
-	private String instruccion;
-
 	@Column(name="no_hijos")
 	private int noHijos;
 
@@ -89,6 +87,10 @@ public class Aspirante implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_tipo_sangre")
 	private TipoSangre tipoSangre;
+	
+	@ManyToOne
+	@JoinColumn(name="id_instruccion")
+	private Instruccion instruccion;
 
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="aspirante")
@@ -183,14 +185,6 @@ public class Aspirante implements Serializable {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public String getInstruccion() {
-		return this.instruccion;
-	}
-
-	public void setInstruccion(String instruccion) {
-		this.instruccion = instruccion;
 	}
 
 	public int getNoHijos() {
@@ -405,6 +399,14 @@ public class Aspirante implements Serializable {
 		usuario.setAspirante(null);
 
 		return usuario;
+	}
+
+	public Instruccion getInstruccion() {
+		return instruccion;
+	}
+
+	public void setInstruccion(Instruccion instruccion) {
+		this.instruccion = instruccion;
 	}
 
 }
