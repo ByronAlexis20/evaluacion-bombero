@@ -44,6 +44,9 @@ public class Aspirante implements Serializable {
 
 	@Column(name="no_libreta_militar")
 	private String noLibretaMilitar;
+	
+	@Column(name="nombre_conyuge")
+	private String nombreConyuge;
 
 	private String nombres;
 
@@ -407,6 +410,14 @@ public class Aspirante implements Serializable {
 
 	public void setInstruccion(Instruccion instruccion) {
 		this.instruccion = instruccion;
+	}
+
+	public String getNombreConyuge() {
+		return nombreConyuge;
+	}
+
+	public void setNombreConyuge(String nombreConyuge) {
+		this.nombreConyuge = nombreConyuge;
 	}
 
 }

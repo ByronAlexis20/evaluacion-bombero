@@ -69,22 +69,42 @@
 								</textbox>
 							</cell>
 							<cell sclass="row-title">Celular:</cell>
-							<cell >
-								<textbox
+							<cell>
+								<textbox xmlns:w="client"
 									class="form-control form-control-sm" id="txtCelular"
-									placeholder="Celular" hflex="1"/>
+									placeholder="Celular" hflex="1" maxlength="10">
+									<attribute w:name="doKeyDown_"><![CDATA[
+										function (evt) {
+											var keyCode = event.keyCode;
+											if( keyCode == 8 // back space
+												|| keyCode == 13 // enter
+												|| keyCode == 16 // enter
+												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+												|| keyCode == 46) { // Delete
+												this.$doKeyDown_(evt);
+											} else if ( !evt.shiftKey &&  // only do without shift key
+												(keyCode >= 48 && keyCode <= 57)
+												|| (keyCode >= 96 && keyCode <= 105)) {// number range
+												this.$doKeyDown_(evt);
+											} else {
+												evt.stop();
+												return;
+											}
+										}
+									]]></attribute>
+								</textbox>
 							</cell>
 						</row>	
 						<row>
 							<cell sclass="row-title">Nombres:</cell>
 							<cell colspan="2">
-								<textbox
+								<textbox maxlength="100"
 									class="form-control form-control-sm" id="txtNombres"
 									placeholder="Nombres" hflex="1"/>
 							</cell>
 							<cell sclass="row-title">Apellidos:</cell>
 							<cell colspan="2">
-								<textbox
+								<textbox maxlength="100"
 									class="form-control form-control-sm" id="txtApellidos"
 									placeholder="Apellidos" hflex="1"/>
 							</cell>
@@ -93,8 +113,8 @@
 							<cell sclass="row-title">Nacionalidad:</cell>
 							<cell>
 								<combobox id="cboNacionalidad" hflex="1"
-									model="@load(vm.paises)" readonly="true"
-									selectedItem="@bind(vm.paisSeleccionado)">
+									model="@load(vm.paises)" readonly="true" placeholder="Nacionalidad"
+									selectedItem="@bind(vm.paisSeleccionado)" onChange="@command('seleccionarPais')">
 									<template name="model">
 										<comboitem label="${each.nacionalidad}" />
 									</template>
@@ -102,14 +122,22 @@
 							</cell>
 							<cell sclass="row-title">P. Nacimiento:</cell>
 							<cell>
-								<combobox id="cboProvinciaNacimiento" hflex="1" placeholder="Provincia">
-									
+								<combobox id="cboProvincia" hflex="1" placeholder="Provincia"
+									model="@load(vm.listaProvincia)" readonly="true"
+									selectedItem="@bind(vm.provinciaSeleccionada)" onChange="@command('seleccionarProvincia')">
+									<template name="model">
+										<comboitem label="${each.provincia}" />
+									</template>
 								</combobox>
 							</cell>
 							<cell sclass="row-title">C. Nacimiento:</cell>
 							<cell>
-								<combobox id="cboCantonNacimiento" hflex="1" placeholder="Cantón">
-									
+								<combobox id="cboCanton" hflex="1" placeholder="cantón"
+									model="@load(vm.listaCanton)" readonly="true"
+									selectedItem="@bind(vm.cantonSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.canton}" />
+									</template>
 								</combobox>
 							</cell>
 						</row>
@@ -152,15 +180,35 @@
 							</cell>
 							<cell sclass="row-title"># L. Militar:</cell>
 							<cell>
-								<textbox
+								<textbox maxlength="20"
 									class="form-control form-control-sm" id="txtNoLibreta"
 									placeholder="Libreta Militar" hflex="1" />
 							</cell>
 							<cell sclass="row-title">Estatura:</cell>
 							<cell>
-								<textbox
+								<textbox maxlength="10" xmlns:w="client"
 									class="form-control form-control-sm" id="txtEstatura"
-									placeholder="Estatura" />
+									placeholder="Estatura">
+									<attribute w:name="doKeyDown_"><![CDATA[
+										function (evt) {
+											var keyCode = event.keyCode;
+											if( keyCode == 8 // back space
+												|| keyCode == 13 // enter
+												|| keyCode == 16 // enter
+												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+												|| keyCode == 46) { // Delete
+												this.$doKeyDown_(evt);
+											} else if ( !evt.shiftKey &&  // only do without shift key
+												(keyCode >= 48 && keyCode <= 57)
+												|| (keyCode >= 96 && keyCode <= 105)) {// number range
+												this.$doKeyDown_(evt);
+											} else {
+												evt.stop();
+												return;
+											}
+										}
+									]]></attribute>
+								</textbox>
 							</cell>
 						</row>
 						
@@ -183,78 +231,111 @@
 						<row>
 							<cell>Instrucción:</cell>
 							<cell>
-								<combobox id="cboInstruccion" hflex="1">
+								<combobox id="cboInstruccion" hflex="1"
+									model="@load(vm.instrucciones)" readonly="true"
+									selectedItem="@bind(vm.instruccionSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.instruccion}" />
+									</template>
 								</combobox>
 							</cell>
 							<cell sclass="row-title">U. año estudio:</cell>
 							<cell>
-								<textbox
+								<textbox maxlength="3" xmlns:w="client"
 									class="form-control form-control-sm" id="txtUltimoAnio"
-									placeholder="Último año" hflex="1"/>
+									placeholder="Último año" hflex="1">
+									<attribute w:name="doKeyDown_"><![CDATA[
+										function (evt) {
+											var keyCode = event.keyCode;
+											if( keyCode == 8 // back space
+												|| keyCode == 13 // enter
+												|| keyCode == 16 // enter
+												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+												|| keyCode == 46) { // Delete
+												this.$doKeyDown_(evt);
+											} else if ( !evt.shiftKey &&  // only do without shift key
+												(keyCode >= 48 && keyCode <= 57)
+												|| (keyCode >= 96 && keyCode <= 105)) {// number range
+												this.$doKeyDown_(evt);
+											} else {
+												evt.stop();
+												return;
+											}
+										}
+									]]></attribute>
+								</textbox>
 							</cell>
 							<cell sclass="row-title">Profesión:</cell>
 							<cell>
-								<combobox id="cboProfesion" hflex="1">
+								<combobox id="cboProfesion" hflex="1"
+									model="@load(vm.profesiones)" readonly="true"
+									selectedItem="@bind(vm.profesionSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.profesion}" />
+									</template>
 								</combobox>
 							</cell>
 						</row>
-						
 						<row>
 							<cell>Nombre Cónyuge:</cell>
 							<cell>
-								<textbox
+								<textbox maxlength="200"
 									class="form-control form-control-sm" id="txtNomnbreConyuge"
 									placeholder="Cónyuge" hflex="1"/>
 							</cell>
 							<cell sclass="row-title"># Hijos:</cell>
 							<cell>
-								<textbox
+								<textbox maxlength="2"
 									class="form-control form-control-sm" id="txtCantidadHijos"
 									placeholder="No de hijos" hflex="1"/>
 							</cell>
 							<cell sclass="row-title">P. Residencia:</cell>
 							<cell>
-								<combobox id="cboProvinciaResidencia" hflex="1" placeholder="Provincia">
+								<combobox id="cboProvinciaResidencia" hflex="1" placeholder="Provincia"
+									model="@load(vm.listaProvinciaResidencia)" readonly="true"
+									selectedItem="@bind(vm.provinciaResidenciaSeleccionada)" onChange="@command('seleccionarProvinciaResidencia')">
+									<template name="model">
+										<comboitem label="${each.provincia}" />
+									</template>
 								</combobox>
 							</cell>
 						</row>
 						<row>
 							<cell sclass="row-title">Dirección:</cell>
 							<cell colspan="3">
-								<textbox
+								<textbox maxlength="300"
 									class="form-control form-control-sm" id="txtDireccionDomiciliaria"
 									placeholder="Dirección Domiciliaria" />
 							</cell>
 							<cell sclass="row-title">C. Residencia:</cell>
 							<cell>
-								<combobox id="cboCantonResidencia" hflex="1" placeholder="Cantón">
+								<combobox id="cboCantonResidencia" hflex="1" placeholder="cantón"
+									model="@load(vm.listaCantonResidencia)" readonly="true"
+									selectedItem="@bind(vm.cantonResidenciaSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.canton}" />
+									</template>
 								</combobox>
 							</cell>
 						</row>
 						<row>
-							<cell sclass="row-title">Calle Principal:</cell>
-							<cell colspan="2">
-								<textbox
-									class="form-control form-control-sm" id="txtCallePrincipal"
-									placeholder="Calle Principal" />
-							</cell>
-							<cell sclass="row-title">Calle Secundaria:</cell>
-							<cell colspan="2">
-								<textbox
-									class="form-control form-control-sm" id="txtCalleSecundaria"
-									placeholder="Calle Principal" />
+							<cell sclass="row-title">Referencia:</cell>
+							<cell colspan="5">
+								<textbox  maxlength="300"
+									class="form-control form-control-sm" id="txtReferenciaDomiciliaria"
+									placeholder="Referencia Domiciliaria" />
 							</cell>
 						</row>
 						<row>
 							<cell sclass="row-title">No. de Solar:</cell>
 							<cell >
-								<textbox
+								<textbox maxlength="20"
 									class="form-control form-control-sm" id="txtNoSolar"
 									placeholder="Número de solar" />
 							</cell>
 							<cell sclass="row-title">Correo:</cell>
 							<cell colspan="3">
-								<textbox
+								<textbox maxlength="150"
 									class="form-control form-control-sm" id="txtCorreo"
 									placeholder="Correo electrónico" />
 							</cell>

@@ -19,6 +19,7 @@
 		<class>com.bombero.model.entity.Genero</class>
 		<class>com.bombero.model.entity.Horario</class>
 		<class>com.bombero.model.entity.Instructor</class>
+		<class>com.bombero.model.entity.Instruccion</class>
 		<class>com.bombero.model.entity.Matricula</class>
 		<class>com.bombero.model.entity.Menu</class>
 		<class>com.bombero.model.entity.Modulo</class>
@@ -41,7 +42,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/evaluacion_bombero"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="tricampeon2015"/>
+			<property name="javax.persistence.jdbc.password" value="admin123"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>
