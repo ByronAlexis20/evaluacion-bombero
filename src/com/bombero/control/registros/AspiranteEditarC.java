@@ -13,14 +13,18 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.CantonDAO;
 import com.bombero.model.dao.EstadoCivilDAO;
 import com.bombero.model.dao.GeneroDAO;
 import com.bombero.model.dao.InstruccionDAO;
+import com.bombero.model.dao.MatriculaDAO;
 import com.bombero.model.dao.PaisDAO;
 import com.bombero.model.dao.ProfesionDAO;
 import com.bombero.model.dao.ProvinciaDAO;
@@ -35,12 +39,37 @@ import com.bombero.model.entity.Pai;
 import com.bombero.model.entity.Profesion;
 import com.bombero.model.entity.Provincia;
 import com.bombero.model.entity.TipoSangre;
+import com.bombero.util.Globals;
 
 public class AspiranteEditarC {
-	@Wire Combobox cboProvincia;
-	@Wire Combobox cboCanton;
-	@Wire Combobox cboProvinciaResidencia;
-	@Wire Combobox cboCantonResidencia;
+	@Wire Window winAspirantesEditar;
+	@Wire private Combobox cboProvincia;
+	@Wire private Combobox cboCanton;
+	@Wire private Combobox cboProvinciaResidencia;
+	@Wire private Combobox cboCantonResidencia;
+	
+	@Wire private Textbox txtCedula;
+	@Wire private Textbox txtTelefono;
+	@Wire private Textbox txtCelular;
+	@Wire private Textbox txtNombres;
+	@Wire private Textbox txtApellidos;
+	@Wire private Datebox dtpFechaNacimiento;
+	@Wire private Textbox txtNoLibretaMilitar;
+	@Wire private Textbox txtEstatura;
+	@Wire private Textbox txtUltimoAnio;
+	@Wire private Textbox txtNomnbreConyuge;
+	@Wire private Textbox txtCantidadHijos;
+	@Wire private Textbox txtDireccionDomiciliaria;
+	@Wire private Textbox txtReferenciaDomiciliaria;
+	@Wire private Textbox txtNoSolar;
+	@Wire private Textbox txtCorreo;
+	
+	@Wire private Combobox cboNacionalidad;
+	@Wire private Combobox cboGenero;
+	@Wire private Combobox cboTipoSangre;
+	@Wire private Combobox cboEstadoCivil;
+	@Wire private Combobox cboInstruccion;
+	@Wire private Combobox cboProfesion;
 	
 	PaisDAO paisDAO = new PaisDAO();
 	GeneroDAO generoDAO = new GeneroDAO();
@@ -73,6 +102,8 @@ public class AspiranteEditarC {
 	List<Canton> listaCantonResidencia = new ArrayList<>();
 	Canton cantonResidenciaSeleccionado;
 	
+	MatriculaDAO matriculaDAO = new MatriculaDAO();
+	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
@@ -86,6 +117,57 @@ public class AspiranteEditarC {
 			estadoCivilSeleccionado = null;
 			instruccionSeleccionado = null;
 			profesionSeleccionado = null;
+		} else {
+			aspirante = matricula.getAspirante();
+			recuperarDatos();
+		}
+	}
+	private void recuperarDatos() {
+		cboProvincia.setText(aspirante.getCantonNacimiento().getProvincia().getProvincia());
+		provinciaSeleccionada = aspirante.getCantonNacimiento().getProvincia();
+		cboCanton.setText(aspirante.getCantonNacimiento().getCanton());
+		cantonSeleccionado = aspirante.getCantonNacimiento();
+		cboProvinciaResidencia.setText(aspirante.getCantonResidencia().getProvincia().getProvincia());
+		provinciaResidenciaSeleccionada = aspirante.getCantonResidencia().getProvincia();
+		cboCantonResidencia.setText(aspirante.getCantonResidencia().getCanton());
+		cantonResidenciaSeleccionado = aspirante.getCantonResidencia();
+		txtCedula.setText(aspirante.getCedula());
+		txtTelefono.setText(aspirante.getTelefono());
+		txtCelular.setText(aspirante.getCelular());
+		txtNombres.setText(aspirante.getNombres());
+		txtApellidos.setText(aspirante.getApellidos());
+		dtpFechaNacimiento.setValue(aspirante.getFechaNacimiento());
+		txtNoLibretaMilitar.setText(aspirante.getNoLibretaMilitar());
+		txtEstatura.setText(String.valueOf(aspirante.getEstatura()));
+		txtUltimoAnio.setText(String.valueOf(aspirante.getUltimoAnioEstudio()));
+		txtNomnbreConyuge.setText(aspirante.getNombreConyuge());
+		txtCantidadHijos.setText(String.valueOf(aspirante.getNoHijos()));
+		txtDireccionDomiciliaria.setText(aspirante.getDireccionDomiciliaria());
+		txtReferenciaDomiciliaria.setText(aspirante.getReferenciaDomiciliaria());
+		txtNoSolar.setText(String.valueOf(aspirante.getNumeroSolar()));
+		txtCorreo.setText(aspirante.getCorreo());
+		
+		cboNacionalidad.setText(aspirante.getCantonNacimiento().getProvincia().getPai().getNacionalidad());
+		paisSeleccionado = aspirante.getCantonNacimiento().getProvincia().getPai();
+		cboGenero.setText(aspirante.getGenero().getGenero());
+		generoSeleccionado = aspirante.getGenero();
+		cboTipoSangre.setText(aspirante.getTipoSangre().getTipoSangre());
+		tipoSangreSeleccionado = aspirante.getTipoSangre();
+		cboEstadoCivil.setText(aspirante.getEstadoCivil().getEstadoCivil());
+		estadoCivilSeleccionado = aspirante.getEstadoCivil();
+		cboInstruccion.setText(aspirante.getInstruccion().getInstruccion());
+		instruccionSeleccionado = aspirante.getInstruccion();
+		cboProfesion.setText(aspirante.getProfesion().getProfesion());
+		profesionSeleccionado = aspirante.getProfesion();
+		
+		if(aspirante.getEstadoCivil().getIdEstadoCivil() != Globals.CODIGO_ESTADO_CIVIL_CASADO) {
+			txtNomnbreConyuge.setText("");
+			txtNomnbreConyuge.setDisabled(true);
+			txtCantidadHijos.setText("");
+			txtCantidadHijos.setDisabled(true);
+		}else {
+			txtCantidadHijos.setDisabled(false);
+			txtNomnbreConyuge.setDisabled(false);
 		}
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -130,10 +212,43 @@ public class AspiranteEditarC {
 	}
 	@Command
 	public void documentos() {
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/documentoAspirante.zul", null, null);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoAspirante.zul", null, null);
 		ventanaCargar.doModal();
 	}
-	
+	@Command
+	public void seleccionarEstadoCivil() {
+		if(cboEstadoCivil.getSelectedItem() == null) {
+			Clients.showNotification("Debe seleccionar estado civil");
+			return;
+		}
+		EstadoCivil estado = (EstadoCivil)cboEstadoCivil.getSelectedItem().getValue();
+		if(estado.getIdEstadoCivil() != Globals.CODIGO_ESTADO_CIVIL_CASADO) {
+			txtNomnbreConyuge.setText("");
+			txtNomnbreConyuge.setDisabled(true);
+			txtCantidadHijos.setText("");
+			txtCantidadHijos.setDisabled(true);
+		}else {
+			txtCantidadHijos.setDisabled(false);
+			txtNomnbreConyuge.setDisabled(false);
+		}
+	}
+	@Command
+	public void grabar() {
+		try {
+			
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			matriculaDAO.getEntityManager().getTransaction().rollback();
+		}
+	}
+	private boolean validarDatos() {
+		boolean bandera = false;
+		return bandera;
+	}
+	@Command
+	public void salir() {
+		winAspirantesEditar.detach();
+	}
 	public List<Pai> getPaises(){
 		return paisDAO.getPaises();
 	}

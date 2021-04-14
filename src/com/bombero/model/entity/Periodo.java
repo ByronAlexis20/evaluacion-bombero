@@ -11,7 +11,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Periodo.buscarPorPatron", query="SELECT p FROM Periodo p where lower(p.descripcion) like lower(:patron)")
+@Table(name="periodo")
+@NamedQueries({
+	@NamedQuery(name="Periodo.buscarPorPatron", query="SELECT p FROM Periodo p where lower(p.descripcion) like lower(:patron)"),
+	@NamedQuery(name="Periodo.buscarActivos", query="SELECT p FROM Periodo p where p.estado = 'A' ORDER BY p.estadoPeriodo ")
+})
 public class Periodo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

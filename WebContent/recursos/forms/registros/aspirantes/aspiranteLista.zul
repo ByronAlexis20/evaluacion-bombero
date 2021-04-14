@@ -7,7 +7,7 @@
 			color: white !important;
 		}
 	</style>
-	<window apply="org.zkoss.bind.BindComposer" border="none"
+	<window apply="org.zkoss.bind.BindComposer" border="none" id="winAspiranteLista"
 		viewModel="@id('vm') @init('com.bombero.control.registros.AspiranteListaC')"
 		hflex="1" vflex="1">
 		<vlayout hflex="1" vflex="1">
@@ -19,8 +19,7 @@
 			<hbox hflex="1" vflex="1" align="center">
 				<vbox vflex="1" width="70%">
 					<listbox id="lstPeriodos" model="@load(vm.periodoLista)" 
-						onSelect="@command('seleccionarPeriodo')" selectedItem="@bind(vm.periodoSeleccionado)"
-						hflex="1" vflex="1">
+						onSelect="@command('seleccionarPeriodo')" selectedItem="@bind(vm.periodoSeleccionado)" hflex="1" vflex="1">
 						<listhead>
 							<listheader label="Periodos" class="lb-listheader"/>
 						</listhead>
@@ -28,9 +27,14 @@
 							<listitem>
 								<listcell>
 									<vlayout>
-										<label value="@load(each.descripcion)"/>
+										<hbox>
+											<label value="@load(each.descripcion)"/>
+											<label value=" ("/>
+											<label value="@load(each.estadoPeriodo)"/>
+											<label value=")"/>
+										</hbox>
 										<div>
-											<label value="Fecha de Inicio: "/>
+											<label value="Fecha de Inicio: " />
 											<label value="@load(each.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')"/>
 										</div>
 										<div>
@@ -61,9 +65,16 @@
 									iconSclass="z-icon-plus" height="32px" width="80px" onClick="@command('nuevoAspirante')" >
 									Nuevo
 								</button>
+								<button id="btnEditarAspirante" class="but btn-form btn-sm"
+									iconSclass="z-icon-pencil" height="32px" width="80px" onClick="@command('editarAspirante')" >
+									Editar
+								</button>
+								<button id="btnEliminarAspirante" class="but btn-form btn-sm"
+									iconSclass="z-icon-trash-o" height="32px" width="80px" onClick="@command('eliminarAspirante')" >
+									Eliminar
+								</button>
 							</div>
-							<listbox id="lstAspirantes" hflex="1" model="@load(vm.matriculaLista)"
-								vflex="1" >
+							<listbox id="lstAspirantes" hflex="1" vflex="1">
 								<listhead>
 									<listheader label="Cedula" class="lb-listheader-as"/>
 									<listheader label="Nombres" class="lb-listheader-as"/>
@@ -71,28 +82,15 @@
 									<listheader label="Profesion" class="lb-listheader-as"/>
 									<listheader label="Genero" class="lb-listheader-as"/>
 									<listheader label="Fecha Nacimiento" class="lb-listheader-as"/>
-									<listheader label="Eliminar" class="lb-listheader-as"/>
 								</listhead>
 								<template name="model">
 									<listitem>
-										<listcell label="@load(each.aspirante.cedula)" class="lb-listcell"/>
-										<listcell class="lb-listcell">
-											<label value="@load(each.aspirante.nombres)" />
-											<label value=" " />
-											<label value="@load(each.aspirante.apellidos)" />
-										</listcell>
-										<listcell label="@load(each.aspirante.tipoSangre.tipoSangre)" class="lb-listcell"/>
-										<listcell label="@load(each.aspirante.profesion.profesion)" class="lb-listcell"/>
-										<listcell label="@load(each.aspirante.genero.genero)" class="lb-listcell"/>
-										<listcell label="@load(each.aspirante.fechaNacimiento) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
-										<listcell>
-											<div align="center">
-												<button label="Editar" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
-													onClick="@command('editar',matricula=each)" />
-												<button label="Eliminar" iconSclass="z-icon-trash-o" zclass="btn-eliminar btn-size"
-													onClick="@command('eliminar',matricula=each)" />
-											</div>
-										</listcell>
+										<listcell label="${each.cedula}" class="lb-listcell"/>
+										<listcell label="${each.nombres}" class="lb-listcell"/>
+										<listcell label="${each.tipoSangre}" class="lb-listcell"/>
+										<listcell label="${each.profesion}" class="lb-listcell"/>
+										<listcell label="${each.genero}" class="lb-listcell"/>
+										<listcell label="${each.fechaNacimiento}" class="lb-listcell"/>
 									</listitem>
 								</template>
 							</listbox>

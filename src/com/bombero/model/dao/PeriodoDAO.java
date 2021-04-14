@@ -23,4 +23,13 @@ public class PeriodoDAO extends ClaseDAO {
 		resultado = (List<Periodo>) query.getResultList();
 		return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Periodo> buscarActivos() {
+		List<Periodo> resultado; 
+		Query query = getEntityManager().createNamedQuery("Periodo.buscarActivos");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		resultado = (List<Periodo>) query.getResultList();
+		return resultado;
+	}
 }

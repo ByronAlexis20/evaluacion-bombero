@@ -18,7 +18,7 @@ public class EstadoCivil implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_estado_civil")
-	private int idEstadoCivil;
+	private Integer idEstadoCivil;
 
 	private String estado;
 
@@ -36,11 +36,11 @@ public class EstadoCivil implements Serializable {
 	public EstadoCivil() {
 	}
 
-	public int getIdEstadoCivil() {
+	public Integer getIdEstadoCivil() {
 		return this.idEstadoCivil;
 	}
 
-	public void setIdEstadoCivil(int idEstadoCivil) {
+	public void setIdEstadoCivil(Integer idEstadoCivil) {
 		this.idEstadoCivil = idEstadoCivil;
 	}
 
