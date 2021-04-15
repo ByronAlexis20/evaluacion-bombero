@@ -50,7 +50,6 @@ public class AspiranteListaC {
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
 		buscarPeriodo();
-		cargarAspirantes(0);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -71,7 +70,7 @@ public class AspiranteListaC {
 	public void seleccionarPeriodo() {
 		if(matriculaLista != null)
 			matriculaLista = null;
-		cargarAspirantes(periodoSeleccionado.getIdPeriodo());
+		cargarAspirantes();
 		if(periodoSeleccionado.getEstadoPeriodo().equals(Globals.ESTADO_PERIODO_FINALIZADO)) {
 			btnNuevoAspirante.setDisabled(true);
 			btnEditarAspirante.setDisabled(true);
@@ -86,8 +85,8 @@ public class AspiranteListaC {
 	@GlobalCommand("Matricula.buscarAspirantePorPeriodo")
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"matriculaLista"})
-	private void cargarAspirantes(Integer idPeriodo) {
-		List<Matricula> lista = matriculaDAO.obtenerAspirantesPorIdPeriodo(idPeriodo);
+	public void cargarAspirantes() {
+		List<Matricula> lista = matriculaDAO.obtenerAspirantesPorIdPeriodo(periodoSeleccionado.getIdPeriodo());
 		matriculaLista = new ArrayList<>();
 		for(Matricula mat : lista) {
 			MatriculaMostrar m = new MatriculaMostrar();
@@ -114,7 +113,9 @@ public class AspiranteListaC {
 				Clients.showNotification("Debe Seleccionar un periodo");
 				return;
 			}
-			Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/aspiranteEditar.zul", null, null);
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("Periodo", periodoSeleccionado);
+			Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/aspiranteEditar.zul", null, params);
 			ventanaCargar.doModal();
 		}catch(Exception ex) {
 			System.out.println(ex.getMessage());
@@ -130,6 +131,7 @@ public class AspiranteListaC {
 		matriculaDAO.getEntityManager().refresh(matriculaSel.getMatricula());
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("Matricula", matriculaSel.getMatricula());
+		params.put("Periodo", periodoSeleccionado);
 		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/aspiranteEditar.zul", null, params);
 		ventanaCargar.doModal();
 	}
@@ -151,7 +153,7 @@ public class AspiranteListaC {
 						mat.setEstado("I");
 						matriculaDAO.getEntityManager().merge(mat);
 						matriculaDAO.getEntityManager().getTransaction().commit();;
-						cargarAspirantes(periodoSeleccionado.getIdPeriodo());
+						cargarAspirantes();
 						Clients.showNotification("Transaccion ejecutada con exito.");
 					} catch (Exception e) {
 						e.printStackTrace();

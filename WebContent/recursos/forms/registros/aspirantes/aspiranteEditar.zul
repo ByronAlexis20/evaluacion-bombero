@@ -5,7 +5,10 @@
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<groupbox hflex="1">
-				<caption label="Datos Personales" />
+				<caption>
+					<label value="Datos Personales"/>
+					<label value="(Los campos marcados con (*) son obligatorios)" style="font-size:10px;color:#FF0000"/>
+				</caption>
 				<grid hflex="1">
 					<columns>
 						<column align="right" hflex="min" />
@@ -17,7 +20,7 @@
 					</columns>
 					<rows>
 						<row>
-							<cell>Cédula:</cell>
+							<cell>Cédula (*):</cell>
 							<cell>
 								<textbox id="txtCedula" class="form-control form-control-sm" maxlength="10" placeholder="Cédula"
 									hflex="1" xmlns:w="client">
@@ -96,13 +99,13 @@
 							</cell>
 						</row>	
 						<row>
-							<cell sclass="row-title">Nombres:</cell>
+							<cell sclass="row-title">Nombres (*):</cell>
 							<cell colspan="2">
 								<textbox id="txtNombres" maxlength="100"
 									class="form-control form-control-sm"
 									placeholder="Nombres" hflex="1"/>
 							</cell>
-							<cell sclass="row-title">Apellidos:</cell>
+							<cell sclass="row-title">Apellidos (*):</cell>
 							<cell colspan="2">
 								<textbox id="txtApellidos" maxlength="100"
 									class="form-control form-control-sm"
@@ -110,7 +113,7 @@
 							</cell>
 						</row>
 						<row>
-							<cell sclass="row-title">Nacionalidad:</cell>
+							<cell sclass="row-title">Nacionalidad (*):</cell>
 							<cell>
 								<combobox id="cboNacionalidad" hflex="1"
 									model="@load(vm.paises)" readonly="true" placeholder="Nacionalidad"
@@ -120,7 +123,7 @@
 									</template>
 								</combobox>
 							</cell>
-							<cell sclass="row-title">P. Nacimiento:</cell>
+							<cell sclass="row-title">P. Nacimiento (*):</cell>
 							<cell>
 								<combobox id="cboProvincia" hflex="1" placeholder="Provincia"
 									model="@load(vm.listaProvincia)" readonly="true"
@@ -130,7 +133,7 @@
 									</template>
 								</combobox>
 							</cell>
-							<cell sclass="row-title">C. Nacimiento:</cell>
+							<cell sclass="row-title">C. Nacimiento (*):</cell>
 							<cell>
 								<combobox id="cboCanton" hflex="1" placeholder="cantón"
 									model="@load(vm.listaCanton)" readonly="true"
@@ -142,11 +145,11 @@
 							</cell>
 						</row>
 						<row>
-							<cell sclass="row-title">F. Nacimiento:</cell>
+							<cell sclass="row-title">F. Nacimiento (*):</cell>
 							<cell>
 								<datebox id="dtpFechaNacimiento" hflex="1"/>
 							</cell>
-							<cell sclass="row-title">Género:</cell>
+							<cell sclass="row-title">Género (*):</cell>
 							<cell>
 								<combobox id="cboGenero" hflex="1"
 									model="@load(vm.generos)" readonly="true"
@@ -156,7 +159,7 @@
 									</template>
 								</combobox>
 							</cell>
-							<cell sclass="row-title">Tipo Sangre:</cell>
+							<cell sclass="row-title">Tipo Sangre (*):</cell>
 							<cell>
 								<combobox id="cboTipoSangre" hflex="1"
 									model="@load(vm.tipoSangres)" readonly="true"
@@ -168,7 +171,7 @@
 							</cell>
 						</row>
 						<row>
-							<cell sclass="row-title">Estado civil:</cell>
+							<cell sclass="row-title">Estado civil (*):</cell>
 							<cell>
 								<combobox id="cboEstadoCivil" hflex="1" onChange="@command('seleccionarEstadoCivil')"
 									model="@load(vm.estadoCivils)" readonly="true"
@@ -229,7 +232,7 @@
 					</columns>
 					<rows>
 						<row>
-							<cell>Instrucción:</cell>
+							<cell>Instrucción (*):</cell>
 							<cell>
 								<combobox id="cboInstruccion" hflex="1"
 									model="@load(vm.instrucciones)" readonly="true"
@@ -265,7 +268,7 @@
 									]]></attribute>
 								</textbox>
 							</cell>
-							<cell sclass="row-title">Profesión:</cell>
+							<cell sclass="row-title">Profesión (*):</cell>
 							<cell>
 								<combobox id="cboProfesion" hflex="1"
 									model="@load(vm.profesiones)" readonly="true"
@@ -289,7 +292,7 @@
 									class="form-control form-control-sm"
 									placeholder="No de hijos" hflex="1"/>
 							</cell>
-							<cell sclass="row-title">P. Residencia:</cell>
+							<cell sclass="row-title">P. Residencia (*):</cell>
 							<cell>
 								<combobox id="cboProvinciaResidencia" hflex="1" placeholder="Provincia"
 									model="@load(vm.listaProvinciaResidencia)" readonly="true"
@@ -301,13 +304,13 @@
 							</cell>
 						</row>
 						<row>
-							<cell sclass="row-title">Dirección:</cell>
+							<cell sclass="row-title">Dirección (*):</cell>
 							<cell colspan="3">
 								<textbox id="txtDireccionDomiciliaria" maxlength="300"
 									class="form-control form-control-sm"
 									placeholder="Dirección Domiciliaria" />
 							</cell>
-							<cell sclass="row-title">C. Residencia:</cell>
+							<cell sclass="row-title">C. Residencia (*):</cell>
 							<cell>
 								<combobox id="cboCantonResidencia" hflex="1" placeholder="cantón"
 									model="@load(vm.listaCantonResidencia)" readonly="true"

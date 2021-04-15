@@ -104,7 +104,7 @@ public class Aspirante implements Serializable {
 	private List<FichaMedica> fichaMedicas;
 
 	//bi-directional many-to-one association to Matricula
-	@OneToMany(mappedBy="aspirante")
+	@OneToMany(mappedBy="aspirante", cascade = CascadeType.ALL)
 	private List<Matricula> matriculas;
 
 	//bi-directional many-to-one association to PersonalAutorizado

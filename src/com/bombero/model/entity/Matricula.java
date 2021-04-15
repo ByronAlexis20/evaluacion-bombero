@@ -9,7 +9,12 @@ import java.util.List;
 @Entity
 @Table(name="matricula")
 @NamedQueries({
-	@NamedQuery(name="Matricula.buscarAspirantePorPeriodo", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo and m.estado = 'A'")
+	@NamedQuery(name="Matricula.buscarAspirantePorPeriodo", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
+			+ " and m.estado = 'A'"),
+	@NamedQuery(name="Matricula.buscarPorCedula", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
+			+ " and m.aspirante.cedula = :cedula and m.estado = 'A'"),
+	@NamedQuery(name="Matricula.buscarPorCedulaDiferenteAlUsuarioActual", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
+			+ " and m.aspirante.cedula = :cedula and m.idMatricula <> :idMatricula and m.estado = 'A'")
 })
 public class Matricula implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +22,7 @@ public class Matricula implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_matricula")
-	private int idMatricula;
+	private Integer idMatricula;
 
 	private String estado;
 
@@ -46,11 +51,11 @@ public class Matricula implements Serializable {
 	public Matricula() {
 	}
 
-	public int getIdMatricula() {
+	public Integer getIdMatricula() {
 		return this.idMatricula;
 	}
 
-	public void setIdMatricula(int idMatricula) {
+	public void setIdMatricula(Integer idMatricula) {
 		this.idMatricula = idMatricula;
 	}
 

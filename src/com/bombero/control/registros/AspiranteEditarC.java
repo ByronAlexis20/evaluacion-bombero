@@ -2,8 +2,10 @@ package com.bombero.control.registros;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -11,12 +13,15 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -36,9 +41,11 @@ import com.bombero.model.entity.Genero;
 import com.bombero.model.entity.Instruccion;
 import com.bombero.model.entity.Matricula;
 import com.bombero.model.entity.Pai;
+import com.bombero.model.entity.Periodo;
 import com.bombero.model.entity.Profesion;
 import com.bombero.model.entity.Provincia;
 import com.bombero.model.entity.TipoSangre;
+import com.bombero.util.ControllerHelper;
 import com.bombero.util.Globals;
 
 public class AspiranteEditarC {
@@ -86,6 +93,7 @@ public class AspiranteEditarC {
 	
 	Aspirante aspirante;
 	Matricula matricula;
+	Periodo periodo;
 	
 	//para los combos anidados
 	List<Provincia> listaProvincia = new ArrayList<>();
@@ -103,13 +111,16 @@ public class AspiranteEditarC {
 	Canton cantonResidenciaSeleccionado;
 	
 	MatriculaDAO matriculaDAO = new MatriculaDAO();
+	ControllerHelper helper = new ControllerHelper();
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
 		matricula = (Matricula) Executions.getCurrent().getArg().get("Matricula");
+		periodo = (Periodo) Executions.getCurrent().getArg().get("Periodo");
 		if (matricula == null) {
 			matricula = new Matricula();
+			aspirante = new Aspirante();
 			matricula.setEstado("A");
 			paisSeleccionado = null;
 			generoSeleccionado = null;
@@ -123,14 +134,22 @@ public class AspiranteEditarC {
 		}
 	}
 	private void recuperarDatos() {
+		cboNacionalidad.setText(aspirante.getCantonNacimiento().getProvincia().getPai().getNacionalidad());
+		paisSeleccionado = aspirante.getCantonNacimiento().getProvincia().getPai();
+		seleccionarPais();
 		cboProvincia.setText(aspirante.getCantonNacimiento().getProvincia().getProvincia());
 		provinciaSeleccionada = aspirante.getCantonNacimiento().getProvincia();
-		cboCanton.setText(aspirante.getCantonNacimiento().getCanton());
-		cantonSeleccionado = aspirante.getCantonNacimiento();
 		cboProvinciaResidencia.setText(aspirante.getCantonResidencia().getProvincia().getProvincia());
 		provinciaResidenciaSeleccionada = aspirante.getCantonResidencia().getProvincia();
+		
+		seleccionarProvincia();
+		cboCanton.setText(aspirante.getCantonNacimiento().getCanton());
+		cantonSeleccionado = aspirante.getCantonNacimiento();
+		
+		seleccionarProvinciaResidencia();
 		cboCantonResidencia.setText(aspirante.getCantonResidencia().getCanton());
 		cantonResidenciaSeleccionado = aspirante.getCantonResidencia();
+		
 		txtCedula.setText(aspirante.getCedula());
 		txtTelefono.setText(aspirante.getTelefono());
 		txtCelular.setText(aspirante.getCelular());
@@ -147,8 +166,7 @@ public class AspiranteEditarC {
 		txtNoSolar.setText(String.valueOf(aspirante.getNumeroSolar()));
 		txtCorreo.setText(aspirante.getCorreo());
 		
-		cboNacionalidad.setText(aspirante.getCantonNacimiento().getProvincia().getPai().getNacionalidad());
-		paisSeleccionado = aspirante.getCantonNacimiento().getProvincia().getPai();
+		
 		cboGenero.setText(aspirante.getGenero().getGenero());
 		generoSeleccionado = aspirante.getGenero();
 		cboTipoSangre.setText(aspirante.getTipoSangre().getTipoSangre());
@@ -171,7 +189,7 @@ public class AspiranteEditarC {
 		}
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@NotifyChange({"listaProvincia"})
+	@NotifyChange({"listaProvincia","listaProvinciaResidencia"})
 	@Command
 	public void seleccionarPais(){
 		if(listaCanton != null)
@@ -184,8 +202,10 @@ public class AspiranteEditarC {
 		provinciaResidenciaSeleccionada = null;
 		cantonSeleccionado = null;
 		listaProvincia = provinciaDAO.buscarProvinciaPorIdPais(paisSeleccionado.getIdPais());
+		listaProvinciaResidencia = listaProvincia; 
+		cboProvinciaResidencia.setModel(new ListModelList(listaProvinciaResidencia));
 		cboProvincia.setModel(new ListModelList(listaProvincia));
-		cboProvinciaResidencia.setModel(new ListModelList(listaProvincia));
+		
 		cboCanton.setModel(new ListModelList(listaCanton));
 		cboProvincia.setText("");
 		cboCanton.setText("");
@@ -202,7 +222,7 @@ public class AspiranteEditarC {
 		cboCanton.setModel(new ListModelList(listaCanton));
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@NotifyChange({"listaCanton"})
+	@NotifyChange({"listaCantonResidencia"})
 	@Command
 	public void seleccionarProvinciaResidencia(){
 		if(listaCantonResidencia != null)
@@ -225,28 +245,216 @@ public class AspiranteEditarC {
 		if(estado.getIdEstadoCivil() != Globals.CODIGO_ESTADO_CIVIL_CASADO) {
 			txtNomnbreConyuge.setText("");
 			txtNomnbreConyuge.setDisabled(true);
-			txtCantidadHijos.setText("");
-			txtCantidadHijos.setDisabled(true);
 		}else {
-			txtCantidadHijos.setDisabled(false);
 			txtNomnbreConyuge.setDisabled(false);
 		}
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void grabar() {
 		try {
-			
+			if(validarDatos() == false) {
+				return;
+			}
+			Messagebox.show("Desea guardar el registro?", "Confirmación de Guardar", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals("onYes")) {		
+						try {
+							copiarDatosAspirante();
+							if(matricula.getIdMatricula() == null) {
+								matricula.setEstado("A");
+								matricula.setFechaIngreso(new Date());
+								matricula.setPeriodo(periodo);
+								matricula.setAspirante(aspirante);
+								List<Matricula> listaM = new ArrayList<>();
+								listaM.add(matricula);
+								aspirante.setMatriculas(listaM);
+							}
+							matriculaDAO.getEntityManager().getTransaction().begin();
+							if(matricula.getIdMatricula() == null)
+								matriculaDAO.getEntityManager().persist(aspirante);
+							else {
+								matriculaDAO.getEntityManager().merge(aspirante);
+							}
+							matriculaDAO.getEntityManager().getTransaction().commit();
+							Clients.showNotification("Proceso Ejecutado con exito.");
+							salir();						
+						} catch (Exception e) {
+							e.printStackTrace();
+							matriculaDAO.getEntityManager().getTransaction().rollback();
+						}
+					}
+				}
+			});
 		}catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			matriculaDAO.getEntityManager().getTransaction().rollback();
 		}
 	}
-	private boolean validarDatos() {
-		boolean bandera = false;
+	private void copiarDatosAspirante() {
+		aspirante.setApellidos(txtApellidos.getText().toString());
+		Canton cNacimiento = (Canton) cboCanton.getSelectedItem().getValue();
+		aspirante.setCantonNacimiento(cNacimiento);
+		Canton cReseidencia = (Canton) cboCantonResidencia.getSelectedItem().getValue();
+		aspirante.setCantonResidencia(cReseidencia);
+		aspirante.setCedula(txtCedula.getText().toString());
+		aspirante.setCelular(txtCelular.getText().toString());
+		aspirante.setCorreo(txtCorreo.getText().toString());
+		aspirante.setDireccionDomiciliaria(txtDireccionDomiciliaria.getText().toString());
+		aspirante.setEstado("A");
+		EstadoCivil eCivil = (EstadoCivil) cboEstadoCivil.getSelectedItem().getValue();
+		aspirante.setEstadoCivil(eCivil);
+		if(!txtEstatura.getText().isEmpty())
+			aspirante.setEstatura(Double.valueOf(txtEstatura.getText()));
+		aspirante.setFechaNacimiento(dtpFechaNacimiento.getValue());
+		Genero genero = (Genero) cboGenero.getSelectedItem().getValue();
+		aspirante.setGenero(genero);
+		Instruccion instruccion = (Instruccion) cboInstruccion.getSelectedItem().getValue();
+		aspirante.setInstruccion(instruccion);
+		if(!txtCantidadHijos.getText().isEmpty())
+			aspirante.setNoHijos(Integer.parseInt(txtCantidadHijos.getText()));
+		aspirante.setNoLibretaMilitar(txtNoLibretaMilitar.getText());
+		aspirante.setNombreConyuge(txtNomnbreConyuge.getText());
+		aspirante.setNombres(txtNombres.getText());
+		aspirante.setNumeroSolar(txtNoSolar.getText());
+		Profesion profesion = (Profesion) cboProfesion.getSelectedItem().getValue();
+		aspirante.setProfesion(profesion);
+		aspirante.setReferenciaDomiciliaria(txtReferenciaDomiciliaria.getText());
+		aspirante.setTelefono(txtTelefono.getText());
+		TipoSangre tSangre = (TipoSangre) cboTipoSangre.getSelectedItem().getValue();
+		aspirante.setTipoSangre(tSangre);
+		if(!txtUltimoAnio.getText().isEmpty())
+			aspirante.setUltimoAnioEstudio(Integer.parseInt(txtUltimoAnio.getText()));
+	}
+	private boolean validarDatos() {//devuelve falso cuando hay algun inconveniente
+		boolean bandera = true;
+		if(txtCedula.getText().isEmpty()) {
+			Clients.showNotification("Debe registrar cédula de identidad","info",txtCedula,"end_center",2000);
+			txtCedula.setFocus(true);
+			return false;
+		}
+		if(!helper.validarDeCedula(txtCedula.getText())) {
+			Clients.showNotification("Número de CÉDULA NO VÁLIDA!","info",txtCedula,"end_center",2000);
+			txtCedula.focus();
+			return false;
+		}
+		if(validarAspiranteExistente() == true) {
+			Clients.showNotification("Ya hay un Aspirante con el número de documento " + txtCedula.getText() + ", registrado en éste periodo!","info",txtCedula,"end_center",2000);
+			txtCedula.focus();
+			return false;
+		}
+		
+		if(txtNombres.getText().isEmpty()) {
+			Clients.showNotification("Debe registrar Nombres","info",txtNombres,"end_center",2000);
+			txtNombres.setFocus(true);
+			return false;
+		}
+		if(txtApellidos.getText().isEmpty()) {
+			Clients.showNotification("Debe registrar Apellidos","info",txtApellidos,"end_center",2000);
+			txtApellidos.setFocus(true);
+			return false;
+		}
+		if(cboNacionalidad.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Nacionalidad","info",cboNacionalidad,"end_center",2000);
+			cboNacionalidad.setFocus(true);
+			return false;
+		}
+		if(cboProvincia.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Provincia de nacimiento","info",cboProvincia,"end_center",2000);
+			cboProvincia.setFocus(true);
+			return false;
+		}
+		if(cboCanton.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Cantón de nacimiento","info",cboCanton,"end_center",2000);
+			cboCanton.setFocus(true);
+			return false;
+		}
+		if(dtpFechaNacimiento.getValue() == null) {
+			Clients.showNotification("Debe registrar Fecha de Nacimiento","info",dtpFechaNacimiento,"end_center",2000);
+			dtpFechaNacimiento.setFocus(true);
+			return false;
+		}
+		if(cboGenero.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Género","info",cboGenero,"end_center",2000);
+			cboGenero.setFocus(true);
+			return false;
+		}
+		if(cboTipoSangre.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Tipo de sangre","info",cboTipoSangre,"end_center",2000);
+			cboTipoSangre.setFocus(true);
+			return false;
+		}
+		if(cboEstadoCivil.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Estado Civil","info",cboEstadoCivil,"end_center",2000);
+			cboEstadoCivil.setFocus(true);
+			return false;
+		}
+		if(cboInstruccion.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Nivel de Instrucción","info",cboInstruccion,"end_center",2000);
+			cboInstruccion.setFocus(true);
+			return false;
+		}
+		if(cboProfesion.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Profesión","info",cboProfesion,"end_center",2000);
+			cboProfesion.setFocus(true);
+			return false;
+		}
+		if(cboEstadoCivil.getSelectedItem() != null) {
+			EstadoCivil estado = (EstadoCivil) cboEstadoCivil.getSelectedItem().getValue();
+			if(estado.getIdEstadoCivil() == Globals.CODIGO_ESTADO_CIVIL_CASADO) {
+				if(txtNomnbreConyuge.getText().isEmpty()) {
+					Clients.showNotification("Debe registrar Nombre del Cónyuge","info",txtNomnbreConyuge,"end_center",2000);
+					txtNomnbreConyuge.setFocus(true);
+					return false;
+				}
+			}
+		}
+		if(cboProvinciaResidencia.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Provincia de residencia","info",cboProvinciaResidencia,"end_center",2000);
+			cboProvinciaResidencia.setFocus(true);
+			return false;
+		}
+		if(cboCantonResidencia.getSelectedIndex() == -1) {
+			Clients.showNotification("Debe seleccionar Cantón de residencia","info",cboCantonResidencia,"end_center",2000);
+			cboCantonResidencia.setFocus(true);
+			return false;
+		}
+		if(txtDireccionDomiciliaria.getText().isEmpty()) {
+			Clients.showNotification("Debe Registrar dirección domiciliaria","info",cboCantonResidencia,"end_center",2000);
+			cboCantonResidencia.setFocus(true);
+			return false;
+		}
+		if(!txtCorreo.getText().isEmpty()) {
+			if(!ControllerHelper.validarEmail(txtCorreo.getText())) {
+				Clients.showNotification("El correo ingresado no es valido","info",txtCorreo,"end_center",2000);
+				txtCorreo.setFocus(true);
+				return false;
+			}
+		}
 		return bandera;
+	}
+	private boolean validarAspiranteExistente() {
+		try {
+			boolean bandera = false;
+			List<Matricula> listaMatricula;
+			if (matricula.getIdMatricula() == null) {
+				listaMatricula = matriculaDAO.validarAspiranteExistente(txtCedula.getText().toString(), periodo.getIdPeriodo());
+			}else {
+				listaMatricula = matriculaDAO.validarAspiranteExistenteDiferente(txtCedula.getText().toString(),matricula.getIdMatricula(),periodo.getIdPeriodo());
+			}
+			if(listaMatricula.size() != 0)
+				bandera = true;
+			else
+				bandera = false;
+			return bandera;
+		}catch(Exception ex) {
+			return false;
+		}
 	}
 	@Command
 	public void salir() {
+		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
 		winAspirantesEditar.detach();
 	}
 	public List<Pai> getPaises(){
@@ -362,5 +570,11 @@ public class AspiranteEditarC {
 	}
 	public void setCantonResidenciaSeleccionado(Canton cantonResidenciaSeleccionado) {
 		this.cantonResidenciaSeleccionado = cantonResidenciaSeleccionado;
+	}
+	public Periodo getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
 	}
 }

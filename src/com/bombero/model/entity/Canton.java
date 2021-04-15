@@ -113,4 +113,10 @@ public class Canton implements Serializable {
 		this.provincia = provincia;
 	}
 
+	@Override
+	public String toString() {
+		return "Canton [idCanton=" + idCanton + ", canton=" + canton + ", estado=" + estado + ", provincia=" + provincia
+				+ "]";
+	}
+
 }
