@@ -18,7 +18,7 @@ public class Aspirante implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_aspirante")
-	private int idAspirante;
+	private Integer idAspirante;
 
 	private String apellidos;
 
@@ -118,11 +118,11 @@ public class Aspirante implements Serializable {
 	public Aspirante() {
 	}
 
-	public int getIdAspirante() {
+	public Integer getIdAspirante() {
 		return this.idAspirante;
 	}
 
-	public void setIdAspirante(int idAspirante) {
+	public void setIdAspirante(Integer idAspirante) {
 		this.idAspirante = idAspirante;
 	}
 
