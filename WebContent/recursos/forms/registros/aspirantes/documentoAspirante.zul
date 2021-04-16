@@ -27,8 +27,8 @@
 							<listcell class="lb-listcell"/>
 							<listcell>
 								<div align="center">
-									<button label="Ver" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
-										onClick="@command('editar',compania=each)" />
+									<button label="descargar" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
+										onClick="@command('descargar',compania=each)" />
 									<button label="Eliminar" iconSclass="z-icon-trash-o" zclass="btn-eliminar btn-size"
 										onClick="@command('eliminar',compania=each)" />
 								</div>

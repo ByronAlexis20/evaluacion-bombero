@@ -3,7 +3,9 @@ package com.bombero.control.registros;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -232,7 +234,9 @@ public class AspiranteEditarC {
 	}
 	@Command
 	public void documentos() {
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoAspirante.zul", null, null);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("VentanaPadre", this);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoAspirante.zul", null, params);
 		ventanaCargar.doModal();
 	}
 	@Command
