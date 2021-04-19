@@ -30,6 +30,7 @@
 					<listhead>
 						<listheader label="Código" width="10%" class="lb-listheader"/>
 						<listheader label="Tipo de Documento" class="lb-listheader"/>
+						<listheader label="Iniciales archivo" class="lb-listheader"/>
 						<listheader label="Estado" width="15%" class="lb-listheader"/>
 						<listheader label="Acción" width="15%" align="center" class="lb-listheader"/>
 					</listhead>
@@ -37,6 +38,7 @@
 						<listitem>
 							<listcell label="@load(each.idTipoDocumento)" class="lb-listcell"/>
 							<listcell label="@load(each.tipoDocumento)" class="lb-listcell"/>
+							<listcell label="@load(each.inicialesArchivo)" class="lb-listcell"/>
 							<listcell label="@load(each.estado)" class="lb-listcell"/>
 							<listcell>
 								<div align="center">

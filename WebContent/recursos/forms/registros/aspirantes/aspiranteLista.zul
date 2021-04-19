@@ -73,6 +73,10 @@
 									iconSclass="z-icon-trash-o" height="32px" width="80px" onClick="@command('eliminarAspirante')" >
 									Eliminar
 								</button>
+								<button id="btnDocumentos" class="but btn-form btn-sm"
+									iconSclass="z-icon-trash-o" height="32px" onClick="@command('documentos')" >
+									Documentos
+								</button>
 							</div>
 							<listbox id="lstAspirantes" hflex="1" vflex="1">
 								<listhead>

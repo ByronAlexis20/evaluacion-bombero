@@ -3,9 +3,7 @@ package com.bombero.control.registros;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -23,13 +21,11 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.CantonDAO;
-import com.bombero.model.dao.DocumentoDAO;
 import com.bombero.model.dao.EstadoCivilDAO;
 import com.bombero.model.dao.GeneroDAO;
 import com.bombero.model.dao.InstruccionDAO;
@@ -40,7 +36,6 @@ import com.bombero.model.dao.ProvinciaDAO;
 import com.bombero.model.dao.TipoSangreDAO;
 import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.Canton;
-import com.bombero.model.entity.Documento;
 import com.bombero.model.entity.EstadoCivil;
 import com.bombero.model.entity.Genero;
 import com.bombero.model.entity.Instruccion;
@@ -82,7 +77,6 @@ public class AspiranteEditarC {
 	@Wire private Combobox cboEstadoCivil;
 	@Wire private Combobox cboInstruccion;
 	@Wire private Combobox cboProfesion;
-	@Wire private Listbox lstDocumentos;
 	
 	PaisDAO paisDAO = new PaisDAO();
 	GeneroDAO generoDAO = new GeneroDAO();
@@ -118,8 +112,6 @@ public class AspiranteEditarC {
 	
 	MatriculaDAO matriculaDAO = new MatriculaDAO();
 	ControllerHelper helper = new ControllerHelper();
-	List<Documento> listaDocumentos;
-	DocumentoDAO documentoDAO = new DocumentoDAO();
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -129,7 +121,6 @@ public class AspiranteEditarC {
 		if (matricula == null) {
 			matricula = new Matricula();
 			aspirante = new Aspirante();
-			listaDocumentos = new ArrayList<>();
 			matricula.setEstado("A");
 			paisSeleccionado = null;
 			generoSeleccionado = null;
@@ -139,7 +130,6 @@ public class AspiranteEditarC {
 			profesionSeleccionado = null;
 		} else {
 			aspirante = matricula.getAspirante();
-			listaDocumentos = matricula.getAspirante().getDocumentos();
 			recuperarDatos();
 		}
 	}
@@ -461,37 +451,7 @@ public class AspiranteEditarC {
 		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
 		winAspirantesEditar.detach();
 	}
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void cargarDocumentos(Documento document) {
-		try {
-			if(listaDocumentos != null)
-				listaDocumentos = null;
-			List<Documento> lista = new ArrayList<>();
-			if(aspirante.getIdAspirante() != null) {
-				List<Documento> result = documentoDAO.buscarPorAspirante(aspirante.getIdAspirante());
-				if(result.size() > 0) {
-					for(Documento d : result) {
-						lista.add(d);
-					}
-				}
-			}
-			if(document != null) {
-				lista.add(document);
-			}
-			listaDocumentos = lista;
-			lstDocumentos.setModel(new ListModelList(listaDocumentos));
-		}catch(Exception ex) {
-			System.out.println(ex.getMessage());
-		}
-	}
-	@Command
-	public void nuevoDocumento() {
-		cargarDocumentos(null);
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("VentanaPadre", this);
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoRegistro.zul", null, params);
-		ventanaCargar.doModal();
-	}
+	
 	public List<Pai> getPaises(){
 		return paisDAO.getPaises();
 	}
@@ -611,11 +571,5 @@ public class AspiranteEditarC {
 	}
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
-	}
-	public List<Documento> getListaDocumentos() {
-		return listaDocumentos;
-	}
-	public void setListaDocumentos(List<Documento> listaDocumentos) {
-		this.listaDocumentos = listaDocumentos;
 	}
 }

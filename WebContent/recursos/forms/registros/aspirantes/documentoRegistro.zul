@@ -32,7 +32,7 @@
 						</cell>
 						<cell>
 							<vbox hflex="1">
-								<button id="uploadDocumento" iconSclass="z-icon-upload" upload="true,accept=.pdf"/>
+								<button id="uploadDocumento" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirDocumento', upEvent=event)"/>
 								<textbox placeholder="Sin archivo..." readonly="true" class="form-control form-control-sm" id="txtDocumento"/>
 							</vbox>
 						</cell>

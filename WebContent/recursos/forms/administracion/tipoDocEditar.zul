@@ -18,7 +18,11 @@
 					</row>
 					<row>
 						<label value="Tipo de Documento " class="label-form"/>
-						<textbox id="txtTipoSangre" hflex="1" value="@bind(vm.tipoDocumento.tipoDocumento)" />
+						<textbox id="txtTipoDocumento" hflex="1" value="@bind(vm.tipoDocumento.tipoDocumento)" />
+					</row>
+					<row>
+						<label value="Iniciales Archivo " class="label-form"/>
+						<textbox id="txtIniciales" hflex="1" value="@bind(vm.tipoDocumento.inicialesArchivo)" />
 					</row>
 				</rows>
 			</grid>

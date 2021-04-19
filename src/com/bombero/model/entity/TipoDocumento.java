@@ -32,6 +32,9 @@ public class TipoDocumento implements Serializable {
 
 	@Column(name="tipo_documento")
 	private String tipoDocumento;
+	
+	@Column(name="iniciales_archivo")
+	private String inicialesArchivo;
 
 	//bi-directional many-to-one association to Documento
 	@OneToMany(mappedBy="tipoDocumento")
@@ -84,6 +87,14 @@ public class TipoDocumento implements Serializable {
 		documento.setTipoDocumento(null);
 
 		return documento;
+	}
+
+	public String getInicialesArchivo() {
+		return inicialesArchivo;
+	}
+
+	public void setInicialesArchivo(String inicialesArchivo) {
+		this.inicialesArchivo = inicialesArchivo;
 	}
 
 }

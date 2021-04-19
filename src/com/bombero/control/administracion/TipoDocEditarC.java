@@ -23,6 +23,7 @@ public class TipoDocEditarC {
 	@Wire private Window winTipoDocumentoEditar;
 	@Wire private Textbox txtCodigo;
 	@Wire private Textbox txtTipoDocumento;
+	@Wire private Textbox txtIniciales;
 
 	private TipoDocumentoDAO tipoDocumentoDAO = new TipoDocumentoDAO();
 	private TipoDocumento tipoDocumento;
@@ -44,6 +45,11 @@ public class TipoDocEditarC {
 			if(txtTipoDocumento.getText().isEmpty()) {
 				Clients.showNotification("Obligatoria regitrar el tipo de documento","info",txtTipoDocumento,"end_center",2000);
 				txtTipoDocumento.setFocus(true);
+				return retorna;
+			}
+			if(txtIniciales.getText().isEmpty()) {
+				Clients.showNotification("Obligatoria regitrar iniciales del archivo","info",txtIniciales,"end_center",2000);
+				txtIniciales.setFocus(true);
 				return retorna;
 			}
 		} catch (Exception e) {
