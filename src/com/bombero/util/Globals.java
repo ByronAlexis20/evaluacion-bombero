@@ -8,5 +8,8 @@ public class Globals {
 	
 	public static final Integer CODIGO_ESTADO_CIVIL_CASADO = 2;
 	
-	public static final String RUTA_PROYECTO = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
+	public static String PATH_SISTEMA = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/") + "temp\\";
+	public static String PATH_IMAGEN = "img\\";
+	public static String PATH_REPORTE = "rpt\\";
+	public static String PATH_ARCHIVO = "doc\\";
 }

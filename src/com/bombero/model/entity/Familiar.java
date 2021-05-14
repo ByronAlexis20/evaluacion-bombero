@@ -18,6 +18,8 @@ public class Familiar implements Serializable {
 	@Column(name="id_familiar")
 	private int idFamiliar;
 
+	private String cedula;
+	
 	private String apellido;
 
 	private String educacion;
@@ -136,6 +138,14 @@ public class Familiar implements Serializable {
 
 	public void setTipoFamiliar(TipoFamiliar tipoFamiliar) {
 		this.tipoFamiliar = tipoFamiliar;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 
 }

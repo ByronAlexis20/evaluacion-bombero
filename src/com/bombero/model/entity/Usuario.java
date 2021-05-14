@@ -36,8 +36,7 @@ public class Usuario implements Serializable {
 
 	private String estado;
 
-	@Lob
-	private byte[] foto;
+	private String foto;
 
 	private String nombres;
 
@@ -111,11 +110,11 @@ public class Usuario implements Serializable {
 		this.estado = estado;
 	}
 
-	public byte[] getFoto() {
+	public String getFoto() {
 		return this.foto;
 	}
 
-	public void setFoto(byte[] foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 

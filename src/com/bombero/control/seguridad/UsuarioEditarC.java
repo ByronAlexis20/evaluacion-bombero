@@ -1,16 +1,21 @@
 package com.bombero.control.seguridad;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
@@ -24,6 +29,7 @@ import com.bombero.model.dao.UsuarioDAO;
 import com.bombero.model.entity.Perfil;
 import com.bombero.model.entity.Usuario;
 import com.bombero.util.ControllerHelper;
+import com.bombero.util.FileUtil;
 
 public class UsuarioEditarC {
 	@Wire private Window winUsuarioEditar;
@@ -168,29 +174,49 @@ public class UsuarioEditarC {
 			return false;
 		}
 	}
-
-	public List<Perfil> getPerfiles(){
-		return perfilDAO.getPerfilesPorDescripcion("");
-	}
 	
 	@Command
 	public void salir(){
 		BindUtils.postGlobalCommand(null, null, "Usuario.buscarPorPatron", null);
 		winUsuarioEditar.detach();
 	}
-	
+	@Command
+	@NotifyChange("imagenUsuario")
+	public void subir(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		String pathRetornado; 
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		pathRetornado = FileUtil.cargaArchivo(eventoCarga.getMedia());
+		usuario.setFoto(pathRetornado);
+	}
+	@Command
+	public void descargar() {
+		if (usuario.getFoto() != null) {
+			FileUtil.descargaArchivo(usuario.getFoto());
+		}
+	}
+	public List<Perfil> getPerfiles(){
+		return perfilDAO.getPerfilesPorDescripcion("");
+	}
+	public AImage getImagenUsuario() {
+		AImage retorno = null;
+		if (usuario.getFoto() != null) {
+			try {
+				retorno = FileUtil.getImagenTamanoFijo(new AImage(usuario.getFoto()), 100, -1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return retorno; 
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 	public Perfil getPerfilSeleccionado() {
 		return perfilSeleccionado;
 	}
-
 	public void setPerfilSeleccionado(Perfil perfilSeleccionado) {
 		this.perfilSeleccionado = perfilSeleccionado;
 	}

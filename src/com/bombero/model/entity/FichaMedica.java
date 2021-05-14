@@ -4,74 +4,91 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the ficha_medica database table.
  * 
  */
 @Entity
-@Table(name="ficha_medica")
-@NamedQuery(name="FichaMedica.findAll", query="SELECT f FROM FichaMedica f")
+@Table(name = "ficha_medica")
+@NamedQuery(name = "FichaMedica.findAll", query = "SELECT f FROM FichaMedica f")
 public class FichaMedica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_ficha_medica")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_ficha_medica")
 	private int idFichaMedica;
 
 	private String estado;
 
-	@Column(name="no_abortos")
+	@Column(name = "no_abortos")
 	private int noAbortos;
 
-	@Column(name="no_cesarea")
+	@Column(name = "no_cesarea")
 	private int noCesarea;
 
-	@Column(name="no_hijos")
+	@Column(name = "no_hijos")
 	private int noHijos;
 
-	@Column(name="no_partos")
+	@Column(name = "no_partos")
 	private int noPartos;
 
-	@Column(name="nombre_alimentos_alergia")
+	@Column(name = "nombre_alimentos_alergia")
 	private String nombreAlimentosAlergia;
 
-	@Column(name="nombre_medicinas_alergia")
+	@Column(name = "nombre_medicinas_alergia")
 	private String nombreMedicinasAlergia;
 
-	@Column(name="nombre_vacunas")
+	@Column(name = "nombre_vacunas")
 	private String nombreVacunas;
 
-	@Column(name="ruta_coproparasitario")
+	@Column(name = "ruta_coproparasitario")
 	private String rutaCoproparasitario;
 
-	@Column(name="ruta_electrocardiograma")
+	@Column(name = "nombre_coproparasitario")
+	private String nombreCoproparasitario;
+
+	@Column(name = "ruta_electrocardiograma")
 	private String rutaElectrocardiograma;
 
-	@Column(name="ruta_examen_orina")
+	@Column(name = "nombre_electrocardiograma")
+	private String nombreElectrocardiograma;
+
+	@Column(name = "ruta_examen_orina")
 	private String rutaExamenOrina;
 
-	@Column(name="ruta_examen_sangre")
+	@Column(name = "nombre_examen_orina")
+	private String nombreExamenOrina;
+
+	@Column(name = "ruta_examen_sangre")
 	private String rutaExamenSangre;
 
-	@Column(name="ruta_ficha_medica")
+	@Column(name = "nombre_examen_sangre")
+	private String nombreExamenSangre;
+
+	@Column(name = "ruta_ficha_medica")
 	private String rutaFichaMedica;
 
-	@Column(name="ruta_radiografia_torax")
+	@Column(name = "nombre_ficha_medica")
+	private String nombreFichaMedica;
+
+	@Column(name = "ruta_radiografia_torax")
 	private String rutaRadiografiaTorax;
 
-	//bi-directional many-to-one association to Cirugia
-	@OneToMany(mappedBy="fichaMedica")
+	@Column(name = "nombre_radiografia_torax")
+	private String nombreRadiografiaTorax;
+
+	// bi-directional many-to-one association to Cirugia
+	@OneToMany(mappedBy = "fichaMedica")
 	private List<Cirugia> cirugias;
 
-	//bi-directional many-to-one association to Familiar
-	@OneToMany(mappedBy="fichaMedica")
+	// bi-directional many-to-one association to Familiar
+	@OneToMany(mappedBy = "fichaMedica")
 	private List<Familiar> familiars;
 
-	//bi-directional many-to-one association to Aspirante
+	// bi-directional many-to-one association to Aspirante
 	@ManyToOne
-	@JoinColumn(name="id_aspirante")
+	@JoinColumn(name = "id_aspirante")
 	private Aspirante aspirante;
 
 	public FichaMedica() {
@@ -247,6 +264,54 @@ public class FichaMedica implements Serializable {
 
 	public void setAspirante(Aspirante aspirante) {
 		this.aspirante = aspirante;
+	}
+
+	public String getNombreFichaMedica() {
+		return nombreFichaMedica;
+	}
+
+	public void setNombreFichaMedica(String nombreFichaMedica) {
+		this.nombreFichaMedica = nombreFichaMedica;
+	}
+
+	public String getNombreCoproparasitario() {
+		return nombreCoproparasitario;
+	}
+
+	public void setNombreCoproparasitario(String nombreCoproparasitario) {
+		this.nombreCoproparasitario = nombreCoproparasitario;
+	}
+
+	public String getNombreElectrocardiograma() {
+		return nombreElectrocardiograma;
+	}
+
+	public void setNombreElectrocardiograma(String nombreElectrocardiograma) {
+		this.nombreElectrocardiograma = nombreElectrocardiograma;
+	}
+
+	public String getNombreExamenOrina() {
+		return nombreExamenOrina;
+	}
+
+	public void setNombreExamenOrina(String nombreExamenOrina) {
+		this.nombreExamenOrina = nombreExamenOrina;
+	}
+
+	public String getNombreExamenSangre() {
+		return nombreExamenSangre;
+	}
+
+	public void setNombreExamenSangre(String nombreExamenSangre) {
+		this.nombreExamenSangre = nombreExamenSangre;
+	}
+
+	public String getNombreRadiografiaTorax() {
+		return nombreRadiografiaTorax;
+	}
+
+	public void setNombreRadiografiaTorax(String nombreRadiografiaTorax) {
+		this.nombreRadiografiaTorax = nombreRadiografiaTorax;
 	}
 
 }

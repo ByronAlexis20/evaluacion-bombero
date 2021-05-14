@@ -2,9 +2,8 @@
 <zk>
 	<window id="winUsuarioEditar" width="37%" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
-		mode="overlapped" class="modal-title"
-		viewModel="@id('vm') @init('com.bombero.control.seguridad.UsuarioEditarC')">
-		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
+		mode="overlapped" class="modal-title">
+		<caption label="Datos de Familiares" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid hflex="1">
 				<columns>
@@ -17,7 +16,7 @@
 						<cell>
 							<textbox
 								class="form-control form-control-sm"
-								id="txtCedula" hflex="1" value="@bind(vm.usuario.cedula)" xmlns:w="client">
+								id="txtCedula" hflex="1" xmlns:w="client">
 								<attribute w:name="doKeyDown_"><![CDATA[
 									function (evt) {
 										var keyCode = event.keyCode;
@@ -41,13 +40,13 @@
 						</cell>
 					</row>
 					<row>
-						<cell class="label-form">Perfil:</cell>
+						<cell class="label-form">Tipo de Familiar:</cell>
 						<cell>
-							<combobox id="cboPerfil" hflex="1"
-								model="@load(vm.perfiles)" readonly="true"
-								selectedItem="@bind(vm.perfilSeleccionado)">
+							<combobox id="cboFamiliar" hflex="1"
+								readonly="true"
+								>
 								<template name="model">
-									<comboitem label="${each.perfil}" />
+									<comboitem label="" />
 								</template>
 							</combobox>
 						</cell>
@@ -56,21 +55,14 @@
 						<cell class="label-form">Nombres:</cell>
 						<cell>
 							<textbox
-								class="form-control form-control-sm" id="txtNombres" hflex="1" value="@bind(vm.usuario.nombres)"/>
+								class="form-control form-control-sm" id="txtNombres" hflex="1"/>
 						</cell>
 					</row>
 					<row>
 						<cell class="label-form">Apellidos:</cell>
 						<cell>
 							<textbox
-								class="form-control form-control-sm" id="txtApellidos" hflex="1" value="@bind(vm.usuario.apellidos)"/>
-						</cell>
-					</row>
-					<row>
-						<cell class="label-form">Dirección:</cell>
-						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtDireccion" hflex="1" value="@bind(vm.usuario.direccion)"/>
+								class="form-control form-control-sm" id="txtApellidos" hflex="1" />
 						</cell>
 					</row>
 					<row>
@@ -78,7 +70,7 @@
 						<cell>
 							<textbox
 								class="form-control form-control-sm"
-								id="txtTelefono" hflex="1" value="@bind(vm.usuario.telefono)" xmlns:w="client" maxlength="10">
+								id="txtTelefono" hflex="1" xmlns:w="client" maxlength="10">
 								<attribute w:name="doKeyDown_"><![CDATA[
 									function (evt) {
 										var keyCode = event.keyCode;
@@ -102,36 +94,24 @@
 						</cell>
 					</row>
 					<row>
-						<cell class="label-form">Usuario:</cell>
+						<cell class="label-form">Educación:</cell>
 						<cell>
 							<textbox
-								class="form-control form-control-sm" id="txtUsuario" hflex="1" value="@bind(vm.usuario.usuario)"/>
+								class="form-control form-control-sm" id="txtEducacion" hflex="1"/>
 						</cell>
-					</row>
+					</row
 					<row>
-						<cell class="label-form">Clave:</cell>
+						<cell class="label-form">Profesión:</cell>
 						<cell>
-							<textbox hflex="1" class="form-control form-control-sm" type="password" id="txtClave"/>
+							<textbox
+								class="form-control form-control-sm" id="txtProfesion" hflex="1"/>
 						</cell>
 					</row>
 					<row>
-						<cell colspan="2" hflex="1" vflex="1">
-							<vbox pack="center" hflex="1" vflex="1">
-								<div align="center" hflex="1">
-									<label value="Foto"/>
-								</div>
-								<div align="center" hflex="1">
-									<image id="imgFoto" width="130px" height="130px"
-									content="@load(vm.imagenUsuario)"
-	       							onClick="@command('descargar')"  
-									style="border:1px #cccccc solid; " />
-								</div>
-								<div align="center" hflex="1">
-									<button id="btnUpload" label="Cargar..."
-										upload="true,accept=.jpg" onUpload="@command('subir', upEvent=event)"
-										iconSclass="z-icon-upload" />
-								</div>
-							</vbox>
+						<cell class="label-form">Trabajo:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm" id="txtTrabajo" hflex="1"/>
 						</cell>
 					</row>
 				</rows>

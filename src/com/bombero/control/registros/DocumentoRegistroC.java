@@ -63,8 +63,8 @@ public class DocumentoRegistroC {
 				public void onEvent(Event event) throws Exception {
 					if (event.getName().equals("onYes")) {		
 						try {
-							String rutaProyecto = Globals.RUTA_PROYECTO;
-							rutaProyecto = rutaProyecto + "temp";
+							String rutaProyecto = Globals.PATH_SISTEMA;
+							rutaProyecto = rutaProyecto + Globals.PATH_ARCHIVO;
 							String rutaArchivo = rutaProyecto + "\\" + tipoDocumentoSeleccionado.getInicialesArchivo() + "-" + aspirante.getCedula() + ".pdf";
 							Documento doc = new Documento();
 							doc.setEstado("A");

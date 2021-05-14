@@ -78,7 +78,7 @@
 									Documentos
 								</button>
 								<button id="btnFichaMedica" class="but btn-form btn-sm"
-									iconSclass="z-icon-trash-o" height="32px" onClick="@command('documentos')" >
+									iconSclass="z-icon-trash-o" height="32px" onClick="@command('fichaMedica')" >
 									Ficha Médica
 								</button>
 							</div>

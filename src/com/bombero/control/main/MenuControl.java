@@ -13,6 +13,7 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
@@ -21,6 +22,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Tree;
 import org.zkoss.zul.Treecell;
@@ -34,11 +36,13 @@ import com.bombero.model.dao.UsuarioDAO;
 import com.bombero.model.entity.Menu;
 import com.bombero.model.entity.Permiso;
 import com.bombero.model.entity.Usuario;
+import com.bombero.util.FileUtil;
 import com.bombero.util.SecurityUtil;
 
 public class MenuControl {
 	@Wire Tree menu;
 	@Wire Include areaContenido;
+	@Wire Image fotoUsuario;
 	Menu opcionSeleccionado;
 	UsuarioDAO usuarioDAO = new UsuarioDAO();
 	PermisoDAO permisoDAO = new PermisoDAO();
@@ -90,7 +94,8 @@ public class MenuControl {
 					}
 				});
 				menu.appendChild(getTreechildren(listaMenu));   
-			}			
+			}
+			cargarFotoUsuario(usuario);
 		}
 	}
 	private Treechildren getTreechildren(List<Menu> listaMenu) {
@@ -145,8 +150,7 @@ public class MenuControl {
 		return retorno;
 	}
 	@NotifyChange({"areaContenido"})
-	public void loadContenido(Menu opcion) {
-		
+	public void loadContenido(Menu opcion) {	
 		if (opcion.getUrl().toLowerCase().substring(0, 2).toLowerCase().equals("http")) {
 			Sessions.getCurrent().setAttribute("FormularioActual", null);
 			Executions.getCurrent().sendRedirect(opcion.getUrl(), "_blank");			
@@ -154,12 +158,39 @@ public class MenuControl {
 			Sessions.getCurrent().setAttribute("FormularioActual", opcion);	
 			areaContenido.setSrc(opcion.getUrl());
 		}	
-		
+	}
+	public void cargarFotoUsuario(Usuario us) {
+		if(us != null) {
+			if(us.getFoto() != null) {
+				fotoUsuario.setContent(getImagenUsuario(us));
+			}else {
+				fotoUsuario.setSrc( "/imagenes/foto.png");
+			}
+		}else {
+			fotoUsuario.setSrc("/imagenes/foto.png");
+		}
+	}
+	public AImage getImagenUsuario(Usuario us) {
+		AImage retorno = null;
+		if (us.getFoto() != null) {
+			try {
+				retorno = FileUtil.getImagenTamanoFijo(new AImage(us.getFoto()), 100, -1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return retorno; 
 	}
 	public String getNombreUsuario() {
 		Usuario usuario = usuarioDAO.getUsuario(SecurityUtil.getUser().getUsername());
-		String nombreUsuario = usuario.getPerfil().getPerfil();
+		String nombreUsuario = usuario.getNombres() + " " + usuario.getApellidos();
 		return nombreUsuario;
+	}
+	
+	public String getPerfilUsuario() {
+		Usuario usuario = usuarioDAO.getUsuario(SecurityUtil.getUser().getUsername());
+		String perfilUsuario = usuario.getPerfil().getPerfil();
+		return perfilUsuario;
 	}
 	
 	@Command
