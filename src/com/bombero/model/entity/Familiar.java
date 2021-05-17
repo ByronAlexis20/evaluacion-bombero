@@ -9,14 +9,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Familiar.findAll", query="SELECT f FROM Familiar f")
+@NamedQuery(name="Familiar.buscarPorFichaMedica", query="SELECT f FROM Familiar f where f.fichaMedica.idFichaMedica = :id and f.estado = 'A'")
 public class Familiar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_familiar")
-	private int idFamiliar;
+	private Integer idFamiliar;
 
 	private String cedula;
 	
@@ -52,11 +52,11 @@ public class Familiar implements Serializable {
 	public Familiar() {
 	}
 
-	public int getIdFamiliar() {
+	public Integer getIdFamiliar() {
 		return this.idFamiliar;
 	}
 
-	public void setIdFamiliar(int idFamiliar) {
+	public void setIdFamiliar(Integer idFamiliar) {
 		this.idFamiliar = idFamiliar;
 	}
 

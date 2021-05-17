@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="tipo_familiar")
-@NamedQuery(name="TipoFamiliar.buscarPorPatron", query="SELECT t FROM TipoFamiliar t where lower(t.tipoFamiliar) like lower(:patron)")
+@NamedQueries({
+	@NamedQuery(name="TipoFamiliar.buscarPorPatron", query="SELECT t FROM TipoFamiliar t where lower(t.tipoFamiliar) like lower(:patron)"),
+	@NamedQuery(name="TipoFamiliar.buscarPorEstado", query="SELECT t FROM TipoFamiliar t where t.estado = :estado")
+})
 public class TipoFamiliar implements Serializable {
 	private static final long serialVersionUID = 1L;
 

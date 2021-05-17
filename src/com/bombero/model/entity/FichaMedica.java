@@ -10,14 +10,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ficha_medica")
-@NamedQuery(name = "FichaMedica.findAll", query = "SELECT f FROM FichaMedica f")
+@NamedQuery(name = "FichaMedica.buscarPorAspirante", query = "SELECT f FROM FichaMedica f where f.aspirante.idAspirante = :id")
 public class FichaMedica implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_ficha_medica")
-	private int idFichaMedica;
+	private Integer idFichaMedica;
 
 	private String estado;
 
@@ -94,11 +94,11 @@ public class FichaMedica implements Serializable {
 	public FichaMedica() {
 	}
 
-	public int getIdFichaMedica() {
+	public Integer getIdFichaMedica() {
 		return this.idFichaMedica;
 	}
 
-	public void setIdFichaMedica(int idFichaMedica) {
+	public void setIdFichaMedica(Integer idFichaMedica) {
 		this.idFichaMedica = idFichaMedica;
 	}
 

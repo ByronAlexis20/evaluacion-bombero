@@ -10,14 +10,14 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Cirugia.findAll", query="SELECT c FROM Cirugia c")
+@NamedQuery(name="Cirugia.buscarPorFichaMedica", query="SELECT c FROM Cirugia c where c.fichaMedica.idFichaMedica = :id and c.estado = 'A'")
 public class Cirugia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_cirugia")
-	private int idCirugia;
+	private Integer idCirugia;
 
 	private String estado;
 
@@ -36,11 +36,11 @@ public class Cirugia implements Serializable {
 	public Cirugia() {
 	}
 
-	public int getIdCirugia() {
+	public Integer getIdCirugia() {
 		return this.idCirugia;
 	}
 
-	public void setIdCirugia(int idCirugia) {
+	public void setIdCirugia(Integer idCirugia) {
 		this.idCirugia = idCirugia;
 	}
 

@@ -1,8 +1,8 @@
-<?page title="Usuarios" contentType="text/html;charset=UTF-8"?>
+<?page title="Familiar" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winUsuarioEditar" width="37%" vflex="1"
+	<window id="winFamiliares" width="37%" vflex="1"
 		apply="org.zkoss.bind.BindComposer" border="none" position="center"
-		mode="overlapped" class="modal-title">
+		mode="overlapped" class="modal-title" viewModel="@id('vm') @init('com.bombero.control.registros.FamiliaresC')">
 		<caption label="Datos de Familiares" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid hflex="1">
@@ -14,8 +14,7 @@
 					<row>
 						<cell class="label-form">Cédula:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm"
+							<textbox class="form-control form-control-sm" maxlength="10"
 								id="txtCedula" hflex="1" xmlns:w="client">
 								<attribute w:name="doKeyDown_"><![CDATA[
 									function (evt) {
@@ -40,13 +39,13 @@
 						</cell>
 					</row>
 					<row>
-						<cell class="label-form">Tipo de Familiar:</cell>
+						<cell class="label-form">Parentesco:</cell>
 						<cell>
 							<combobox id="cboFamiliar" hflex="1"
-								readonly="true"
-								>
+								readonly="true" model="@load(vm.tipoFamiliar)"
+								selectedItem="@bind(vm.tipoFamiliarSerleccionado)">
 								<template name="model">
-									<comboitem label="" />
+									<comboitem label="${each.tipoFamiliar}" />
 								</template>
 							</combobox>
 						</cell>
@@ -54,22 +53,31 @@
 					<row>
 						<cell class="label-form">Nombres:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtNombres" hflex="1"/>
+							<textbox class="form-control form-control-sm" id="txtNombres" hflex="1"/>
 						</cell>
 					</row>
 					<row>
 						<cell class="label-form">Apellidos:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtApellidos" hflex="1" />
+							<textbox class="form-control form-control-sm" id="txtApellidos" hflex="1" />
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Estado civil:</cell>
+						<cell>
+							<combobox id="cboEstadoCivil" hflex="1"
+								readonly="true" model="@load(vm.estadoCivil)"
+								selectedItem="@bind(vm.estadoCivilSeleccionado)">
+								<template name="model">
+									<comboitem label="${each.estadoCivil}" />
+								</template>
+							</combobox>
 						</cell>
 					</row>
 					<row>
 						<cell class="label-form">Teléfono:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm"
+							<textbox class="form-control form-control-sm"
 								id="txtTelefono" hflex="1" xmlns:w="client" maxlength="10">
 								<attribute w:name="doKeyDown_"><![CDATA[
 									function (evt) {
@@ -96,22 +104,19 @@
 					<row>
 						<cell class="label-form">Educación:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtEducacion" hflex="1"/>
+							<textbox class="form-control form-control-sm" id="txtEducacion" hflex="1"/>
 						</cell>
-					</row
+					</row>
 					<row>
 						<cell class="label-form">Profesión:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtProfesion" hflex="1"/>
+							<textbox class="form-control form-control-sm" id="txtProfesion" hflex="1"/>
 						</cell>
 					</row>
 					<row>
 						<cell class="label-form">Trabajo:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm" id="txtTrabajo" hflex="1"/>
+							<textbox class="form-control form-control-sm" id="txtTrabajo" hflex="1"/>
 						</cell>
 					</row>
 				</rows>
@@ -119,12 +124,8 @@
 			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
 			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
 				<div hflex="1" align="center">
-					<button id="grabar" label="Grabar"
-						iconSclass="z-icon-save" zclass="btn-modal"
-						onClick="@command('grabar')" />
-					<button id="salir" label="Salir"
-						iconSclass="z-icon-sign-out" zclass="btn-modal"
-						onClick="@command('salir')" />
+					<button label="Agregar" iconSclass="z-icon-save" zclass="btn-modal" onClick="@command('grabar')" />
+					<button label="Salir" iconSclass="z-icon-sign-out" zclass="btn-modal" onClick="@command('salir')" />
 				</div>
 			</vbox>
 		</vlayout>

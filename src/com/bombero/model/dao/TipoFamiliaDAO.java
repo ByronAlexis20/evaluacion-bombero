@@ -23,4 +23,13 @@ public class TipoFamiliaDAO extends ClaseDAO {
 		resultado = (List<TipoFamiliar>) query.getResultList();
 		return resultado;
 	}
+	@SuppressWarnings("unchecked")
+	public List<TipoFamiliar> getTipoFamiliarPorEstado(String estado) {
+		List<TipoFamiliar> resultado; 
+		Query query = getEntityManager().createNamedQuery("TipoFamiliar.buscarPorEstado");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("estado", estado);
+		resultado = (List<TipoFamiliar>) query.getResultList();
+		return resultado;
+	}
 }

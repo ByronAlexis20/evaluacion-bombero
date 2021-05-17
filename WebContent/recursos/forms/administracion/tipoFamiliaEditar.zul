@@ -17,7 +17,7 @@
 						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.tipoFamilia.idTipoFamiliar)" />
 					</row>
 					<row>
-						<label value="Tipo de Sangre " class="label-form"/>
+						<label value="Parentesco: " class="label-form"/>
 						<textbox id="txtTipoFamilia" hflex="1" value="@bind(vm.tipoFamilia.tipoFamiliar)" />
 					</row>
 				</rows>

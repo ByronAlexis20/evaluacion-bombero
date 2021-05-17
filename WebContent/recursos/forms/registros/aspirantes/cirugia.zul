@@ -1,6 +1,37 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Cirugia" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+	<window id="winCirugia" width="37%" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title" viewModel="@id('vm') @init('com.bombero.control.registros.CirugiaC')">
+		<caption label="Datos de Familiares" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid hflex="1">
+				<columns>
+					<column align="right" hflex="min" />
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<cell class="label-form">Organo comprometido:</cell>
+						<cell>
+							<textbox class="form-control form-control-sm" id="txtOrgano" hflex="1" multiline="true" rows="4"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Fecha:</cell>
+						<cell>
+							<datebox id="dtpFecha" hflex="1" />
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button label="Agregar" iconSclass="z-icon-save" zclass="btn-modal" onClick="@command('grabar')" />
+					<button label="Salir" iconSclass="z-icon-sign-out" zclass="btn-modal" onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
 </zk>

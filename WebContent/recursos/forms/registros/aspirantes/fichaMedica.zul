@@ -1,6 +1,6 @@
 <?page title="Ficha Medica" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winFichaMedica" border="none"  width="50%" class="modal-title"
+	<window id="winFichaMedica" border="none"  width="70%" class="modal-title"
 		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.bombero.control.registros.FichaMedicaC')">
 		<caption label="Ingrese datos de ficha médica" height="25px" class="modal-title-letters"/>
 		<vlayout>
@@ -132,37 +132,39 @@
 								</textbox>
 							</cell>
 							<cell sclass="row-title">E. de sangre:</cell>
-							<cell>
+							<cell colspan="2">
 								<hbox>
 									<textbox class="form-control  form-control-sm" id="txtExamenSangre" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 									<button id="btnUploadExamenSangre" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenSangre', upEvent=event)"/>
 								</hbox>
 							</cell>
+						</row>
+						<row>
 							<cell sclass="row-title">E. de Orina:</cell>
-							<cell>
+							<cell colspan="2">
 								<hbox>
 									<textbox class="form-control  form-control-sm" id="txtExamenOrina" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 									<button id="btnUploadExamenOrina" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenOrina', upEvent=event)"/>
 								</hbox>
 							</cell>
-						</row>
-						<row>
 							<cell sclass="row-title">E. Coproparasitario:</cell>
-							<cell>
+							<cell colspan="2">
 								<hbox>
 									<textbox class="form-control  form-control-sm" id="txtExamenCoproparasitario" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 									<button id="btnUploadExamenCoproparasitario" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenCoproparasitario', upEvent=event)"/>
 								</hbox>
 							</cell>
+						</row>
+						<row>
 							<cell sclass="row-title">Radiografía Torax:</cell>
-							<cell>
+							<cell colspan="2">
 								<hbox>
 									<textbox class="form-control  form-control-sm" id="txtRadiografiaTorax" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 									<button id="btnUploadRadiografiaTorax" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirRadiografiaTorax', upEvent=event)"/>
 								</hbox>
 							</cell>
 							<cell sclass="row-title">Electrocardiograma:</cell>
-							<cell>
+							<cell colspan="2">
 								<hbox>
 									<textbox class="form-control  form-control-sm" id="txtElectrocardiograma" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 									<button id="btnUploadElectrocardiograma" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirElectrocardiograma', upEvent=event)"/>
@@ -171,7 +173,7 @@
 						</row>
 						<row>
 							<cell sclass="row-title">Ficha Médica:</cell>
-							<cell colspan="3">
+							<cell colspan="2">
 								<hbox>
 									<textbox class="form-control  form-control-sm" id="txtFichaMedica" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 									<button id="btnUploadFichaMedica" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirFichaMedica', upEvent=event)"/>
@@ -188,26 +190,26 @@
 					</caption>
 					<vlayout vflex="1" hflex="1">
 						<hlayout hflex="1">
-							<button id="btnNuevoFamiliar" class="but btn-form btn-sm"
-								iconSclass="z-icon-trash-o" height="32px" onClick="@command('nuevoFamiliar')" >
-								Nuevo
-							</button>
-							<button id="btnEliminarFamiliar" class="btn btn-outline-danger"
-								iconSclass="z-icon-trash-o" height="32px" onClick="@command('eliminarFamiliar')" >
-								Eliminar
-							</button>
+							<button id="btnNuevoFamiliar" class="but btn-form btn-sm" label="Nuevo"
+								iconSclass="z-icon-trash-o" height="32px" onClick="@command('nuevoFamiliar')" />
+							<button id="btnEliminarFamiliar" class="btn btn-outline-danger" label="Eliminar"
+								iconSclass="z-icon-trash-o" height="32px" onClick="@command('eliminarFamiliar')" />
 						</hlayout>
-						<listbox id="lstFamiliares" mold="paging" hflex="1" vflex="1" height="100px">
+						<listbox id="lstFamiliares" mold="paging" hflex="1" vflex="1" height="100px" model="@load(vm.listaFamiliar)">
 							<listhead>
-								<listheader label="Cédula" class="lb-listheader"/>
+								<listheader label="Cédula" class="lb-listheader" width="70px"/>
 								<listheader label="Nombres" class="lb-listheader"/>
-								<listheader label="Teléfono" class="lb-listheader"/>
+								<listheader label="Parentesco" class="lb-listheader" width="100px"/>
 							</listhead>
 							<template name="model">
 								<listitem>
-									<listcell class="lb-listcell"/>
-									<listcell class="lb-listcell"/>
-									<listcell class="lb-listcell"/>
+									<listcell label="${each.cedula}" class="lb-listcell"/>
+									<listcell class="lb-listcell">
+										<label value="${each.nombre}"/>
+										<label value=" "/>
+										<label value="${each.apellido}"/>
+									</listcell>
+									<listcell label="${each.tipoFamiliar.tipoFamiliar}" class="lb-listcell"/>
 								</listitem>
 							</template>
 						</listbox>
@@ -219,14 +221,10 @@
 					</caption>
 					<vlayout vflex="1" hflex="1">
 						<hlayout hflex="1">
-							<button id="btnNuevaCirugia" class="but btn-form btn-sm"
-								iconSclass="z-icon-trash-o" height="32px" onClick="@command('nuevaCirugia')" >
-								Nuevo
-							</button>
-							<button id="btnEliminarCirugia" class="btn btn-outline-danger"
-								iconSclass="z-icon-trash-o" height="32px" onClick="@command('eliminarCirugia')" >
-								Eliminar
-							</button>
+							<button id="btnNuevaCirugia" class="but btn-form btn-sm" label="Nuevo"
+								iconSclass="z-icon-trash-o" height="32px" onClick="@command('nuevaCirugia')"/>
+							<button id="btnEliminarCirugia" class="btn btn-outline-danger" label="Eliminar"
+								iconSclass="z-icon-trash-o" height="32px" onClick="@command('eliminarCirugia')" />
 						</hlayout>
 						<listbox id="lstCirugias" mold="paging" hflex="1" vflex="1" height="100px">
 							<listhead>
