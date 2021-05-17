@@ -4,184 +4,184 @@
 		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.bombero.control.registros.FichaMedicaC')">
 		<caption label="Ingrese datos de ficha médica" height="25px" class="modal-title-letters"/>
 		<vlayout>
-				<grid hflex="1">
-					<columns>
-						<column align="right" hflex="min" />
-						<column/>
-						<column align="right" hflex="min" />
-						<column/>
-						<column align="right" hflex="min" />
-						<column/>
-					</columns>
-					<rows>
-						<row>
-							<cell sclass="row-title">Nombre de vacunas:</cell>
-							<cell colspan="5">
-								<textbox id="txtVacunas" maxlength="300" class="form-control form-control-sm" placeholder="Vacunas" hflex="1"/>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">Medicinas alergia:</cell>
-							<cell colspan="5">
-								<textbox id="txtMedicinas" maxlength="300" class="form-control form-control-sm" placeholder="Nombre de medicinas" hflex="1"/>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">Alimentos alergia:</cell>
-							<cell colspan="5">
-								<textbox id="txtAlimentos" maxlength="300" class="form-control form-control-sm" placeholder="Nombre de alimentos" hflex="1"/>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">No. Partos:</cell>
-							<cell>
-								<textbox id="txtNoPartos" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de partos">
-									<attribute w:name="doKeyDown_"><![CDATA[
-										function (evt) {
-											var keyCode = event.keyCode;
-											if( keyCode == 8 // back space
-												|| keyCode == 13 // enter
-												|| keyCode == 16 // enter
-												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-												|| keyCode == 46) { // Delete
-												this.$doKeyDown_(evt);
-											} else if ( !evt.shiftKey &&  // only do without shift key
-												(keyCode >= 48 && keyCode <= 57)
-												|| (keyCode >= 96 && keyCode <= 105)) {// number range
-												this.$doKeyDown_(evt);
-											} else {
-												evt.stop();
-												return;
-											}
+			<grid hflex="1">
+				<columns>
+					<column align="right" hflex="min" />
+					<column/>
+					<column align="right" hflex="min" />
+					<column/>
+					<column align="right" hflex="min" />
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<cell sclass="row-title">Nombre de vacunas:</cell>
+						<cell colspan="5">
+							<textbox id="txtVacunas" maxlength="300" class="form-control form-control-sm" placeholder="Vacunas" hflex="1"/>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">Medicinas alergia:</cell>
+						<cell colspan="5">
+							<textbox id="txtMedicinas" maxlength="300" class="form-control form-control-sm" placeholder="Nombre de medicinas" hflex="1"/>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">Alimentos alergia:</cell>
+						<cell colspan="5">
+							<textbox id="txtAlimentos" maxlength="300" class="form-control form-control-sm" placeholder="Nombre de alimentos" hflex="1"/>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">No. Partos:</cell>
+						<cell>
+							<textbox id="txtNoPartos" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de partos">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
 										}
-									]]></attribute>
-								</textbox>
-							</cell>
-							<cell sclass="row-title">No. Abortos:</cell>
-							<cell>
-								<textbox id="txtNoAbortos" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de abortos">
-									<attribute w:name="doKeyDown_"><![CDATA[
-										function (evt) {
-											var keyCode = event.keyCode;
-											if( keyCode == 8 // back space
-												|| keyCode == 13 // enter
-												|| keyCode == 16 // enter
-												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-												|| keyCode == 46) { // Delete
-												this.$doKeyDown_(evt);
-											} else if ( !evt.shiftKey &&  // only do without shift key
-												(keyCode >= 48 && keyCode <= 57)
-												|| (keyCode >= 96 && keyCode <= 105)) {// number range
-												this.$doKeyDown_(evt);
-											} else {
-												evt.stop();
-												return;
-											}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+						<cell sclass="row-title">No. Abortos:</cell>
+						<cell>
+							<textbox id="txtNoAbortos" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de abortos">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
 										}
-									]]></attribute>
-								</textbox>
-							</cell>
-							<cell sclass="row-title">No. Cesáreas:</cell>
-							<cell>
-								<textbox id="txtNoCesareas" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de cesáreas">
-									<attribute w:name="doKeyDown_"><![CDATA[
-										function (evt) {
-											var keyCode = event.keyCode;
-											if( keyCode == 8 // back space
-												|| keyCode == 13 // enter
-												|| keyCode == 16 // enter
-												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-												|| keyCode == 46) { // Delete
-												this.$doKeyDown_(evt);
-											} else if ( !evt.shiftKey &&  // only do without shift key
-												(keyCode >= 48 && keyCode <= 57)
-												|| (keyCode >= 96 && keyCode <= 105)) {// number range
-												this.$doKeyDown_(evt);
-											} else {
-												evt.stop();
-												return;
-											}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+						<cell sclass="row-title">No. Cesáreas:</cell>
+						<cell>
+							<textbox id="txtNoCesareas" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de cesáreas">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
 										}
-									]]></attribute>
-								</textbox>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">No. Hijos:</cell>
-							<cell>
-								<textbox id="txtNoHijos" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de hijos">
-									<attribute w:name="doKeyDown_"><![CDATA[
-										function (evt) {
-											var keyCode = event.keyCode;
-											if( keyCode == 8 // back space
-												|| keyCode == 13 // enter
-												|| keyCode == 16 // enter
-												|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
-												|| keyCode == 46) { // Delete
-												this.$doKeyDown_(evt);
-											} else if ( !evt.shiftKey &&  // only do without shift key
-												(keyCode >= 48 && keyCode <= 57)
-												|| (keyCode >= 96 && keyCode <= 105)) {// number range
-												this.$doKeyDown_(evt);
-											} else {
-												evt.stop();
-												return;
-											}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">No. Hijos:</cell>
+						<cell>
+							<textbox id="txtNoHijos" maxlength="2" xmlns:w="client" class="form-control form-control-sm" placeholder="# de hijos">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
 										}
-									]]></attribute>
-								</textbox>
-							</cell>
-							<cell sclass="row-title">E. de sangre:</cell>
-							<cell colspan="2">
-								<hbox>
-									<textbox class="form-control  form-control-sm" id="txtExamenSangre" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
-									<button id="btnUploadExamenSangre" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenSangre', upEvent=event)"/>
-								</hbox>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">E. de Orina:</cell>
-							<cell colspan="2">
-								<hbox>
-									<textbox class="form-control  form-control-sm" id="txtExamenOrina" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
-									<button id="btnUploadExamenOrina" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenOrina', upEvent=event)"/>
-								</hbox>
-							</cell>
-							<cell sclass="row-title">E. Coproparasitario:</cell>
-							<cell colspan="2">
-								<hbox>
-									<textbox class="form-control  form-control-sm" id="txtExamenCoproparasitario" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
-									<button id="btnUploadExamenCoproparasitario" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenCoproparasitario', upEvent=event)"/>
-								</hbox>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">Radiografía Torax:</cell>
-							<cell colspan="2">
-								<hbox>
-									<textbox class="form-control  form-control-sm" id="txtRadiografiaTorax" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
-									<button id="btnUploadRadiografiaTorax" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirRadiografiaTorax', upEvent=event)"/>
-								</hbox>
-							</cell>
-							<cell sclass="row-title">Electrocardiograma:</cell>
-							<cell colspan="2">
-								<hbox>
-									<textbox class="form-control  form-control-sm" id="txtElectrocardiograma" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
-									<button id="btnUploadElectrocardiograma" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirElectrocardiograma', upEvent=event)"/>
-								</hbox>
-							</cell>
-						</row>
-						<row>
-							<cell sclass="row-title">Ficha Médica:</cell>
-							<cell colspan="2">
-								<hbox>
-									<textbox class="form-control  form-control-sm" id="txtFichaMedica" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
-									<button id="btnUploadFichaMedica" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirFichaMedica', upEvent=event)"/>
-								</hbox>
-							</cell>
-						</row>
-					</rows>
-				</grid>	
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+						<cell sclass="row-title">E. de sangre:</cell>
+						<cell colspan="2">
+							<hbox>
+								<textbox class="form-control  form-control-sm" id="txtExamenSangre" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
+								<button id="btnUploadExamenSangre" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenSangre', upEvent=event)"/>
+							</hbox>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">E. de Orina:</cell>
+						<cell colspan="2">
+							<hbox>
+								<textbox class="form-control  form-control-sm" id="txtExamenOrina" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
+								<button id="btnUploadExamenOrina" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenOrina', upEvent=event)"/>
+							</hbox>
+						</cell>
+						<cell sclass="row-title">E. Coproparasitario:</cell>
+						<cell colspan="2">
+							<hbox>
+								<textbox class="form-control  form-control-sm" id="txtExamenCoproparasitario" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
+								<button id="btnUploadExamenCoproparasitario" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenCoproparasitario', upEvent=event)"/>
+							</hbox>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">Radiografía Torax:</cell>
+						<cell colspan="2">
+							<hbox>
+								<textbox class="form-control  form-control-sm" id="txtRadiografiaTorax" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
+								<button id="btnUploadRadiografiaTorax" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirRadiografiaTorax', upEvent=event)"/>
+							</hbox>
+						</cell>
+						<cell sclass="row-title">Electrocardiograma:</cell>
+						<cell colspan="2">
+							<hbox>
+								<textbox class="form-control  form-control-sm" id="txtElectrocardiograma" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
+								<button id="btnUploadElectrocardiograma" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirElectrocardiograma', upEvent=event)"/>
+							</hbox>
+						</cell>
+					</row>
+					<row>
+						<cell sclass="row-title">Ficha Médica:</cell>
+						<cell colspan="2">
+							<hbox>
+								<textbox class="form-control  form-control-sm" id="txtFichaMedica" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
+								<button id="btnUploadFichaMedica" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirFichaMedica', upEvent=event)"/>
+							</hbox>
+						</cell>
+					</row>
+				</rows>
+			</grid>	
 			
 			<hlayout>
 				<groupbox hflex="1" vflex="1">

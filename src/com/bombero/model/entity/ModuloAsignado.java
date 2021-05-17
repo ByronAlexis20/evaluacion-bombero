@@ -4,11 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the modulo_asignado database table.
- * 
- */
 @Entity
 @Table(name="modulo_asignado")
 @NamedQuery(name="ModuloAsignado.findAll", query="SELECT m FROM ModuloAsignado m")
@@ -38,8 +33,8 @@ public class ModuloAsignado implements Serializable {
 
 	//bi-directional many-to-one association to Matricula
 	@ManyToOne
-	@JoinColumn(name="id_matricula")
-	private Matricula matricula;
+	@JoinColumn(name="id_periodo")
+	private Periodo periodo;
 
 	public ModuloAsignado() {
 	}
@@ -98,12 +93,12 @@ public class ModuloAsignado implements Serializable {
 		this.instructor = instructor;
 	}
 
-	public Matricula getMatricula() {
-		return this.matricula;
+	public Periodo getPeriodo() {
+		return periodo;
 	}
 
-	public void setMatricula(Matricula matricula) {
-		this.matricula = matricula;
+	public void setPeriodo(Periodo periodo) {
+		this.periodo = periodo;
 	}
 
 }

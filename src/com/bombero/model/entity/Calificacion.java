@@ -42,6 +42,10 @@ public class Calificacion implements Serializable {
 	@JoinColumn(name="id_asignacion")
 	private ModuloAsignado moduloAsignado;
 
+	@ManyToOne
+	@JoinColumn(name="id_matricula")
+	private Matricula matricula;
+	
 	public Calificacion() {
 	}
 
@@ -117,4 +121,11 @@ public class Calificacion implements Serializable {
 		this.moduloAsignado = moduloAsignado;
 	}
 
+	public Matricula getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(Matricula matricula) {
+		this.matricula = matricula;
+	}
 }

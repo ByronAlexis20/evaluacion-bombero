@@ -1,0 +1,94 @@
+<?page title="Instructores" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winInstructorEditar" width="37%" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		viewModel="@id('vm') @init('com.bombero.control.registros.InstructorEditarC')">
+		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid hflex="1">
+				<columns>
+					<column align="right" hflex="min" />
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						<cell class="label-form">Cédula:</cell>
+						<cell>
+							<textbox
+								class="form-control form-control-sm"
+								id="txtCedula" hflex="1" value="@bind(vm.instructor.cedula)" xmlns:w="client">
+								<attribute w:name="doKeyDown_"><![CDATA[
+									function (evt) {
+										var keyCode = event.keyCode;
+										if( keyCode == 8 // back space
+											|| keyCode == 13 // enter
+											|| keyCode == 16 // enter
+											|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+											|| keyCode == 46) { // Delete
+											this.$doKeyDown_(evt);
+										} else if ( !evt.shiftKey &&  // only do without shift key
+											(keyCode >= 48 && keyCode <= 57)
+											|| (keyCode >= 96 && keyCode <= 105)) {// number range
+											this.$doKeyDown_(evt);
+										} else {
+											evt.stop();
+											return;
+										}
+									}
+								]]></attribute>
+							</textbox>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Nombres:</cell>
+						<cell>
+							<textbox class="form-control form-control-sm" id="txtNombres" hflex="1" value="@bind(vm.instructor.nombre)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Apellidos:</cell>
+						<cell>
+							<textbox class="form-control form-control-sm" id="txtApellidos" hflex="1" value="@bind(vm.instructor.apellido)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Grado:</cell>
+						<cell>
+							<textbo class="form-control form-control-sm" id="txtGrado" hflex="1" value="@bind(vm.instructor.grado)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Cargo:</cell>
+						<cell>
+							<textbo class="form-control form-control-sm" id="txtCargo" hflex="1" value="@bind(vm.instructor.cargo)"/>
+						</cell>
+					</row>
+					<row>
+						<cell class="label-form">Tipo de Sangre:</cell>
+						<cell>
+							<combobox id="cboTipoSangre" hflex="1"
+								readonly="true"
+								>
+								<template name="model">
+									<comboitem label="" />
+								</template>
+							</combobox>
+						</cell>
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

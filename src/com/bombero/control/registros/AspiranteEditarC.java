@@ -3,7 +3,9 @@ package com.bombero.control.registros;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -242,6 +244,30 @@ public class AspiranteEditarC {
 		}else {
 			txtNomnbreConyuge.setDisabled(false);
 		}
+	}
+	//documentos
+	@Command
+	public void nuevoDocumento() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Aspirante", null);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoRegistro.zul", null, params);
+		ventanaCargar.doModal();
+	}
+	//ficha medica
+	@Command
+	public void nuevoFamiliar() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Aspirante", aspirante);
+		params.put("Ventana", this);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/familiares.zul", null, params);
+		ventanaCargar.doModal();
+	}
+	@Command
+	public void nuevaCirugia() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Aspirante", null);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/cirugia.zul", null, params);
+		ventanaCargar.doModal();
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command

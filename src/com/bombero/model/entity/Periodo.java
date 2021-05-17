@@ -46,6 +46,10 @@ public class Periodo implements Serializable {
 	//bi-directional many-to-one association to Matricula
 	@OneToMany(mappedBy="periodo")
 	private List<Matricula> matriculas;
+	
+	//bi-directional many-to-one association to ModuloAsignado
+	@OneToMany(mappedBy="periodo")
+	private List<ModuloAsignado> moduloAsignados;
 
 	public Periodo() {
 	}
@@ -132,6 +136,28 @@ public class Periodo implements Serializable {
 		matricula.setPeriodo(null);
 
 		return matricula;
+	}
+	
+	public List<ModuloAsignado> getModuloAsignados() {
+		return this.moduloAsignados;
+	}
+
+	public void setModuloAsignados(List<ModuloAsignado> moduloAsignados) {
+		this.moduloAsignados = moduloAsignados;
+	}
+
+	public ModuloAsignado addModuloAsignado(ModuloAsignado moduloAsignado) {
+		getModuloAsignados().add(moduloAsignado);
+		moduloAsignado.setPeriodo(this);
+
+		return moduloAsignado;
+	}
+
+	public ModuloAsignado removeModuloAsignado(ModuloAsignado moduloAsignado) {
+		getModuloAsignados().remove(moduloAsignado);
+		moduloAsignado.setPeriodo(null);
+
+		return moduloAsignado;
 	}
 
 	public String getEstadoPeriodo() {

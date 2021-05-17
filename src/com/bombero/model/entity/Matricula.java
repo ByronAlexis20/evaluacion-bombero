@@ -40,13 +40,13 @@ public class Matricula implements Serializable {
 	@JoinColumn(name="id_periodo")
 	private Periodo periodo;
 
-	//bi-directional many-to-one association to ModuloAsignado
-	@OneToMany(mappedBy="matricula")
-	private List<ModuloAsignado> moduloAsignados;
-
 	//bi-directional many-to-one association to ResultadoEvaluacion
 	@OneToMany(mappedBy="matricula")
 	private List<ResultadoEvaluacion> resultadoEvaluacions;
+	
+	//bi-directional many-to-one association to Calificacion
+	@OneToMany(mappedBy="matricula")
+	private List<Calificacion> calificacions;
 
 	public Matricula() {
 	}
@@ -91,28 +91,6 @@ public class Matricula implements Serializable {
 		this.periodo = periodo;
 	}
 
-	public List<ModuloAsignado> getModuloAsignados() {
-		return this.moduloAsignados;
-	}
-
-	public void setModuloAsignados(List<ModuloAsignado> moduloAsignados) {
-		this.moduloAsignados = moduloAsignados;
-	}
-
-	public ModuloAsignado addModuloAsignado(ModuloAsignado moduloAsignado) {
-		getModuloAsignados().add(moduloAsignado);
-		moduloAsignado.setMatricula(this);
-
-		return moduloAsignado;
-	}
-
-	public ModuloAsignado removeModuloAsignado(ModuloAsignado moduloAsignado) {
-		getModuloAsignados().remove(moduloAsignado);
-		moduloAsignado.setMatricula(null);
-
-		return moduloAsignado;
-	}
-
 	public List<ResultadoEvaluacion> getResultadoEvaluacions() {
 		return this.resultadoEvaluacions;
 	}
@@ -134,5 +112,25 @@ public class Matricula implements Serializable {
 
 		return resultadoEvaluacion;
 	}
+	public List<Calificacion> getCalificacions() {
+		return this.calificacions;
+	}
 
+	public void setCalificacions(List<Calificacion> calificacions) {
+		this.calificacions = calificacions;
+	}
+
+	public Calificacion addCalificacion(Calificacion calificacion) {
+		getCalificacions().add(calificacion);
+		calificacion.setMatricula(this);
+
+		return calificacion;
+	}
+
+	public Calificacion removeCalificacion(Calificacion calificacion) {
+		getCalificacions().remove(calificacion);
+		calificacion.setMatricula(null);
+
+		return calificacion;
+	}
 }
