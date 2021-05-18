@@ -55,13 +55,13 @@
 					<row>
 						<cell class="label-form">Grado:</cell>
 						<cell>
-							<textbo class="form-control form-control-sm" id="txtGrado" hflex="1" value="@bind(vm.instructor.grado)"/>
+							<textbox class="form-control form-control-sm" id="txtGrado" hflex="1" value="@bind(vm.instructor.grado)"/>
 						</cell>
 					</row>
 					<row>
 						<cell class="label-form">Cargo:</cell>
 						<cell>
-							<textbo class="form-control form-control-sm" id="txtCargo" hflex="1" value="@bind(vm.instructor.cargo)"/>
+							<textbox class="form-control form-control-sm" id="txtCargo" hflex="1" value="@bind(vm.instructor.cargo)"/>
 						</cell>
 					</row>
 					<row>
