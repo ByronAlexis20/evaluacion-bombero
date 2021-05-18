@@ -1,6 +1,56 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Asignacion de guardias" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
-</window>
+	<window border="none" hflex="1" vflex="1"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.bombero.control.asignaciones.AsignarGuardiaListaC')" id="winAsignacionGuardia">
+		<vlayout hflex="1" vflex="1">
+			<div style="margin-top:10px">
+				<label value="Asignación de guardias por compañía"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<groupbox hflex="1" vflex="1">
+				<vlayout hflex="1" vflex="1">
+					<hbox align="center" hflex="1" pack="center">
+						<label value="Seleccione Compañía" style="font-size:14px;font-weight:bold;"/>
+					</hbox>
+					<hbox align="center" hflex="1" pack="center">
+						<combobox placeholder="Seleccione compañía" width="500px" id="cboCompania"
+								
+								>
+							<template name="model">
+								<comboitem label="${each.nombre}"/>
+							</template>
+						</combobox>
+					</hbox>
+					<hbox align="center" hflex="1" pack="center">
+						<button label="Agregar Guardia" onClick="@command('agregarGuardia')" zclass="btn btn-outline-primary btn-sm"/>
+						<button label="Quitar Guardia" onClick="@command('quitarGuardia')" zclass="btn btn-outline-danger btn-sm"/>
+					</hbox>
+					<groupbox hflex="1" vflex="1">
+						<listbox id="lstGuardias" hflex="1" vflex="1"
+								
+								>
+							<listhead>
+								<listheader label="Compañía" />
+								<listheader label="Bombero"/> 
+								<listheader label="Fecha Inicio"/>
+								<listheader label="Fecha Fin"/>
+								<listheader label="Estado"/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell label="@load{each.compania.nombre}" />
+									<listcell label="@load{each.personalAutorizado.persona.nombre} ${each.personalAutorizado.persona.apellido}"/>
+									<listcell label="@load{each.fechaInicio} @converter('formattedDate', format='yyyy/MM/dd')" />
+									<listcell label="@load{each.fechaFin} @converter('formattedDate', format='yyyy/MM/dd')" />
+									<listcell label="@load{each.estado}" />
+								</listitem>
+							</template>
+						</listbox>
+					</groupbox>
+				</vlayout>
+			</groupbox>
+		</vlayout>
+	</window>
 </zk>

@@ -1,4 +1,4 @@
-<?page title="Lista de Instructores" contentType="text/html;charset=UTF-8"?>
+<?page title="Registro de preguntas" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window id="winRegistroLista" border="none" hflex="1" vflex="1"
 		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.bombero.control.evaluacion.RegistroPreguntasC')">
@@ -59,18 +59,12 @@
 										<caption label="Preguntas"/>
 										<vbox hflex="1" vflex="1">
 											<div>
-												<button id="btnNuevoPregunta" class="btn btn-outline-primary"
-													iconSclass="z-icon-plus" height="32px">
-													Nuevo
-												</button>
-												<button id="btnEditarPregunta" class="btn btn-outline-success"
-													iconSclass="z-icon-pencil" height="32px">
-													Editar
-												</button>
-												<button id="btnEliminarPregunta" class="btn btn-outline-danger"
-													iconSclass="z-icon-trash-o" height="32px">
-													Eliminar
-												</button>
+												<button zclass="btn btn-outline-primary btn-sm" onClick="@command('nuevaPregunta')"
+													iconSclass="z-icon-plus" label="Nuevo"/>
+												<button zclass="btn btn-outline-success btn-sm" onClick="@command('editarPregunta')"
+													iconSclass="z-icon-pencil" label="Editar"/>
+												<button zclass="btn btn-outline-danger btn-sm" onClick="@command('eliminarPregunta')"
+													iconSclass="z-icon-trash-o" label="Eliminar"/>
 											</div>
 											<listbox id="lstPreguntas" hflex="1"
 												vflex="1" >
