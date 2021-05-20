@@ -94,7 +94,7 @@ public class UsuarioEditarC {
 				}
 			}
 		});
-	}	
+	}
 	
 	public boolean validarDatos() {
 		if(txtCedula.getText().isEmpty()) {

@@ -15,8 +15,7 @@
 					<row>
 						<cell class="label-form">Cédula:</cell>
 						<cell>
-							<textbox
-								class="form-control form-control-sm"
+							<textbox class="form-control form-control-sm" maxlength="10"
 								id="txtCedula" hflex="1" value="@bind(vm.instructor.cedula)" xmlns:w="client">
 								<attribute w:name="doKeyDown_"><![CDATA[
 									function (evt) {

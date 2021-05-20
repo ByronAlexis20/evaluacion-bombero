@@ -4,21 +4,21 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the instructor database table.
- * 
- */
 @Entity
-@NamedQuery(name="Instructor.buscarPorPatron", query="SELECT i FROM Instructor i where (lower(i.nombre) like(:patron) or "
-		+ "lower(i.apellido) like(:patron)) and i.estado = 'A'")
+@Table(name="instructor")
+@NamedQueries({
+	@NamedQuery(name="Instructor.buscarPorPatron", query="SELECT i FROM Instructor i where (lower(i.nombre) like(:patron) or "
+		+ "lower(i.apellido) like(:patron)) and i.estado = 'A'"),
+	@NamedQuery(name="Instructor.buscarPorCedulaInstructor", query="SELECT i FROM Instructor i where i.cedula = :cedula and i.idInstructor <> :id and i.estado = 'A'"),
+	@NamedQuery(name="Instructor.buscarPorCedula", query="SELECT i FROM Instructor i where i.cedula = :cedula and i.estado = 'A'")
+})
 public class Instructor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_instructor")
-	private int idInstructor;
+	private Integer idInstructor;
 
 	private String apellido;
 
@@ -50,11 +50,11 @@ public class Instructor implements Serializable {
 	public Instructor() {
 	}
 
-	public int getIdInstructor() {
+	public Integer getIdInstructor() {
 		return this.idInstructor;
 	}
 
-	public void setIdInstructor(int idInstructor) {
+	public void setIdInstructor(Integer idInstructor) {
 		this.idInstructor = idInstructor;
 	}
 

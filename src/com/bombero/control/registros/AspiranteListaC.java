@@ -163,32 +163,32 @@ public class AspiranteListaC {
 			}
 		});
 	}
-	@Command
-	public void documentos() {
-		if(lstAspirantes.getSelectedItem() == null) {
-			Clients.showNotification("Debe seleccionar un registro");
-			return;
-		}
-		MatriculaMostrar matriculaSel = (MatriculaMostrar)lstAspirantes.getSelectedItem().getValue();
-		matriculaDAO.getEntityManager().refresh(matriculaSel.getMatricula());
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Matricula", matriculaSel.getMatricula());
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoLista.zul", null, params);
-		ventanaCargar.doModal();
-	}
-	@Command
-	public void fichaMedica() {
-		if(lstAspirantes.getSelectedItem() == null) {
-			Clients.showNotification("Debe seleccionar un registro");
-			return;
-		}
-		MatriculaMostrar matriculaSel = (MatriculaMostrar)lstAspirantes.getSelectedItem().getValue();
-		matriculaDAO.getEntityManager().refresh(matriculaSel.getMatricula());
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Aspirante", matriculaSel.getMatricula().getAspirante());
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/fichaMedica.zul", null, params);
-		ventanaCargar.doModal();
-	}
+//	@Command
+//	public void documentos() {
+//		if(lstAspirantes.getSelectedItem() == null) {
+//			Clients.showNotification("Debe seleccionar un registro");
+//			return;
+//		}
+//		MatriculaMostrar matriculaSel = (MatriculaMostrar)lstAspirantes.getSelectedItem().getValue();
+//		matriculaDAO.getEntityManager().refresh(matriculaSel.getMatricula());
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("Matricula", matriculaSel.getMatricula());
+//		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoLista.zul", null, params);
+//		ventanaCargar.doModal();
+//	}
+//	@Command
+//	public void fichaMedica() {
+//		if(lstAspirantes.getSelectedItem() == null) {
+//			Clients.showNotification("Debe seleccionar un registro");
+//			return;
+//		}
+//		MatriculaMostrar matriculaSel = (MatriculaMostrar)lstAspirantes.getSelectedItem().getValue();
+//		matriculaDAO.getEntityManager().refresh(matriculaSel.getMatricula());
+//		Map<String, Object> params = new HashMap<String, Object>();
+//		params.put("Aspirante", matriculaSel.getMatricula().getAspirante());
+//		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/fichaMedica.zul", null, params);
+//		ventanaCargar.doModal();
+//	}
 	public List<Periodo> getPeriodoLista() {
 		return periodoLista;
 	}

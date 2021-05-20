@@ -12,6 +12,7 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -23,11 +24,13 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.CantonDAO;
+import com.bombero.model.dao.DocumentoDAO;
 import com.bombero.model.dao.EstadoCivilDAO;
 import com.bombero.model.dao.GeneroDAO;
 import com.bombero.model.dao.InstruccionDAO;
@@ -38,6 +41,7 @@ import com.bombero.model.dao.ProvinciaDAO;
 import com.bombero.model.dao.TipoSangreDAO;
 import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.Canton;
+import com.bombero.model.entity.Documento;
 import com.bombero.model.entity.EstadoCivil;
 import com.bombero.model.entity.Genero;
 import com.bombero.model.entity.Instruccion;
@@ -78,7 +82,7 @@ public class AspiranteEditarC {
 	@Wire private Combobox cboTipoSangre;
 	@Wire private Combobox cboEstadoCivil;
 	@Wire private Combobox cboInstruccion;
-	@Wire private Combobox cboProfesion;
+	@Wire private Combobox cboProfesion;	
 	
 	PaisDAO paisDAO = new PaisDAO();
 	GeneroDAO generoDAO = new GeneroDAO();
@@ -114,6 +118,13 @@ public class AspiranteEditarC {
 	
 	MatriculaDAO matriculaDAO = new MatriculaDAO();
 	ControllerHelper helper = new ControllerHelper();
+	
+	/***************************************************************************************
+	 * Documentos 
+	****************************************************************************************/
+	@Wire private Listbox lstDocumentos;
+	List<Documento> listaDocumentos;
+	DocumentoDAO documentoDAO = new DocumentoDAO();
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -188,6 +199,7 @@ public class AspiranteEditarC {
 			txtCantidadHijos.setDisabled(false);
 			txtNomnbreConyuge.setDisabled(false);
 		}
+		this.cargarDocumentos();
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"listaProvincia","listaProvinciaResidencia"})
@@ -244,14 +256,6 @@ public class AspiranteEditarC {
 		}else {
 			txtNomnbreConyuge.setDisabled(false);
 		}
-	}
-	//documentos
-	@Command
-	public void nuevoDocumento() {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Aspirante", null);
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoRegistro.zul", null, params);
-		ventanaCargar.doModal();
 	}
 	//ficha medica
 	@Command
@@ -472,6 +476,36 @@ public class AspiranteEditarC {
 			return false;
 		}
 	}
+	/**************************************************************************************************************************************************************************************************
+	 * Documentos 
+	***************************************************************************************************************************************************************************************************/
+	@GlobalCommand("Documento.buscarPorAspirante")
+	@NotifyChange({"listaDocumentos"})
+	public void cargarDocumentos() {
+		try {
+			if(listaDocumentos != null)
+				listaDocumentos = null;
+			listaDocumentos = documentoDAO.buscarPorAspirante(aspirante.getIdAspirante());
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+	@Command
+	public void nuevoDocumento() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Aspirante", null);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoRegistro.zul", null, params);
+		ventanaCargar.doModal();
+	}
+	
+	public void recuperarDocumento(Documento doc) {
+		if(listaDocumentos == null) {
+			listaDocumentos = new ArrayList<>();
+		}
+		listaDocumentos.add(doc);
+	}
+	
+	
 	@Command
 	public void salir() {
 		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
@@ -597,5 +631,11 @@ public class AspiranteEditarC {
 	}
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
+	}
+	public List<Documento> getListaDocumentos() {
+		return listaDocumentos;
+	}
+	public void setListaDocumentos(List<Documento> listaDocumentos) {
+		this.listaDocumentos = listaDocumentos;
 	}
 }

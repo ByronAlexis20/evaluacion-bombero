@@ -44,7 +44,6 @@ public class DocumentoRegistroC {
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
 		aspirante = (Aspirante) Executions.getCurrent().getArg().get("Aspirante");
-		//documentoListaC = (DocumentoListaC) Executions.getCurrent().getArg().get("VentanaPadre");
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
@@ -99,7 +98,6 @@ public class DocumentoRegistroC {
 	@Command
 	public void salir() {
 		BindUtils.postGlobalCommand(null, null, "Documento.buscarPorAspirante", null);
-		//documentoListaC.cargarDocumentos();
 		winDocumentoRegistro.detach();
 	}
 	@Command

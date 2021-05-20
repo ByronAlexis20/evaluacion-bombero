@@ -42,7 +42,7 @@ public class CompaniaEditarC {
 		try {
 			Boolean retorna = true;
 			if(txtNombre.getText().isEmpty()) {
-				Clients.showNotification("Obligatoria regitrar el nombre de la Comañia","info",txtNombre,"end_center",2000);
+				Clients.showNotification("Obligatoria regitrar el nombre de la Compañía","info",txtNombre,"end_center",2000);
 				txtNombre.setFocus(true);
 				return retorna;
 			}

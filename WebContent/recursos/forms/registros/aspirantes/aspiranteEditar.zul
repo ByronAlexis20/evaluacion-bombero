@@ -360,11 +360,9 @@
 					</tabpanel>
 					<tabpanel>
 						<vlayout hflex="1" vflex="1">
-							<button id="btnDocumentos" zclass="btn btn-outline-primary btn-sm"
-								iconSclass="z-icon-trash-o" onClick="@command('nuevoDocumento')" >
-								Nuevo Documento
-							</button>
-							<listbox id="lstDocumentos"  autopaging="true" 
+							<button id="btnDocumentos" zclass="btn btn-outline-primary btn-sm" label="Nuevo documento"
+								iconSclass="z-icon-trash-o" onClick="@command('nuevoDocumento')" />
+							<listbox id="lstDocumentos"  autopaging="true" model="@load(vm.listaDocumentos)"
 								mold="paging" hflex="1" vflex="1">
 								<listhead>
 									<listheader label="Código" width="14%" class="lb-listheader"/>
