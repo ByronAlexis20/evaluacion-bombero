@@ -7,6 +7,8 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
@@ -14,16 +16,29 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
 
+import com.bombero.model.dao.InstructorDAO;
 import com.bombero.model.entity.Instructor;
 
 public class InstructorListaC {
 	public String textoBuscar;
 	@Wire private Listbox lstInstructores;
 	List<Instructor> instructorLista;
+	InstructorDAO instructorDAO = new InstructorDAO();
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
 		textoBuscar="";
+		buscar();
+	}
+	
+	@GlobalCommand("Instructor.buscarPorPatron")
+	@Command
+	@NotifyChange({"instructorLista"})
+	public void buscar(){
+		if (instructorLista != null) {
+			instructorLista = null; 
+		}
+		instructorLista = instructorDAO.buscarPorNombreApellido(textoBuscar);
 	}
 	@Command
 	public void nuevo(){

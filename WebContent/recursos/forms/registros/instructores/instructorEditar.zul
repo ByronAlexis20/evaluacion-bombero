@@ -68,10 +68,10 @@
 						<cell class="label-form">Tipo de Sangre:</cell>
 						<cell>
 							<combobox id="cboTipoSangre" hflex="1"
-								readonly="true"
-								>
+								model="@load(vm.tipoSangres)" readonly="true"
+								selectedItem="@bind(vm.tipoSangreSeleccionado)">
 								<template name="model">
-									<comboitem label="" />
+									<comboitem label="${each.tipoSangre}" />
 								</template>
 							</combobox>
 						</cell>

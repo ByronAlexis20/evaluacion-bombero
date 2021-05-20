@@ -10,7 +10,8 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Instructor.findAll", query="SELECT i FROM Instructor i")
+@NamedQuery(name="Instructor.buscarPorPatron", query="SELECT i FROM Instructor i where (lower(i.nombre) like(:patron) or "
+		+ "lower(i.apellido) like(:patron)) and i.estado = 'A'")
 public class Instructor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
