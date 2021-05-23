@@ -4,6 +4,7 @@
 		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.bombero.control.registros.AspiranteEditarC')">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
+			<!-- DATOS PERSONALES ---------------------------------------------------------------------------------------------------------------- -->
 			<tabbox hflex="1" vflex="1">
 				<tabs hflex="1">
 					<tab label="Datos Personales" hflex="1"/>
@@ -358,34 +359,33 @@
 						</groupbox>
 						</vlayout>
 					</tabpanel>
+					<!-- DOCUMENTOS ---------------------------------------------------------------------------------------------------------------- -->
 					<tabpanel>
 						<vlayout hflex="1" vflex="1">
-							<button id="btnDocumentos" zclass="btn btn-outline-primary btn-sm" label="Nuevo documento"
-								iconSclass="z-icon-trash-o" onClick="@command('nuevoDocumento')" />
+							<hlayout hflex="1">
+								<button zclass="btn btn-outline-primary btn-sm" label="Nuevo documento"
+									iconSclass="z-icon-plus" onClick="@command('nuevoDocumento')" />
+								<button zclass="btn btn-outline-success btn-sm" label="Descargar"
+									iconSclass="z-icon-download" onClick="@command('descargarDocumento')" />
+								<button zclass="btn btn-outline-danger btn-sm" label="Eliminar documento"
+									iconSclass="z-icon-trash-o" onClick="@command('eliminarDocumento')" />
+							</hlayout>
 							<listbox id="lstDocumentos"  autopaging="true" model="@load(vm.listaDocumentos)"
 								mold="paging" hflex="1" vflex="1">
 								<listhead>
 									<listheader label="Código" width="14%" class="lb-listheader"/>
 									<listheader label="Tipo Documento" class="lb-listheader"/>
-									<listheader label="Acción" width="30%" align="center" class="lb-listheader"/>
 								</listhead>
 								<template name="model">
 									<listitem>
-										<listcell label="@load(each.idDocumento)" class="lb-listcell"/>
-										<listcell label="@load(each.tipoDocumento.tipoDocumento)" class="lb-listcell"/>
-										<listcell>
-											<div align="center">
-												<button label="descargar" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
-													onClick="@command('descargar',documento=each)" />
-												<button label="Eliminar" iconSclass="z-icon-trash-o" zclass="btn-eliminar btn-size"
-													onClick="@command('eliminar',documento=each)" />
-											</div>
-										</listcell>
+										<listcell label="${each.idDocumento}" class="lb-listcell"/>
+										<listcell label="${each.tipoDocumento.tipoDocumento}" class="lb-listcell"/>
 									</listitem>
 								</template>
 							</listbox>
 						</vlayout>
 					</tabpanel>
+					<!-- FICHA MEDICA ---------------------------------------------------------------------------------------------------------------- -->
 					<tabpanel>
 						<vlayout hflex="1">
 							<grid hflex="1">

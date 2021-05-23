@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.zkoss.bind.BindContext;
-import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -26,7 +25,6 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.TipoDocumentoDAO;
-import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.Documento;
 import com.bombero.model.entity.TipoDocumento;
 import com.bombero.util.Globals;
@@ -38,12 +36,11 @@ public class DocumentoRegistroC {
 	TipoDocumentoDAO tipoDocumentoDAO = new TipoDocumentoDAO();
 	TipoDocumento tipoDocumentoSeleccionado;
 	Media mediaDocumento;
-	Aspirante aspirante;
-	//DocumentoListaC documentoListaC;
+	AspiranteEditarC aspiranteEditarC;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
-		aspirante = (Aspirante) Executions.getCurrent().getArg().get("Aspirante");
+		aspiranteEditarC = (AspiranteEditarC) Executions.getCurrent().getArg().get("Ventana");
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
@@ -64,27 +61,22 @@ public class DocumentoRegistroC {
 						try {
 							String rutaProyecto = Globals.PATH_SISTEMA;
 							rutaProyecto = rutaProyecto + Globals.PATH_ARCHIVO;
-							String rutaArchivo = rutaProyecto + "\\" + tipoDocumentoSeleccionado.getInicialesArchivo() + "-" + aspirante.getCedula() + ".pdf";
+							String rutaArchivo = rutaProyecto + "\\" + tipoDocumentoSeleccionado.getInicialesArchivo() + "-" + mediaDocumento.getName();
 							Documento doc = new Documento();
 							doc.setEstado("A");
 							doc.setIdDocumento(null);
 							doc.setTipoDocumento(tipoDocumentoSeleccionado);
 							doc.setRutaDocumento(rutaArchivo);
-							doc.setAspirante(aspirante);
 							File folder = new File(rutaProyecto);
 							if (folder.exists()) {
 							}else {
 								folder.mkdir();
 							}
 							Files.copy(new File(rutaArchivo),mediaDocumento.getStreamData());
-							tipoDocumentoDAO.getEntityManager().getTransaction().begin();
-							tipoDocumentoDAO.getEntityManager().persist(doc);
-							tipoDocumentoDAO.getEntityManager().getTransaction().commit();
-							Clients.showNotification("Proceso Ejecutado con exito.");
+							aspiranteEditarC.recuperarDocumento(doc);
 							salir();						
 						} catch (Exception e) {
-							e.printStackTrace();
-							tipoDocumentoDAO.getEntityManager().getTransaction().rollback();
+							System.out.println(e.getMessage());
 						}
 					}
 				}
@@ -97,7 +89,6 @@ public class DocumentoRegistroC {
 	}
 	@Command
 	public void salir() {
-		BindUtils.postGlobalCommand(null, null, "Documento.buscarPorAspirante", null);
 		winDocumentoRegistro.detach();
 	}
 	@Command

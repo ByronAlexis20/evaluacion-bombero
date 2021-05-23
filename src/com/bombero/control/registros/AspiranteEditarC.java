@@ -1,5 +1,7 @@
 package com.bombero.control.registros;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -21,8 +23,10 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -125,6 +129,41 @@ public class AspiranteEditarC {
 	@Wire private Listbox lstDocumentos;
 	List<Documento> listaDocumentos;
 	DocumentoDAO documentoDAO = new DocumentoDAO();
+	
+	/***************************************************************************************
+	 * Ficha Medica
+	****************************************************************************************/
+	@Wire private Textbox txtVacunas;
+	@Wire private Textbox txtMedicinas;
+	@Wire private Textbox txtAlimentos;
+	@Wire private Textbox txtNoPartos;
+	@Wire private Textbox txtNoAbortos;
+	@Wire private Textbox txtNoCesareas;
+	@Wire private Textbox txtNoHijos;
+	@Wire private Textbox txtExamenSangre;
+	@Wire private Button btnUploadExamenSangre;
+	@Wire private Textbox txtExamenOrina;
+	@Wire private Button btnUploadExamenOrina;
+	@Wire private Textbox txtExamenCoproparasitario;
+	@Wire private Button btnUploadExamenCoproparasitario;
+	@Wire private Textbox txtRadiografiaTorax;
+	@Wire private Button btnUploadRadiografiaTorax;
+	@Wire private Textbox txtElectrocardiograma;
+	@Wire private Button btnUploadElectrocardiograma;
+	@Wire private Textbox txtFichaMedica;
+	@Wire private Button btnUploadFichaMedica;
+	@Wire private Button btnNuevoFamiliar;
+	@Wire private Button btnEliminarFamiliar;
+	@Wire Listbox lstFamiliares;
+	@Wire private Button btnNuevaCirugia;
+	@Wire private Button btnEliminarCirugia;
+	@Wire private Listbox lstCirugias;
+	Media mediaExamenSangre;
+	Media mediaExamenOrina;
+	Media mediaExamenCoproparasito;
+	Media mediaRadiografiaTorax;
+	Media mediaElectrocardiograma;
+	Media mediaFichaMedica;
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -479,6 +518,7 @@ public class AspiranteEditarC {
 	/**************************************************************************************************************************************************************************************************
 	 * Documentos 
 	***************************************************************************************************************************************************************************************************/
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GlobalCommand("Documento.buscarPorAspirante")
 	@NotifyChange({"listaDocumentos"})
 	public void cargarDocumentos() {
@@ -486,6 +526,7 @@ public class AspiranteEditarC {
 			if(listaDocumentos != null)
 				listaDocumentos = null;
 			listaDocumentos = documentoDAO.buscarPorAspirante(aspirante.getIdAspirante());
+			lstDocumentos.setModel(new ListModelList(listaDocumentos));
 		}catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		}
@@ -493,23 +534,69 @@ public class AspiranteEditarC {
 	@Command
 	public void nuevoDocumento() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Aspirante", null);
+		params.put("Ventana", this);
 		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/documentoRegistro.zul", null, params);
 		ventanaCargar.doModal();
 	}
-	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@NotifyChange({"listaDocumentos"})
 	public void recuperarDocumento(Documento doc) {
 		if(listaDocumentos == null) {
 			listaDocumentos = new ArrayList<>();
 		}
 		listaDocumentos.add(doc);
+		lstDocumentos.setModel(new ListModelList(listaDocumentos));
 	}
 	
+	@Command
+	public void descargarDocumento() throws FileNotFoundException{
+		if(lstDocumentos.getSelectedItem() == null) {
+			Clients.showNotification("Seleccione una opción de la lista.");
+			return;
+		}
+		Documento doc = (Documento)lstDocumentos.getSelectedItem().getValue();
+		Filedownload.save(new File(doc.getRutaDocumento()), null);
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Command
+	public void eliminarDocumento(){
+		if(lstDocumentos.getSelectedItem() == null) {
+			Clients.showNotification("Seleccione una opción de la lista.");
+			return;
+		}
+		Documento doc = (Documento)lstDocumentos.getSelectedItem().getValue();
+		documentoDAO.getEntityManager().refresh(doc);
+		Messagebox.show("Desea dar de baja el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+			@Override
+			public void onEvent(Event event) throws Exception {
+				if (event.getName().equals("onYes")) {
+					try {
+						if(doc.getIdDocumento() == null) {
+							listaDocumentos.remove(doc);
+							lstDocumentos.setModel(new ListModelList(listaDocumentos));
+						}else {
+							documentoDAO.getEntityManager().getTransaction().begin();
+							doc.setEstado("I");
+							documentoDAO.getEntityManager().merge(doc);
+							documentoDAO.getEntityManager().getTransaction().commit();;
+							cargarDocumentos();
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						documentoDAO.getEntityManager().getTransaction().rollback();
+					}
+				}
+			}
+		});	
+	}
 	
 	@Command
 	public void salir() {
-		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
-		winAspirantesEditar.detach();
+//		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
+//		winAspirantesEditar.detach();
+		for(Documento doc : listaDocumentos) {
+			System.out.println(doc.getRutaDocumento() + " " + doc.getTipoDocumento().getTipoDocumento());
+		}
 	}
 	
 	public List<Pai> getPaises(){

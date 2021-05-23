@@ -40,7 +40,6 @@ import com.bombero.model.entity.FichaMedica;
 import com.bombero.util.Globals;
 
 public class FichaMedicaC {
-	@Wire private Window winFichaMedica;
 	@Wire private Textbox txtVacunas;
 	@Wire private Textbox txtMedicinas;
 	@Wire private Textbox txtAlimentos;
