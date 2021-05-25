@@ -529,6 +529,7 @@
 											<hbox>
 												<textbox class="form-control  form-control-sm" id="txtExamenOrina" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 												<button id="btnUploadExamenOrina" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenOrina', upEvent=event)"/>
+												<button id="uploadDocumento" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirDocumento', upEvent=event)"/>
 											</hbox>
 										</cell>
 										<cell sclass="row-title">E. Coproparasitario:</cell>
@@ -578,7 +579,7 @@
 											<button id="btnEliminarFamiliar" zclass="btn btn-outline-danger btn-sm" label="Eliminar"
 												iconSclass="z-icon-trash-o" onClick="@command('eliminarFamiliar')" />
 										</hlayout>
-										<listbox id="lstFamiliares" mold="paging" hflex="1" vflex="1" height="100px">
+										<listbox id="lstFamiliares" mold="paging" hflex="1" vflex="1" height="100px" model="@load(vm.listaFamiliar)">
 											<listhead>
 												<listheader label="Cédula" class="lb-listheader" width="70px"/>
 												<listheader label="Nombres" class="lb-listheader"/>
@@ -609,15 +610,15 @@
 											<button id="btnEliminarCirugia" zclass="btn btn-outline-danger btn-sm" label="Eliminar"
 												iconSclass="z-icon-trash-o" onClick="@command('eliminarCirugia')" />
 										</hlayout>
-										<listbox id="lstCirugias" mold="paging" hflex="1" vflex="1" height="100px">
+										<listbox id="lstCirugias" mold="paging" hflex="1" vflex="1" height="100px" model="@load(vm.listaCirugia)">
 											<listhead>
 												<listheader label="Nombre órgano" class="lb-listheader"/>
 												<listheader label="Fecha" class="lb-listheader"/>
 											</listhead>
 											<template name="model">
 												<listitem>
-													<listcell class="lb-listcell"/>
-													<listcell class="lb-listcell"/>
+													<listcell class="lb-listcell" label="${each.nombreOrganoComprometido}"/>
+													<listcell class="lb-listcell" label="${each.fechaCirugia}"/>
 												</listitem>
 											</template>
 										</listbox>

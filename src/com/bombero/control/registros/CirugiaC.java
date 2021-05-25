@@ -18,21 +18,21 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.Cirugia;
-import com.bombero.model.entity.FichaMedica;
 
 public class CirugiaC {
 	@Wire private Window winCirugia;
 	@Wire private Textbox txtOrgano;
 	@Wire private Datebox dtpFecha;
-	FichaMedicaC fichaMedicaC;
-	FichaMedica fichaMedica;
+	AspiranteEditarC aspiranteEditarC;
+	Aspirante aspirante;
 	Cirugia cirugia;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
-		fichaMedicaC = (FichaMedicaC) Executions.getCurrent().getArg().get("Ventana");
-		fichaMedica = (FichaMedica) Executions.getCurrent().getArg().get("FichaMedica");
+		aspiranteEditarC = (AspiranteEditarC) Executions.getCurrent().getArg().get("Ventana");
+		aspirante = (Aspirante) Executions.getCurrent().getArg().get("Aspirante");
 		cirugia = new Cirugia();
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -48,10 +48,9 @@ public class CirugiaC {
 					if (event.getName().equals("onYes")) {		
 						cirugia.setEstado("A");
 						cirugia.setFechaCirugia(dtpFecha.getValue());
-						cirugia.setFichaMedica(fichaMedica);
 						cirugia.setIdCirugia(null);
 						cirugia.setNombreOrganoComprometido(txtOrgano.getText());
-						//fichaMedicaC.agregarListaFamiliar(familiar);
+						aspiranteEditarC.agregarListaCirugia(cirugia);
 						salir();
 					}
 				}
@@ -76,22 +75,16 @@ public class CirugiaC {
 	public void salir() {
 		winCirugia.detach();
 	}
-	public FichaMedicaC getFichaMedicaC() {
-		return fichaMedicaC;
-	}
-	public void setFichaMedicaC(FichaMedicaC fichaMedicaC) {
-		this.fichaMedicaC = fichaMedicaC;
-	}
-	public FichaMedica getFichaMedica() {
-		return fichaMedica;
-	}
-	public void setFichaMedica(FichaMedica fichaMedica) {
-		this.fichaMedica = fichaMedica;
-	}
 	public Cirugia getCirugia() {
 		return cirugia;
 	}
 	public void setCirugia(Cirugia cirugia) {
 		this.cirugia = cirugia;
+	}
+	public Aspirante getAspirante() {
+		return aspirante;
+	}
+	public void setAspirante(Aspirante aspirante) {
+		this.aspirante = aspirante;
 	}
 }

@@ -79,11 +79,11 @@ public class FichaMedica implements Serializable {
 	private String nombreRadiografiaTorax;
 
 	// bi-directional many-to-one association to Cirugia
-	@OneToMany(mappedBy = "fichaMedica")
+	@OneToMany(mappedBy = "fichaMedica", cascade = CascadeType.ALL)
 	private List<Cirugia> cirugias;
 
 	// bi-directional many-to-one association to Familiar
-	@OneToMany(mappedBy = "fichaMedica")
+	@OneToMany(mappedBy = "fichaMedica", cascade = CascadeType.ALL)
 	private List<Familiar> familiars;
 
 	// bi-directional many-to-one association to Aspirante

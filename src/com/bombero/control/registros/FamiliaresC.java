@@ -21,9 +21,9 @@ import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.EstadoCivilDAO;
 import com.bombero.model.dao.TipoFamiliaDAO;
+import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.EstadoCivil;
 import com.bombero.model.entity.Familiar;
-import com.bombero.model.entity.FichaMedica;
 import com.bombero.model.entity.TipoFamiliar;
 
 public class FamiliaresC {
@@ -37,18 +37,18 @@ public class FamiliaresC {
 	@Wire private Textbox txtEducacion;
 	@Wire private Textbox txtProfesion;
 	@Wire private Textbox txtTrabajo;
-	FichaMedicaC fichaMedicaC;
-	FichaMedica fichaMedica;
+	AspiranteEditarC aspiranteEditarC;
 	TipoFamiliaDAO tipoFamiliarDAO = new TipoFamiliaDAO();
 	EstadoCivilDAO estadoCivilDAO = new EstadoCivilDAO();
 	TipoFamiliar tipoFamiliarSerleccionado;
 	EstadoCivil estadoCivilSeleccionado;
+	Aspirante aspirante;
 	Familiar familiar;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
-		fichaMedicaC = (FichaMedicaC) Executions.getCurrent().getArg().get("Ventana");
-		fichaMedica = (FichaMedica) Executions.getCurrent().getArg().get("FichaMedica");
+		aspiranteEditarC = (AspiranteEditarC) Executions.getCurrent().getArg().get("Ventana");
+		aspirante = (Aspirante) Executions.getCurrent().getArg().get("Aspirante");
 		familiar = new Familiar();
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -63,7 +63,7 @@ public class FamiliaresC {
 				public void onEvent(Event event) throws Exception {
 					if (event.getName().equals("onYes")) {		
 						copiarDatos();
-						fichaMedicaC.agregarListaFamiliar(familiar);
+						aspiranteEditarC.agregarListaFamiliar(familiar);
 						salir();
 					}
 				}
@@ -104,7 +104,6 @@ public class FamiliaresC {
 		familiar.setEducacion(txtEducacion.getText());
 		familiar.setEstado("A");
 		familiar.setEstadoCivil(estadoCivilSeleccionado);
-		familiar.setFichaMedica(fichaMedica);
 		familiar.setIdFamiliar(null);
 		familiar.setNombre(txtNombres.getText());
 		familiar.setProfesion(txtProfesion.getText());
@@ -139,5 +138,11 @@ public class FamiliaresC {
 	}
 	public void setEstadoCivilSeleccionado(EstadoCivil estadoCivilSeleccionado) {
 		this.estadoCivilSeleccionado = estadoCivilSeleccionado;
+	}
+	public Aspirante getAspirante() {
+		return aspirante;
+	}
+	public void setAspirante(Aspirante aspirante) {
+		this.aspirante = aspirante;
 	}
 }

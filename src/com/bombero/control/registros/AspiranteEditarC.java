@@ -17,6 +17,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.io.Files;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -188,7 +189,9 @@ public class AspiranteEditarC {
 		if (matricula == null) {
 			matricula = new Matricula();
 			aspirante = new Aspirante();
+			fichaMedica = new FichaMedica();
 			matricula.setEstado("A");
+			fichaMedica.setEstado("A");
 			paisSeleccionado = null;
 			generoSeleccionado = null;
 			tipoSangreSeleccionado = null;
@@ -198,6 +201,8 @@ public class AspiranteEditarC {
 		} else {
 			aspirante = matricula.getAspirante();
 			recuperarDatos();
+			this.cargarDocumentos();
+			this.recuperarDatosFichaMedica();
 		}
 	}
 	private void recuperarDatos() {
@@ -253,8 +258,6 @@ public class AspiranteEditarC {
 			txtCantidadHijos.setDisabled(false);
 			txtNomnbreConyuge.setDisabled(false);
 		}
-		this.cargarDocumentos();
-		this.recuperarDatosFichaMedica();
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"listaProvincia","listaProvinciaResidencia"})
@@ -310,49 +313,6 @@ public class AspiranteEditarC {
 			txtNomnbreConyuge.setDisabled(true);
 		}else {
 			txtNomnbreConyuge.setDisabled(false);
-		}
-	}
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Command
-	public void grabar() {
-		try {
-			if(validarDatos() == false) {
-				return;
-			}
-			Messagebox.show("Desea guardar el registro?", "Confirmación de Guardar", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
-				@Override
-				public void onEvent(Event event) throws Exception {
-					if (event.getName().equals("onYes")) {		
-						try {
-							copiarDatosAspirante();
-							if(matricula.getIdMatricula() == null) {
-								matricula.setEstado("A");
-								matricula.setFechaIngreso(new Date());
-								matricula.setPeriodo(periodo);
-								matricula.setAspirante(aspirante);
-								List<Matricula> listaM = new ArrayList<>();
-								listaM.add(matricula);
-								aspirante.setMatriculas(listaM);
-							}
-							matriculaDAO.getEntityManager().getTransaction().begin();
-							if(matricula.getIdMatricula() == null)
-								matriculaDAO.getEntityManager().persist(aspirante);
-							else {
-								matriculaDAO.getEntityManager().merge(aspirante);
-							}
-							matriculaDAO.getEntityManager().getTransaction().commit();
-							Clients.showNotification("Proceso Ejecutado con exito.");
-							salir();						
-						} catch (Exception e) {
-							e.printStackTrace();
-							matriculaDAO.getEntityManager().getTransaction().rollback();
-						}
-					}
-				}
-			});
-		}catch(Exception ex) {
-			System.out.println(ex.getMessage());
-			matriculaDAO.getEntityManager().getTransaction().rollback();
 		}
 	}
 	private void copiarDatosAspirante() {
@@ -484,8 +444,8 @@ public class AspiranteEditarC {
 			return false;
 		}
 		if(txtDireccionDomiciliaria.getText().isEmpty()) {
-			Clients.showNotification("Debe Registrar dirección domiciliaria","info",cboCantonResidencia,"end_center",2000);
-			cboCantonResidencia.setFocus(true);
+			Clients.showNotification("Debe Registrar dirección domiciliaria","info",txtDireccionDomiciliaria,"end_center",2000);
+			txtDireccionDomiciliaria.setFocus(true);
 			return false;
 		}
 		if(!txtCorreo.getText().isEmpty()) {
@@ -564,7 +524,6 @@ public class AspiranteEditarC {
 			return;
 		}
 		Documento doc = (Documento)lstDocumentos.getSelectedItem().getValue();
-		documentoDAO.getEntityManager().refresh(doc);
 		Messagebox.show("Desea dar de baja el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
 			@Override
 			public void onEvent(Event event) throws Exception {
@@ -577,8 +536,9 @@ public class AspiranteEditarC {
 							documentoDAO.getEntityManager().getTransaction().begin();
 							doc.setEstado("I");
 							documentoDAO.getEntityManager().merge(doc);
-							documentoDAO.getEntityManager().getTransaction().commit();;
-							cargarDocumentos();
+							documentoDAO.getEntityManager().getTransaction().commit();
+							listaDocumentos.remove(doc);
+							lstDocumentos.setModel(new ListModelList(listaDocumentos));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -596,7 +556,6 @@ public class AspiranteEditarC {
 			List<FichaMedica> fm = fichaMedicaDAO.buscarPorAspirante(aspirante.getIdAspirante());
 			if(fm.size() > 0) {
 				fichaMedica = fm.get(0);
-				recuperarDatos();
 			} else {
 				fichaMedica = new FichaMedica();
 			}
@@ -624,7 +583,7 @@ public class AspiranteEditarC {
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"listaFamiliar"})
-	public void recuperarListaFamiliar(Familiar fam) {
+	public void agregarListaFamiliar(Familiar fam) {
 		if(listaFamiliar == null) {
 			listaFamiliar = new ArrayList<>();
 		}
@@ -633,12 +592,12 @@ public class AspiranteEditarC {
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void recuperarCirugias(Integer id) {
-		List<Cirugia> lista = cirugiaDAO.buscarPorFichaMedica(id);
-		lstCirugias.setModel(new ListModelList(lista));
+		listaCirugia = cirugiaDAO.buscarPorFichaMedica(id);
+		lstCirugias.setModel(new ListModelList(listaCirugia));
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"listaFamiliar"})
-	public void recuperarListaCirugia(Cirugia cir) {
+	public void agregarListaCirugia(Cirugia cir) {
 		if(listaCirugia == null) {
 			listaCirugia = new ArrayList<>();
 		}
@@ -689,6 +648,38 @@ public class AspiranteEditarC {
 		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/familiares.zul", null, params);
 		ventanaCargar.doModal();
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Command
+	public void eliminarFamiliar(){
+		if(lstFamiliares.getSelectedItem() == null) {
+			Clients.showNotification("Seleccione una opción de la lista.");
+			return;
+		}
+		Familiar fam = (Familiar)lstFamiliares.getSelectedItem().getValue();
+		Messagebox.show("Desea dar de baja el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+			@Override
+			public void onEvent(Event event) throws Exception {
+				if (event.getName().equals("onYes")) {
+					try {
+						if(fam.getIdFamiliar() == null) {
+							listaFamiliar.remove(fam);
+							lstFamiliares.setModel(new ListModelList(listaFamiliar));
+						}else {
+							familiarDAO.getEntityManager().getTransaction().begin();
+							fam.setEstado("I");
+							familiarDAO.getEntityManager().merge(fam);
+							familiarDAO.getEntityManager().getTransaction().commit();
+							listaFamiliar.remove(fam);
+							lstFamiliares.setModel(new ListModelList(listaFamiliar));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						familiarDAO.getEntityManager().getTransaction().rollback();
+					}
+				}
+			}
+		});	
+	}
 	@Command
 	public void nuevaCirugia() {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -697,7 +688,195 @@ public class AspiranteEditarC {
 		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/cirugia.zul", null, params);
 		ventanaCargar.doModal();
 	}
-	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Command
+	public void eliminarCirugia(){
+		if(lstCirugias.getSelectedItem() == null) {
+			Clients.showNotification("Seleccione una opción de la lista.");
+			return;
+		}
+		Cirugia cir = (Cirugia)lstCirugias.getSelectedItem().getValue();
+		Messagebox.show("Desea dar de baja el registro seleccionado?", "Confirmación de Eliminación", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+			@Override
+			public void onEvent(Event event) throws Exception {
+				if (event.getName().equals("onYes")) {
+					try {
+						if(cir.getIdCirugia() == null) {
+							listaCirugia.remove(cir);
+							lstCirugias.setModel(new ListModelList(listaCirugia));
+						}else {
+							cirugiaDAO.getEntityManager().getTransaction().begin();
+							cir.setEstado("I");
+							cirugiaDAO.getEntityManager().merge(cir);
+							cirugiaDAO.getEntityManager().getTransaction().commit();
+							listaCirugia.remove(cir);
+							lstCirugias.setModel(new ListModelList(listaCirugia));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						cirugiaDAO.getEntityManager().getTransaction().rollback();
+					}
+				}
+			}
+		});	
+	}
+	private void copiarDatosFichaMedica() throws IOException {
+		fichaMedica.setEstado("A");
+		fichaMedica.setNoAbortos((txtNoAbortos.getText().isEmpty())?0:Integer.parseInt(txtNoAbortos.getText()));
+		fichaMedica.setNoCesarea((txtNoCesareas.getText().isEmpty())?0:Integer.parseInt(txtNoCesareas.getText()));
+		fichaMedica.setNoHijos((txtNoHijos.getText().isEmpty())?0:Integer.parseInt(txtNoHijos.getText()));
+		fichaMedica.setNombreAlimentosAlergia(txtAlimentos.getText());
+		fichaMedica.setNombreCoproparasitario(txtExamenCoproparasitario.getText());
+		fichaMedica.setNombreElectrocardiograma(txtElectrocardiograma.getText());
+		fichaMedica.setNombreExamenOrina(txtExamenOrina.getText());
+		fichaMedica.setNombreExamenSangre(txtExamenSangre.getText());
+		fichaMedica.setNombreFichaMedica(txtFichaMedica.getText());
+		fichaMedica.setNombreMedicinasAlergia(txtMedicinas.getText());
+		fichaMedica.setNombreRadiografiaTorax(txtRadiografiaTorax.getText());
+		fichaMedica.setNombreVacunas(txtVacunas.getText());
+		fichaMedica.setNoPartos((txtNoPartos.getText().isEmpty())?0:Integer.parseInt(txtNoPartos.getText()));
+		String ruta = Globals.PATH_SISTEMA + Globals.PATH_ARCHIVO;
+		File folder = new File(ruta);
+		if (folder.exists()) {
+		}else {
+			folder.mkdir();
+		}
+		if(mediaExamenCoproparasito != null) {
+			String examen = ruta + "\\" + Globals.NOMBRE_EXAMEN_COPROPARASITO + aspirante.getCedula() + ".pdf";
+			fichaMedica.setRutaCoproparasitario(examen);
+			Files.copy(new File(examen),mediaExamenCoproparasito.getStreamData());
+		}
+		if(mediaElectrocardiograma != null) {
+			String examen = ruta + "\\" + Globals.NOMBRE_ELECTROCARDIOGRAMA + aspirante.getCedula() + ".pdf";
+			fichaMedica.setRutaElectrocardiograma(examen);
+			Files.copy(new File(examen),mediaElectrocardiograma.getStreamData());
+		}
+		if(mediaExamenOrina != null) {
+			String examen = ruta + "\\" + Globals.NOMBRE_EXAMEN_ORINA + aspirante.getCedula() + ".pdf";
+			fichaMedica.setRutaExamenOrina(examen);
+			Files.copy(new File(examen),mediaExamenOrina.getStreamData());
+		}
+		if(mediaExamenSangre != null) {
+			String examen = ruta + "\\" + Globals.NOMBRE_EXAMEN_SANGRE + aspirante.getCedula() + ".pdf";
+			fichaMedica.setRutaExamenSangre(examen);
+			Files.copy(new File(examen),mediaExamenSangre.getStreamData());
+		}
+		if(mediaFichaMedica != null) {
+			String examen = ruta + "\\" + Globals.NOMBRE_FICHA_MEDICA + aspirante.getCedula() + ".pdf";
+			fichaMedica.setRutaFichaMedica(examen);
+			Files.copy(new File(examen),mediaFichaMedica.getStreamData());
+		}
+		if(mediaRadiografiaTorax != null) {
+			String examen = ruta + "\\" + Globals.NOMBRE_RADIOGRAFIA_TORAX + aspirante.getCedula() + ".pdf";
+			fichaMedica.setRutaRadiografiaTorax(examen);
+			Files.copy(new File(examen),mediaRadiografiaTorax.getStreamData());
+		}
+	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Command
+	public void grabar() {
+		try {
+			if(validarDatos() == false) {
+				return;
+			}
+			Messagebox.show("Desea guardar el registro?", "Confirmación de Guardar", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+				@Override
+				public void onEvent(Event event) throws Exception {
+					if (event.getName().equals("onYes")) {		
+						try {
+							copiarDatosAspirante();
+							if(matricula.getIdMatricula() == null) {
+								matricula.setEstado("A");
+								matricula.setFechaIngreso(new Date());
+								matricula.setPeriodo(periodo);
+								matricula.setAspirante(aspirante);
+								List<Matricula> listaM = new ArrayList<>();
+								listaM.add(matricula);
+								aspirante.setMatriculas(listaM);
+							}
+							matriculaDAO.getEntityManager().getTransaction().begin();
+							if(matricula.getIdMatricula() == null)
+								matriculaDAO.getEntityManager().persist(aspirante);
+							else {
+								matriculaDAO.getEntityManager().merge(aspirante);
+							}
+							//grabar los documentos
+							if(listaDocumentos != null) {
+								for(Documento doc : listaDocumentos) {
+									if(doc.getAspirante() == null) {
+										doc.setAspirante(aspirante);
+									}
+									if(doc.getIdDocumento() == null) {
+										matriculaDAO.getEntityManager().persist(doc);
+									}
+								}
+							}
+							//grabar ficha medica
+							copiarDatosFichaMedica();
+							if(fichaMedica.getAspirante() == null) {
+								fichaMedica.setAspirante(aspirante);
+							}
+							//cirugias
+							if(fichaMedica.getCirugias() == null) {
+								List<Cirugia> lstCir = new ArrayList<>();
+								if(listaCirugia != null) {
+									for(Cirugia cir : listaCirugia) {
+										cir.setEstado("A");
+										cir.setFichaMedica(fichaMedica);
+										lstCir.add(cir);
+									}
+								}
+								if(lstCir.size() > 0) {
+									fichaMedica.setCirugias(lstCir);
+								}
+							}else {
+								if(listaCirugia != null) {
+									for(Cirugia cir : listaCirugia) {
+										fichaMedica.addCirugia(cir);
+									}
+								}
+							}
+							//familiares
+							if(fichaMedica.getFamiliars() == null) {
+								List<Familiar> lstFam = new ArrayList<>();
+								if(listaFamiliar != null) {
+									for(Familiar fam : listaFamiliar) {
+										fam.setEstado("A");
+										fam.setFichaMedica(fichaMedica);
+										lstFam.add(fam);
+									}
+								}
+								if(lstFam.size() > 0) {
+									fichaMedica.setFamiliars(lstFam);
+								}
+							}else {
+								if(listaFamiliar != null) {
+									for(Familiar fam : listaFamiliar) {
+										fichaMedica.addFamiliar(fam);
+									}
+								}
+							}
+							if(fichaMedica.getIdFichaMedica() == null) {
+								matriculaDAO.getEntityManager().persist(fichaMedica);
+							}else {
+								matriculaDAO.getEntityManager().merge(fichaMedica);
+							}
+							//grabar como usuario
+							matriculaDAO.getEntityManager().getTransaction().commit();
+							Clients.showNotification("Proceso Ejecutado con exito.");
+							salir();						
+						} catch (Exception e) {
+							e.printStackTrace();
+							matriculaDAO.getEntityManager().getTransaction().rollback();
+						}
+					}
+				}
+			});
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			matriculaDAO.getEntityManager().getTransaction().rollback();
+		}
+	}
 	@Command
 	public void salir() {
 		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);

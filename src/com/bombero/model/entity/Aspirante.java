@@ -96,11 +96,11 @@ public class Aspirante implements Serializable {
 	private Instruccion instruccion;
 
 	//bi-directional many-to-one association to Documento
-	@OneToMany(mappedBy="aspirante")
+	@OneToMany(mappedBy="aspirante", cascade = CascadeType.ALL)
 	private List<Documento> documentos;
 
 	//bi-directional many-to-one association to FichaMedica
-	@OneToMany(mappedBy="aspirante")
+	@OneToMany(mappedBy="aspirante", cascade = CascadeType.ALL)
 	private List<FichaMedica> fichaMedicas;
 
 	//bi-directional many-to-one association to Matricula
@@ -108,11 +108,11 @@ public class Aspirante implements Serializable {
 	private List<Matricula> matriculas;
 
 	//bi-directional many-to-one association to PersonalAutorizado
-	@OneToMany(mappedBy="aspirante")
+	@OneToMany(mappedBy="aspirante", cascade = CascadeType.ALL)
 	private List<PersonalAutorizado> personalAutorizados;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="aspirante")
+	@OneToMany(mappedBy="aspirante", cascade = CascadeType.ALL)
 	private List<Usuario> usuarios;
 
 	public Aspirante() {
