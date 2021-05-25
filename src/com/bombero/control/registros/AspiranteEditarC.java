@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.zkoss.bind.BindContext;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -20,6 +22,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
@@ -34,8 +37,11 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.CantonDAO;
+import com.bombero.model.dao.CirugiaDAO;
 import com.bombero.model.dao.DocumentoDAO;
 import com.bombero.model.dao.EstadoCivilDAO;
+import com.bombero.model.dao.FamiliarDAO;
+import com.bombero.model.dao.FichaMedicaDAO;
 import com.bombero.model.dao.GeneroDAO;
 import com.bombero.model.dao.InstruccionDAO;
 import com.bombero.model.dao.MatriculaDAO;
@@ -45,8 +51,11 @@ import com.bombero.model.dao.ProvinciaDAO;
 import com.bombero.model.dao.TipoSangreDAO;
 import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.Canton;
+import com.bombero.model.entity.Cirugia;
 import com.bombero.model.entity.Documento;
 import com.bombero.model.entity.EstadoCivil;
+import com.bombero.model.entity.Familiar;
+import com.bombero.model.entity.FichaMedica;
 import com.bombero.model.entity.Genero;
 import com.bombero.model.entity.Instruccion;
 import com.bombero.model.entity.Matricula;
@@ -164,6 +173,12 @@ public class AspiranteEditarC {
 	Media mediaRadiografiaTorax;
 	Media mediaElectrocardiograma;
 	Media mediaFichaMedica;
+	FichaMedicaDAO fichaMedicaDAO = new FichaMedicaDAO();
+	FichaMedica fichaMedica;
+	List<Familiar> listaFamiliar;
+	List<Cirugia> listaCirugia;
+	FamiliarDAO familiarDAO = new FamiliarDAO();
+	CirugiaDAO cirugiaDAO = new CirugiaDAO();
 	
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
@@ -239,6 +254,7 @@ public class AspiranteEditarC {
 			txtNomnbreConyuge.setDisabled(false);
 		}
 		this.cargarDocumentos();
+		this.recuperarDatosFichaMedica();
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"listaProvincia","listaProvinciaResidencia"})
@@ -295,22 +311,6 @@ public class AspiranteEditarC {
 		}else {
 			txtNomnbreConyuge.setDisabled(false);
 		}
-	}
-	//ficha medica
-	@Command
-	public void nuevoFamiliar() {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Aspirante", aspirante);
-		params.put("Ventana", this);
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/familiares.zul", null, params);
-		ventanaCargar.doModal();
-	}
-	@Command
-	public void nuevaCirugia() {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Aspirante", null);
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/cirugia.zul", null, params);
-		ventanaCargar.doModal();
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
@@ -547,7 +547,6 @@ public class AspiranteEditarC {
 		listaDocumentos.add(doc);
 		lstDocumentos.setModel(new ListModelList(listaDocumentos));
 	}
-	
 	@Command
 	public void descargarDocumento() throws FileNotFoundException{
 		if(lstDocumentos.getSelectedItem() == null) {
@@ -589,16 +588,121 @@ public class AspiranteEditarC {
 			}
 		});	
 	}
+	/**************************************************************************************************************************************************************************************************
+	 * Ficha Medica
+	***************************************************************************************************************************************************************************************************/
+	private void recuperarDatosFichaMedica() {
+		if(aspirante != null) {
+			List<FichaMedica> fm = fichaMedicaDAO.buscarPorAspirante(aspirante.getIdAspirante());
+			if(fm.size() > 0) {
+				fichaMedica = fm.get(0);
+				recuperarDatos();
+			} else {
+				fichaMedica = new FichaMedica();
+			}
+		}
+		txtVacunas.setText(fichaMedica.getNombreVacunas());
+		txtMedicinas.setText(fichaMedica.getNombreMedicinasAlergia());
+		txtAlimentos.setText(fichaMedica.getNombreAlimentosAlergia());
+		txtNoPartos.setText(String.valueOf(fichaMedica.getNoPartos()));
+		txtNoAbortos.setText(String.valueOf(fichaMedica.getNoAbortos()));
+		txtNoCesareas.setText(String.valueOf(fichaMedica.getNoCesarea()));
+		txtNoHijos.setText(String.valueOf(fichaMedica.getNoHijos()));
+		txtExamenSangre.setText(fichaMedica.getNombreExamenSangre());
+		txtExamenOrina.setText(fichaMedica.getNombreExamenOrina());
+		txtExamenCoproparasitario.setText(fichaMedica.getNombreCoproparasitario());
+		txtRadiografiaTorax.setText(fichaMedica.getNombreRadiografiaTorax());
+		txtElectrocardiograma.setText(fichaMedica.getNombreElectrocardiograma());
+		txtFichaMedica.setText(fichaMedica.getNombreFichaMedica());
+		recuperarFamiliares(fichaMedica.getIdFichaMedica());
+		recuperarCirugias(fichaMedica.getIdFichaMedica());
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void recuperarFamiliares(Integer id) {
+		listaFamiliar = familiarDAO.buscarPorFichaMedica(id);
+		lstFamiliares.setModel(new ListModelList(listaFamiliar));
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@NotifyChange({"listaFamiliar"})
+	public void recuperarListaFamiliar(Familiar fam) {
+		if(listaFamiliar == null) {
+			listaFamiliar = new ArrayList<>();
+		}
+		listaFamiliar.add(fam);
+		lstFamiliares.setModel(new ListModelList(listaFamiliar));
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void recuperarCirugias(Integer id) {
+		List<Cirugia> lista = cirugiaDAO.buscarPorFichaMedica(id);
+		lstCirugias.setModel(new ListModelList(lista));
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@NotifyChange({"listaFamiliar"})
+	public void recuperarListaCirugia(Cirugia cir) {
+		if(listaCirugia == null) {
+			listaCirugia = new ArrayList<>();
+		}
+		listaCirugia.add(cir);
+		lstCirugias.setModel(new ListModelList(listaCirugia));
+	}
+	@Command
+	public void subirExamenSangre(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		mediaExamenSangre = eventoCarga.getMedia();
+		txtExamenSangre.setText(mediaExamenSangre.getName());
+	}
+	@Command
+	public void subirExamenOrina(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		mediaExamenOrina = eventoCarga.getMedia();
+		txtExamenOrina.setText(mediaExamenOrina.getName());
+	}
+	@Command
+	public void subirExamenCoproparasitario(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		mediaExamenCoproparasito = eventoCarga.getMedia();
+		txtExamenCoproparasitario.setText(mediaExamenCoproparasito.getName());
+	}
+	@Command
+	public void subirRadiografiaTorax(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		mediaRadiografiaTorax = eventoCarga.getMedia();
+		txtRadiografiaTorax.setText(mediaRadiografiaTorax.getName());
+	}
+	@Command
+	public void subirElectrocardiograma(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		mediaElectrocardiograma = eventoCarga.getMedia();
+		txtElectrocardiograma.setText(mediaElectrocardiograma.getName());
+	}
+	@Command
+	public void subirFichaMedica(@ContextParam(ContextType.BIND_CONTEXT) BindContext contexto) {
+		UploadEvent eventoCarga = (UploadEvent) contexto.getTriggerEvent();
+		mediaFichaMedica = eventoCarga.getMedia();
+		txtFichaMedica.setText(mediaFichaMedica.getName());
+	}
+	@Command
+	public void nuevoFamiliar() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Aspirante", aspirante);
+		params.put("Ventana", this);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/familiares.zul", null, params);
+		ventanaCargar.doModal();
+	}
+	@Command
+	public void nuevaCirugia() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Aspirante", aspirante);
+		params.put("Ventana", this);
+		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/cirugia.zul", null, params);
+		ventanaCargar.doModal();
+	}
 	
 	@Command
 	public void salir() {
-//		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
-//		winAspirantesEditar.detach();
-		for(Documento doc : listaDocumentos) {
-			System.out.println(doc.getRutaDocumento() + " " + doc.getTipoDocumento().getTipoDocumento());
-		}
+		BindUtils.postGlobalCommand(null, null, "Matricula.buscarAspirantePorPeriodo", null);
+		winAspirantesEditar.detach();
 	}
-	
 	public List<Pai> getPaises(){
 		return paisDAO.getPaises();
 	}
@@ -724,5 +828,23 @@ public class AspiranteEditarC {
 	}
 	public void setListaDocumentos(List<Documento> listaDocumentos) {
 		this.listaDocumentos = listaDocumentos;
+	}
+	public FichaMedica getFichaMedica() {
+		return fichaMedica;
+	}
+	public void setFichaMedica(FichaMedica fichaMedica) {
+		this.fichaMedica = fichaMedica;
+	}
+	public List<Familiar> getListaFamiliar() {
+		return listaFamiliar;
+	}
+	public void setListaFamiliar(List<Familiar> listaFamiliar) {
+		this.listaFamiliar = listaFamiliar;
+	}
+	public List<Cirugia> getListaCirugia() {
+		return listaCirugia;
+	}
+	public void setListaCirugia(List<Cirugia> listaCirugia) {
+		this.listaCirugia = listaCirugia;
 	}
 }

@@ -4,7 +4,7 @@
 		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.bombero.control.registros.AspiranteEditarC')">
 		<caption label="Ingrese datos" height="25px" class="modal-title-letters"/>
 		<vlayout>
-			<!-- DATOS PERSONALES ---------------------------------------------------------------------------------------------------------------- -->
+			<!-- DATOS PERSONALES  -->
 			<tabbox hflex="1" vflex="1">
 				<tabs hflex="1">
 					<tab label="Datos Personales" hflex="1"/>
@@ -230,7 +230,7 @@
 						</groupbox>
 							<groupbox hflex="1">
 							<caption>
-								<label value="Educación, Cónyuge, Dirección y contacto" />"/>
+								<label value="Educación, Cónyuge, Dirección y contacto" />
 							</caption>
 							<grid hflex="1">
 								<columns>
@@ -359,7 +359,7 @@
 						</groupbox>
 						</vlayout>
 					</tabpanel>
-					<!-- DOCUMENTOS ---------------------------------------------------------------------------------------------------------------- -->
+					<!-- DOCUMENTOS -->
 					<tabpanel>
 						<vlayout hflex="1" vflex="1">
 							<hlayout hflex="1">
@@ -385,7 +385,7 @@
 							</listbox>
 						</vlayout>
 					</tabpanel>
-					<!-- FICHA MEDICA ---------------------------------------------------------------------------------------------------------------- -->
+					<!-- FICHA MEDICA -->
 					<tabpanel>
 						<vlayout hflex="1">
 							<grid hflex="1">

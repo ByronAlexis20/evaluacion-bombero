@@ -159,8 +159,8 @@ public class FichaMedicaC {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("FichaMedica", fichaMedica);
 		params.put("Ventana", this);
-		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/familiares.zul", winFichaMedica, params);
-		ventanaCargar.doModal();
+		//Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/registros/aspirantes/familiares.zul", winFichaMedica, params);
+		//ventanaCargar.doModal();
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@NotifyChange({"listaFamiliar"})
@@ -275,7 +275,7 @@ public class FichaMedicaC {
 	}
 	@Command
 	public void salir() {
-		winFichaMedica.detach();
+		//winFichaMedica.detach();
 	}
 	public Aspirante getAspirante() {
 		return aspirante;
