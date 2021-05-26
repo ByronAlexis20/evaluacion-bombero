@@ -5,21 +5,20 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the asignar_guardia database table.
- * 
- */
 @Entity
 @Table(name="asignar_guardia")
-@NamedQuery(name="AsignarGuardia.findAll", query="SELECT a FROM AsignarGuardia a")
+@NamedQueries({
+	@NamedQuery(name="AsignarGuardia.buscarPorCompania", query="SELECT a FROM AsignarGuardia a where a.estado = 'A' and a.compania.idCompania = :idCompania"),
+	@NamedQuery(name="AsignarGuardia.buscarAsignacion", query="SELECT a FROM AsignarGuardia a where a.estado = 'A'"),
+})
+
 public class AsignarGuardia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_guardia")
-	private int idGuardia;
+	private Integer idGuardia;
 
 	private String estado;
 
@@ -50,11 +49,11 @@ public class AsignarGuardia implements Serializable {
 	public AsignarGuardia() {
 	}
 
-	public int getIdGuardia() {
+	public Integer getIdGuardia() {
 		return this.idGuardia;
 	}
 
-	public void setIdGuardia(int idGuardia) {
+	public void setIdGuardia(Integer idGuardia) {
 		this.idGuardia = idGuardia;
 	}
 

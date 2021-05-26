@@ -16,8 +16,8 @@
 					</hbox>
 					<hbox align="center" hflex="1" pack="center">
 						<combobox placeholder="Seleccione compañía" width="500px" id="cboCompania"
-								
-								>
+								model="@load(vm.companias)" onSelect="@command('seleccionarGuardias')"
+								selectedItem="@bind(vm.companiaSeleccionado)">
 							<template name="model">
 								<comboitem label="${each.nombre}"/>
 							</template>
@@ -29,22 +29,26 @@
 					</hbox>
 					<groupbox hflex="1" vflex="1">
 						<listbox id="lstGuardias" hflex="1" vflex="1"
-								
-								>
+								model="@load(vm.guardiaLista)"
+								selectedItem="@bind(vm.guardi)">
 							<listhead>
-								<listheader label="Compañía" />
-								<listheader label="Bombero"/> 
-								<listheader label="Fecha Inicio"/>
-								<listheader label="Fecha Fin"/>
-								<listheader label="Estado"/>
+								<listheader label="Compañía" class="lb-listheader"/>
+								<listheader label="Bombero" class="lb-listheader"/> 
+								<listheader label="Fecha Inicio" class="lb-listheader"/>
+								<listheader label="Fecha Fin" class="lb-listheader"/>
+								<listheader label="Estado" class="lb-listheader"/>
 							</listhead>
 							<template name="model">
 								<listitem>
-									<listcell label="@load{each.compania.nombre}" />
-									<listcell label="@load{each.personalAutorizado.persona.nombre} ${each.personalAutorizado.persona.apellido}"/>
-									<listcell label="@load{each.fechaInicio} @converter('formattedDate', format='yyyy/MM/dd')" />
-									<listcell label="@load{each.fechaFin} @converter('formattedDate', format='yyyy/MM/dd')" />
-									<listcell label="@load{each.estado}" />
+									<listcell label="@load(each.compania.nombre)" class="lb-listcell" />
+									<listcell class="lb-listcell">
+										<label value="@load(each.personalAutorizado.aspirante.nombres)"/>
+										<label value=" "/>
+										<label value="@load(each.personalAutorizado.aspirante.apellidos)"/>
+									</listcell>
+									<listcell label="@load(each.fechaIngreso) @converter('formattedDate', format='yyyy/MM/dd')" class="lb-listcell"/>
+									<listcell label="@load(each.fechaFin) @converter('formattedDate', format='yyyy/MM/dd')" class="lb-listcell"/>
+									<listcell label="@load(each.estado)" class="lb-listcell"/>
 								</listitem>
 							</template>
 						</listbox>

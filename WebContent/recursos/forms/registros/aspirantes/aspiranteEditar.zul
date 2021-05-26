@@ -529,7 +529,6 @@
 											<hbox>
 												<textbox class="form-control  form-control-sm" id="txtExamenOrina" style="justify-content: left;" disabled="true" width="80%" placeholder="vacío..."/>
 												<button id="btnUploadExamenOrina" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirExamenOrina', upEvent=event)"/>
-												<button id="uploadDocumento" iconSclass="z-icon-upload" upload="true,accept=.pdf" onUpload="@command('subirDocumento', upEvent=event)"/>
 											</hbox>
 										</cell>
 										<cell sclass="row-title">E. Coproparasitario:</cell>

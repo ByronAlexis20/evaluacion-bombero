@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="personal_autorizado")
-@NamedQuery(name="PersonalAutorizado.findAll", query="SELECT p FROM PersonalAutorizado p")
+@NamedQuery(name="PersonalAutorizado.findAll", query="SELECT p FROM PersonalAutorizado p where p.estado = 'A'")
 public class PersonalAutorizado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
