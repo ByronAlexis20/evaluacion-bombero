@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name="modulo_asignado")
-@NamedQuery(name="ModuloAsignado.findAll", query="SELECT m FROM ModuloAsignado m")
+@NamedQuery(name="ModuloAsignado.buscarAsignacionesPorPeriodo", query="SELECT m FROM ModuloAsignado m where m.periodo.idPeriodo = :idPeriodo and m.estado = 'A'")
 public class ModuloAsignado implements Serializable {
 	private static final long serialVersionUID = 1L;
 

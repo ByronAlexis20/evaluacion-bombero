@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -77,7 +78,6 @@ public class AsignarGuardiaEditarC {
 						guardiaDAO.getEntityManager().getTransaction().begin();
 						guardiaDAO.getEntityManager().merge(guardia);
 						guardiaDAO.getEntityManager().getTransaction().commit();
-						asignacionC.seleccionarGuardias();
 						salir();
 					}
 				}
@@ -91,6 +91,7 @@ public class AsignarGuardiaEditarC {
 	@Command
 	public void salir() {
 		try {
+			BindUtils.postGlobalCommand(null, null, "AsignarGuardia.buscarPorCompania", null);
 			winRealizarAsignacion.detach();
 		}catch(Exception ex) {
 			System.out.println(ex.getMessage());

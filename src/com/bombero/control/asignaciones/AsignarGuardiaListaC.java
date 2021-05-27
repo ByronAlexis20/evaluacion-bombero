@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
@@ -40,7 +43,9 @@ public class AsignarGuardiaListaC {
 		Selectors.wireComponents(view, this, false);
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@GlobalCommand("AsignarGuardia.buscarPorCompania")
 	@Command
+	@NotifyChange({"guardiaLista"})
 	public void seleccionarGuardias() {
 		try {
 			if(companiaSeleccionado == null) {
@@ -49,9 +54,8 @@ public class AsignarGuardiaListaC {
 				lstGuardias.setModel(new ListModelList(lista));
 				return;
 			}
-			List<AsignarGuardia> lista = guardiaDAO.getListaGuardias(companiaSeleccionado.getIdCompania());
-			guardiaLista = lista;
-			lstGuardias.setModel(new ListModelList(lista));
+			guardiaLista = guardiaDAO.getListaGuardias(companiaSeleccionado.getIdCompania());
+			//lstGuardias.setModel(new ListModelList(guardiaLista));
 		}catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		}
@@ -66,7 +70,7 @@ public class AsignarGuardiaListaC {
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("Ventana", this);
 			params.put("Compania", companiaSeleccionado);
-			Window ventanaCargar = (Window) Executions.createComponents("/forms/asignaciones/guardia/asignarEditar.zul", winAsignacionGuardia, params);
+			Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/asignaciones/guardia/asignarEditar.zul", winAsignacionGuardia, params);
 			ventanaCargar.doModal();
 		}catch(Exception ex) {
 			System.out.println(ex.getMessage());
@@ -87,7 +91,8 @@ public class AsignarGuardiaListaC {
 						guardiaDAO.getEntityManager().getTransaction().begin();
 						guardiaDAO.getEntityManager().merge(guardiaSeleccionado);
 						guardiaDAO.getEntityManager().getTransaction().commit();
-						seleccionarGuardias();
+						Clients.showNotification("Transaccion ejecutada con exito.");
+						BindUtils.postGlobalCommand(null, null, "AsignarGuardia.buscarPorCompania", null);
 					}
 				}
 			};

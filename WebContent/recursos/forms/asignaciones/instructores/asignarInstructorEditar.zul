@@ -1,8 +1,8 @@
 <?page title="Asignacion de guardias" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="winRealizarAsignacion" border="none"  width="60%"
+	<window id="winAsignarInstructor" border="none"  width="60%"
 		apply="org.zkoss.bind.BindComposer" class="modal-title"
-		viewModel="@id('vm') @init('com.bombero.control.asignaciones.AsignarGuardiaEditarC')">
+		viewModel="@id('vm') @init('com.bombero.control.asignaciones.AsignarInstructorEditarC')">
 		<caption label="Realizar Asignación" height="25px" class="modal-title-letters"/>
 		<vlayout>
 			<grid hflex="1">
@@ -13,38 +13,39 @@
 				<rows>
 					<row align="center">
 						<cell align="center" colspan="2">
-							<label value="Compañía seleccionada" style="font-size:18px;font-weight:bold;"></label>
+							<label value="Periodo seleccionado" style="font-size:18px;font-weight:bold;"></label>
 						</cell>
 					</row>
 					<row align="center">
 						<cell align="center" colspan="2">
-							<label value="Compania" id="lblCompania" style="font-size:18px;font-weight:bold;"></label>
+							<label value="@load(vm.periodo.descripcion)" style="font-size:18px;font-weight:bold;"></label>
 						</cell>
 					</row>
 					<row align="center">
 						<cell align="center" colspan="2">
-							<label value="Listado de bomberos sin asignar" style="font-size:14px;font-weight:bold;"></label>
+							<label value="Instructores y módulos sin asignar" style="font-size:14px;font-weight:bold;"></label>
 						</cell>
 					</row>
 					<row align="center">
-						<cell align="center" colspan="2">
-							<combobox placeholder="Seleccione bombero" width="500px" id="cboBombero"
-									model="@load(vm.listaBomberos)" 
-									selectedItem="@bind(vm.bomberoSeleccionado)">
+						<cell align="center">
+							<label value="Módulo: "/>
+							<combobox placeholder="Seleccione módulo" hflex="1" id="cbomodulo"
+									model="@load(vm.modulos)" 
+									selectedItem="@bind(vm.moduloSeleccionado)">
 								<template name="model">
-									<comboitem label="${each.aspirante.nombres} ${each.aspirante.apellidos}"/>
+									<comboitem label="@load(each.modulo) @load(each.estado)"/>
 								</template>
 							</combobox>
 						</cell>
-					</row>
-					<row align="center">
-						<cell align="center" colspan="2">
-							<hlayout>
-								<label>Fecha de Inicio: </label>
-								<datebox id="dtpFechaInicio"/>
-								<label>Fecha Fin: </label>
-								<datebox id="dtpFechaFin"/>
-							</hlayout>
+						<cell align="center">
+							<label value="Instructor: "/>
+							<combobox placeholder="Seleccione instructor" hflex="1" id="cboInstructor"
+									model="@load(vm.instructores)" 
+									selectedItem="@bind(vm.instructorSeleccionado)">
+								<template name="model">
+									<comboitem label="${each.nombre} ${each.apellido}"/>
+								</template>
+							</combobox>
 						</cell>
 					</row>
 				</rows>

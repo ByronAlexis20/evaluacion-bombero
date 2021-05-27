@@ -30,7 +30,7 @@
 					<groupbox hflex="1" vflex="1">
 						<listbox id="lstGuardias" hflex="1" vflex="1"
 								model="@load(vm.guardiaLista)"
-								selectedItem="@bind(vm.guardi)">
+								selectedItem="@bind(vm.guardiaSeleccionado)">
 							<listhead>
 								<listheader label="Compañía" class="lb-listheader"/>
 								<listheader label="Bombero" class="lb-listheader"/> 
