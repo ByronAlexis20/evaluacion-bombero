@@ -10,13 +10,30 @@
 			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
 			<hbox hflex="1" vflex="1" align="center">
 				<vbox vflex="1" width="70%">
-					<listbox id="lstPeriodo" hflex="1" vflex="1" >
+					<listbox id="lstPeriodo" hflex="1" vflex="1" model="@load(vm.periodoLista)" selectedItem="@bind(vm.periodoSeleccionado)">
 						<listhead>
 							<listheader label="Periodos" class="lb-listheader"/>
 						</listhead>
 						<template name="model">
 							<listitem>
-								<listcell label="${each.presentacion}" class="lb-listcell"/>
+								<listcell>
+									<vlayout>
+										<hbox>
+											<label value="@load(each.descripcion)"/>
+											<label value=" ("/>
+											<label value="@load(each.estadoPeriodo)"/>
+											<label value=")"/>
+										</hbox>
+										<div>
+											<label value="Fecha de Inicio: " />
+											<label value="@load(each.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')"/>
+										</div>
+										<div>
+											<label value="Fecha Fin: "/>
+											<label value="@load(each.fechaFin) @converter('formatedDate',format='dd/MM/yyyy')"/>
+										</div>
+									</vlayout>
+								</listcell>
 							</listitem>
 						</template>
 					</listbox>
@@ -24,32 +41,32 @@
 				<vbox vflex="1" hflex="1">
 					<groupbox hflex="1" vflex="1" closable="false">
 						<caption label="Registro de preguntas"></caption>
-
 						<vbox hflex="1" vflex="1">
 							<hbox vflex="1" hflex="1">
 								<vbox vflex="1">
 									<div>
 										<label value="Seleccionado: " style="font:100% sans-serif"></label>
-										<label value="periodo " style="font:100% sans-serif" id="lblPeriodoSeleccionado"></label>
+										<label value="@load(vm.periodoSeleccionado.descripcion)" style="font:100% sans-serif"></label>
 									</div>
 									<div>
 										<label value="Duración: " style="font:100% sans-serif"></label>
-										<label value="duración " style="font:100% sans-serif" id="lblDuracion"></label>
+										<label value="@load(each.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')" style="font:100% sans-serif" />
+										<label value="@load(each.fechaFin) @converter('formatedDate',format='dd/MM/yyyy')" style="font:100% sans-serif" />
 									</div>
 									<div>
 										<label value="Estado: " style="font:100% sans-serif"></label>
-										<label value="estado " style="font:100% sans-serif" id="lblEstado"></label>
+										<label value="@load(vm.periodoSeleccionado.estadoPeriodo)" style="font:100% sans-serif" id="lblEstado"></label>
 									</div>
-									<listbox id="lstModulos" hflex="1"
-										vflex="1" >
+									<listbox id="lstModulos" hflex="1" vflex="1" 
+										model="@load(vm.moduloLista)" selectedItem="@bind(vm.moduloSeleccionado)">
 										<listhead>
 											<listheader label="Código" width="60px" class="lb-listheader"/>
 											<listheader label="Módulo" class="lb-listheader"/>
 										</listhead>
 										<template name="model">
 											<listitem>
-												<listcell label="${each.idModulo}" class="lb-listcell"/>
-												<listcell label="${each.modulo}" class="lb-listcell"/>
+												<listcell label="@load(each.idModulo)" class="lb-listcell"/>
+												<listcell label="@load(each.modulo)" class="lb-listcell"/>
 											</listitem>
 										</template>
 									</listbox>
