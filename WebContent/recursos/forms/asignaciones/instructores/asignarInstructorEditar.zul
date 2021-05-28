@@ -7,7 +7,7 @@
 		<vlayout>
 			<grid hflex="1">
 				<columns>
-					<column align="right" hflex="min" />
+					<column/>
 					<column/>
 				</columns>
 				<rows>
@@ -28,24 +28,28 @@
 					</row>
 					<row align="center">
 						<cell align="center">
-							<label value="Módulo: "/>
-							<combobox placeholder="Seleccione módulo" hflex="1" id="cbomodulo"
-									model="@load(vm.modulos)" 
-									selectedItem="@bind(vm.moduloSeleccionado)">
-								<template name="model">
-									<comboitem label="@load(each.modulo) @load(each.estado)"/>
-								</template>
-							</combobox>
+							<hlayout hflex="1">
+								<label value="Módulo: "/>
+								<combobox placeholder="Seleccione módulo" hflex="1" id="cbomodulo"
+										model="@load(vm.modulos)" 
+										selectedItem="@bind(vm.moduloSeleccionado)">
+									<template name="model">
+										<comboitem label="@load(each.modulo)"/>
+									</template>
+								</combobox>
+							</hlayout>
 						</cell>
 						<cell align="center">
-							<label value="Instructor: "/>
-							<combobox placeholder="Seleccione instructor" hflex="1" id="cboInstructor"
-									model="@load(vm.instructores)" 
-									selectedItem="@bind(vm.instructorSeleccionado)">
-								<template name="model">
-									<comboitem label="${each.nombre} ${each.apellido}"/>
-								</template>
-							</combobox>
+							<hlayout hflex="1">
+								<label value="Instructor: "/>
+								<combobox placeholder="Seleccione instructor" hflex="1" id="cboInstructor"
+										model="@load(vm.instructores)" 
+										selectedItem="@bind(vm.instructorSeleccionado)">
+									<template name="model">
+										<comboitem label="${each.nombre} ${each.apellido}"/>
+									</template>
+								</combobox>
+							</hlayout>
 						</cell>
 					</row>
 				</rows>

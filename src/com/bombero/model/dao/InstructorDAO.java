@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.bombero.model.entity.Instructor;
+import com.bombero.model.entity.Modulo;
 
 public class InstructorDAO extends ClaseDAO {
 	@SuppressWarnings("unchecked")
@@ -35,6 +36,16 @@ public class InstructorDAO extends ClaseDAO {
 		Query query = getEntityManager().createNamedQuery("Instructor.buscarPorCedula");
 		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
 		query.setParameter("cedula",cedula);
+		resultado = (List<Instructor>) query.getResultList();
+		return resultado;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Instructor> buscarSinAsignacionPorPeriodo(Integer idPeriodo) {
+		List<Instructor> resultado; 
+		Query query = getEntityManager().createNamedQuery("Instructor.buscarSinAsignacion");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idPeriodo", idPeriodo);
 		resultado = (List<Instructor>) query.getResultList();
 		return resultado;
 	}

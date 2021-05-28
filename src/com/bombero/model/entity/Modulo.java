@@ -12,7 +12,8 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Modulo.buscarPorPatron", query="SELECT m FROM Modulo m where lower(m.modulo) like lower(:patron)"),
-	@NamedQuery(name="Modulo.buscarSinAsignacion", query="SELECT m FROM Modulo m where lower(m.modulo) like lower(:patron)")
+	@NamedQuery(name="Modulo.buscarSinAsignacion", query="SELECT m FROM Modulo m LEFT JOIN ModuloAsignado ma ON m.idModulo = ma.idAsignacion and "
+			+ "ma.periodo.idPeriodo = :idPeriodo and ma.estado = 'A' and m.estado = 'A' where ma.idAsignacion is null")
 })
 public class Modulo implements Serializable {
 	private static final long serialVersionUID = 1L;

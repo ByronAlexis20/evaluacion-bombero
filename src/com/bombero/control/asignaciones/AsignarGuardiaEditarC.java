@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
@@ -32,8 +33,8 @@ public class AsignarGuardiaEditarC {
 	@Wire Window winRealizarAsignacion;
 	@Wire Datebox dtpFechaInicio;
 	@Wire Datebox dtpFechaFin;
-	
 	@Wire Label lblCompania;
+	@Wire Combobox cboBombero;
 	private Compania compania;
 	AsignarGuardiaListaC asignacionC;
 	private PersonalAutorizado bomberoSeleccionado;
@@ -52,7 +53,7 @@ public class AsignarGuardiaEditarC {
 	public void grabar() {
 		try {
 			if(bomberoSeleccionado == null) {
-				Clients.showNotification("Debe seleccionar un bombero");
+				Clients.showNotification("Obligatoria seleccionar un bombero","info",cboBombero,"end_center",2000);
 				return;
 			}
 			if(dtpFechaInicio.getValue() == null) {

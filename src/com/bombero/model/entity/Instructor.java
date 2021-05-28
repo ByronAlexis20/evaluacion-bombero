@@ -10,7 +10,9 @@ import java.util.List;
 	@NamedQuery(name="Instructor.buscarPorPatron", query="SELECT i FROM Instructor i where (lower(i.nombre) like(:patron) or "
 		+ "lower(i.apellido) like(:patron)) and i.estado = 'A'"),
 	@NamedQuery(name="Instructor.buscarPorCedulaInstructor", query="SELECT i FROM Instructor i where i.cedula = :cedula and i.idInstructor <> :id and i.estado = 'A'"),
-	@NamedQuery(name="Instructor.buscarPorCedula", query="SELECT i FROM Instructor i where i.cedula = :cedula and i.estado = 'A'")
+	@NamedQuery(name="Instructor.buscarPorCedula", query="SELECT i FROM Instructor i where i.cedula = :cedula and i.estado = 'A'"),
+	@NamedQuery(name="Instructor.buscarSinAsignacion", query="SELECT i FROM Instructor i LEFT JOIN ModuloAsignado ma ON i.idInstructor = ma.idAsignacion and "
+			+ "ma.periodo.idPeriodo = :idPeriodo and ma.estado = 'A' and i.estado = 'A' where ma.idAsignacion is null ")
 })
 public class Instructor implements Serializable {
 	private static final long serialVersionUID = 1L;
