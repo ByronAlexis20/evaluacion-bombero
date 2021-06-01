@@ -18,4 +18,7 @@ public class Globals {
 	public static String PATH_IMAGEN = "img\\";
 	public static String PATH_REPORTE = "rpt";
 	public static String PATH_ARCHIVO = "doc";
+	
+	public static String RESPUESTA_CORRECTA = "C";
+	public static String RESPUESTA_INCORRECTA = "I";
 }

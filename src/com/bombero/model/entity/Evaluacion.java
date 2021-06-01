@@ -10,14 +10,19 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Evaluacion.findAll", query="SELECT e FROM Evaluacion e")
+@Table(name="evaluacion")
+@NamedQueries({
+	@NamedQuery(name="Evaluacion.buscarPorModuloYPeriodo", query="SELECT e FROM Evaluacion e where e.periodo.idPeriodo = :idPeriodo AND e.modulo.idModulo = :idModulo and e.estado = 'A'"),
+	@NamedQuery(name="Evaluacion.buscarPorId", query="SELECT e FROM Evaluacion e where e.idEvaluacion = :idEvaluacion"),
+	@NamedQuery(name="Evaluacion.buscarUltimo", query="SELECT e FROM Evaluacion e where e.estado = 'A' ORDER BY e.idEvaluacion desc"),
+})
 public class Evaluacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_evaluacion")
-	private int idEvaluacion;
+	private Integer idEvaluacion;
 
 	private String descripcion;
 
@@ -34,21 +39,21 @@ public class Evaluacion implements Serializable {
 	private Periodo periodo;
 
 	//bi-directional many-to-one association to Pregunta
-	@OneToMany(mappedBy="evaluacion")
+	@OneToMany(mappedBy="evaluacion", cascade = CascadeType.ALL)
 	private List<Pregunta> preguntas;
 
 	//bi-directional many-to-one association to ResultadoEvaluacion
-	@OneToMany(mappedBy="evaluacion")
+	@OneToMany(mappedBy="evaluacion", cascade = CascadeType.ALL)
 	private List<ResultadoEvaluacion> resultadoEvaluacions;
 
 	public Evaluacion() {
 	}
 
-	public int getIdEvaluacion() {
+	public Integer getIdEvaluacion() {
 		return this.idEvaluacion;
 	}
 
-	public void setIdEvaluacion(int idEvaluacion) {
+	public void setIdEvaluacion(Integer idEvaluacion) {
 		this.idEvaluacion = idEvaluacion;
 	}
 

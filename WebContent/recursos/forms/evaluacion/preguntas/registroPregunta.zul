@@ -50,14 +50,14 @@
 									</div>
 									<div>
 										<label value="Duración: " style="font:100% sans-serif"></label>
-										<label value="@load(each.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')" style="font:100% sans-serif" />
-										<label value="@load(each.fechaFin) @converter('formatedDate',format='dd/MM/yyyy')" style="font:100% sans-serif" />
+										<label value="@load(vm.periodoSeleccionado.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')" style="font:100% sans-serif" />
+										<label value="@load(vm.periodoSeleccionado.fechaFin) @converter('formatedDate',format='dd/MM/yyyy')" style="font:100% sans-serif" />
 									</div>
 									<div>
 										<label value="Estado: " style="font:100% sans-serif"></label>
 										<label value="@load(vm.periodoSeleccionado.estadoPeriodo)" style="font:100% sans-serif" id="lblEstado"></label>
 									</div>
-									<listbox id="lstModulos" hflex="1" vflex="1" 
+									<listbox id="lstModulos" hflex="1" vflex="1" onSelect="@command('cargarPreguntas')"
 										model="@load(vm.moduloLista)" selectedItem="@bind(vm.moduloSeleccionado)">
 										<listhead>
 											<listheader label="Código" width="60px" class="lb-listheader"/>
@@ -83,7 +83,7 @@
 												<button zclass="btn btn-outline-danger btn-sm" onClick="@command('eliminarPregunta')"
 													iconSclass="z-icon-trash-o" label="Eliminar"/>
 											</div>
-											<listbox id="lstPreguntas" hflex="1"
+											<listbox id="lstPreguntas" hflex="1" model="@load(vm.listaPregunta)"
 												vflex="1" >
 												<listhead>
 													<listheader label="Pregunta" class="lb-listheader"/>
@@ -91,8 +91,8 @@
 												</listhead>
 												<template name="model">
 													<listitem>
-														<listcell label="${each.pregunta}" class="lb-listcell"/>
-														<listcell label="${each.respuesta}" class="lb-listcell"/>
+														<listcell label="@load(each.pregunta.pregunta)" class="lb-listcell"/>
+														<listcell label="@load(each.respuesta)" class="lb-listcell"/>
 													</listitem>
 												</template>
 											</listbox>

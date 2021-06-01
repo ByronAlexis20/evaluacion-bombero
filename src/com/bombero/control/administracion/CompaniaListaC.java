@@ -68,7 +68,7 @@ public class CompaniaListaC {
 			return;
 		}
 		// Actualiza la instancia antes de enviarla a editar.
-		companiaDAO.getEntityManager().refresh(companiaSeleccionado);		
+		companiaDAO.getEntityManager().refresh(companiaSeleccionado);	
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("Compania", companiaSeleccionado);
 		Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/administracion/companiaEditar.zul", null, params);

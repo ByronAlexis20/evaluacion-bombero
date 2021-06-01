@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.bombero.model.entity.Instructor;
-import com.bombero.model.entity.Modulo;
 
 public class InstructorDAO extends ClaseDAO {
 	@SuppressWarnings("unchecked")

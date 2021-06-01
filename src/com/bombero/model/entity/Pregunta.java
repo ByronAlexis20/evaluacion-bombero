@@ -4,20 +4,22 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the pregunta database table.
- * 
- */
 @Entity
-@NamedQuery(name="Pregunta.findAll", query="SELECT p FROM Pregunta p")
+@Table(name="pregunta")
+@NamedQueries({
+	@NamedQuery(name="Pregunta.buscarPorPeriodoYModulo", query="SELECT p FROM Pregunta p where p.evaluacion.periodo.idPeriodo = :idPeriodo "
+			+ "AND p.evaluacion.modulo.idModulo = :idModulo AND p.estado = 'A' AND p.evaluacion.estado = 'A' AND "
+			+ "p.evaluacion.periodo.estado = 'A' AND p.evaluacion.modulo.estado = 'A'"),
+	@NamedQuery(name="Pregunta.buscarPorId", query="SELECT p FROM Pregunta p where p.idPregunta = :idPregunta"),
+	@NamedQuery(name="Pregunta.buscarUltimo", query="SELECT p FROM Pregunta p where p.estado = 'A' order by p.idPregunta desc")
+})
 public class Pregunta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_pregunta")
-	private int idPregunta;
+	private Integer idPregunta;
 
 	private String estado;
 
@@ -29,17 +31,17 @@ public class Pregunta implements Serializable {
 	private Evaluacion evaluacion;
 
 	//bi-directional many-to-one association to Respuesta
-	@OneToMany(mappedBy="pregunta")
+	@OneToMany(mappedBy="pregunta", cascade = CascadeType.ALL)
 	private List<Respuesta> respuestas;
 
 	public Pregunta() {
 	}
 
-	public int getIdPregunta() {
+	public Integer getIdPregunta() {
 		return this.idPregunta;
 	}
 
-	public void setIdPregunta(int idPregunta) {
+	public void setIdPregunta(Integer idPregunta) {
 		this.idPregunta = idPregunta;
 	}
 
