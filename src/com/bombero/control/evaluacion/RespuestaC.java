@@ -44,6 +44,7 @@ public class RespuestaC {
 				Clients.showNotification("Debe registrar la respuesta","info",txtRespuesta,"end_center",2000);
 				return;
 			}
+			pregunta = preguntaDAO.buscarPreguntaPorId(pregunta.getIdPregunta());
 			//verificar si ya hau una respuesta correcta
 			boolean respuestaCorrecta = false;
 			String correcta = Globals.RESPUESTA_INCORRECTA;
@@ -70,19 +71,16 @@ public class RespuestaC {
 			respuestaGrabar.setIdRespuesta(null);
 			respuestaGrabar.setRespuesta(txtRespuesta.getText());
 			respuestaGrabar.setPregunta(pregunta);
-			if(pregunta.getRespuestas().size() > 0)
-				pregunta.addRespuesta(respuestaGrabar);
-			else {
+			preguntaDAO.getEntityManager().getTransaction().begin();
+			if(pregunta.getRespuestas().size() == 0) {
 				List<Respuesta> listaR = new ArrayList<>();
 				listaR.add(respuestaGrabar);
 				pregunta.setRespuestas(listaR);
+				preguntaDAO.getEntityManager().merge(pregunta);
+			} else {
+				preguntaDAO.getEntityManager().merge(respuestaGrabar);
 			}
-			
-			PreguntaDAO preguntaDAO = new PreguntaDAO();
-			preguntaDAO.getEntityManager().getTransaction().begin();
-			preguntaDAO.getEntityManager().merge(pregunta);
 			preguntaDAO.getEntityManager().getTransaction().commit();
-			
 			Clients.showNotification("Grabado correctamente");
 			salir();
 		}catch(Exception ex) {

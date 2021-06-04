@@ -420,4 +420,19 @@ public class Aspirante implements Serializable {
 		this.nombreConyuge = nombreConyuge;
 	}
 
+	@Override
+	public String toString() {
+		return "Aspirante \n[idAspirante=" + idAspirante + ", \napellidos=" + apellidos + ", \ncedula=" + cedula
+				+ ", \ncelular=" + celular + ", \ncorreo=" + correo + ", \ndireccionDomiciliaria="
+				+ direccionDomiciliaria + ", \nestado=" + estado + ", \nestatura=" + estatura + ", \nfechaNacimiento="
+				+ fechaNacimiento + ", \nnoHijos=" + noHijos + ", \nnoLibretaMilitar=" + noLibretaMilitar
+				+ ", \nnombreConyuge=" + nombreConyuge + ", \nnombres=" + nombres + ", \nnumeroSolar=" + numeroSolar
+				+ ", \nreferenciaDomiciliaria=" + referenciaDomiciliaria + ", \ntelefono=" + telefono
+				+ ", \nultimoAnioEstudio=" + ultimoAnioEstudio + ", \ncantonNacimiento=" + cantonNacimiento
+				+ ", \ncantonResidencia=" + cantonResidencia + ", \nestadoCivil=" + estadoCivil + ", \ngenero=" + genero
+				+ ", \nprofesion=" + profesion + ", \ntipoSangre=" + tipoSangre + ", \ninstruccion=" + instruccion
+				+ ", \ndocumentos=" + documentos + ", \nfichaMedicas=" + fichaMedicas + ", \nmatriculas=" + matriculas
+				+ ", \npersonalAutorizados=" + personalAutorizados + ", \nusuarios=" + usuarios + "]";
+	}
+
 }

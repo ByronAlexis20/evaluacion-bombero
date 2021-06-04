@@ -163,11 +163,7 @@ public class MenuControl {
 		if(us != null) {
 			if(us.getFoto() != null) {
 				fotoUsuario.setContent(getImagenUsuario(us));
-			}else {
-				fotoUsuario.setSrc( "/imagenes/foto.png");
 			}
-		}else {
-			fotoUsuario.setSrc("/imagenes/foto.png");
 		}
 	}
 	public AImage getImagenUsuario(Usuario us) {

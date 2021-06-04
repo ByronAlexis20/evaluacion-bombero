@@ -14,7 +14,9 @@ import java.util.List;
 	@NamedQuery(name="Matricula.buscarPorCedula", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
 			+ " and m.aspirante.cedula = :cedula and m.estado = 'A'"),
 	@NamedQuery(name="Matricula.buscarPorCedulaDiferenteAlUsuarioActual", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
-			+ " and m.aspirante.cedula = :cedula and m.idMatricula <> :idMatricula and m.estado = 'A'")
+			+ " and m.aspirante.cedula = :cedula and m.idMatricula <> :idMatricula and m.estado = 'A'"),
+	@NamedQuery(name="Matricula.buscarPorAspiranteYPeriodo", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
+			+ " and m.aspirante.idAspirante = :idAspirante and m.estado = 'A'"),
 })
 public class Matricula implements Serializable {
 	private static final long serialVersionUID = 1L;

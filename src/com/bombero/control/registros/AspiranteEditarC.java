@@ -47,9 +47,11 @@ import com.bombero.model.dao.GeneroDAO;
 import com.bombero.model.dao.InstruccionDAO;
 import com.bombero.model.dao.MatriculaDAO;
 import com.bombero.model.dao.PaisDAO;
+import com.bombero.model.dao.PerfilDAO;
 import com.bombero.model.dao.ProfesionDAO;
 import com.bombero.model.dao.ProvinciaDAO;
 import com.bombero.model.dao.TipoSangreDAO;
+import com.bombero.model.dao.UsuarioDAO;
 import com.bombero.model.entity.Aspirante;
 import com.bombero.model.entity.Canton;
 import com.bombero.model.entity.Cirugia;
@@ -65,6 +67,7 @@ import com.bombero.model.entity.Periodo;
 import com.bombero.model.entity.Profesion;
 import com.bombero.model.entity.Provincia;
 import com.bombero.model.entity.TipoSangre;
+import com.bombero.model.entity.Usuario;
 import com.bombero.util.ControllerHelper;
 import com.bombero.util.Globals;
 
@@ -104,6 +107,9 @@ public class AspiranteEditarC {
 	EstadoCivilDAO estadoivilDAO = new EstadoCivilDAO();
 	InstruccionDAO instruccionDAO = new InstruccionDAO();
 	ProfesionDAO profesionDAO = new ProfesionDAO();
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
+	PerfilDAO perfilDAO = new PerfilDAO();
+	
 	Pai paisSeleccionado;
 	Genero generoSeleccionado;
 	TipoSangre tipoSangreSeleccionado;
@@ -862,6 +868,23 @@ public class AspiranteEditarC {
 								matriculaDAO.getEntityManager().merge(fichaMedica);
 							}
 							//grabar como usuario
+							//primero validar si existe el usuario por cedula
+							List<Usuario> listaUsuario = usuarioDAO.getValidarUsuarioExistente(txtCedula.getText().toString());
+							if(listaUsuario.size() == 0) {
+								Usuario usuario = new Usuario();
+								usuario.setApellidos(txtApellidos.getText());
+								usuario.setAspirante(aspirante);
+								usuario.setCedula(txtCedula.getText());
+								usuario.setClave(helper.encriptar(txtCedula.getText()));
+								usuario.setDireccion(txtDireccionDomiciliaria.getText());
+								usuario.setEstado("A");
+								usuario.setIdUsuario(null);
+								usuario.setNombres(txtNombres.getText());
+								usuario.setPerfil(perfilDAO.obtenerPerfilPorId(Globals.CODIGO_USUARIO_ASPIRANTE));
+								usuario.setTelefono(txtTelefono.getText());
+								usuario.setUsuario(txtCedula.getText());
+								matriculaDAO.getEntityManager().persist(usuario);
+							}
 							matriculaDAO.getEntityManager().getTransaction().commit();
 							Clients.showNotification("Proceso Ejecutado con exito.");
 							salir();						

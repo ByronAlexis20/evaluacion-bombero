@@ -38,4 +38,14 @@ public class MatriculaDAO extends ClaseDAO {
 		resultado = (List<Matricula>) query.getResultList();
 		return resultado;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Matricula> obtenerPorAspiranteYPeriodo(Integer idAspirante,Integer idPeriodo) {
+		List<Matricula> resultado; 
+		Query query = getEntityManager().createNamedQuery("Matricula.buscarPorAspiranteYPeriodo");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idAspirante", idAspirante);
+		query.setParameter("idPeriodo", idPeriodo);
+		resultado = (List<Matricula>) query.getResultList();
+		return resultado;
+	}
 }

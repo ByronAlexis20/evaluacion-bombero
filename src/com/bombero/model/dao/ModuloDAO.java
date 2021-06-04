@@ -33,4 +33,14 @@ public class ModuloDAO extends ClaseDAO {
 		resultado = (List<Modulo>) query.getResultList();
 		return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Modulo> buscarPorInstructor(Integer idInstructor) {
+		List<Modulo> resultado; 
+		Query query = getEntityManager().createNamedQuery("Modulo.buscarPorInstructor");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idInstructor", idInstructor);
+		resultado = (List<Modulo>) query.getResultList();
+		return resultado;
+	}
 }

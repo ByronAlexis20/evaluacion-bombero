@@ -32,4 +32,12 @@ public class PeriodoDAO extends ClaseDAO {
 		resultado = (List<Periodo>) query.getResultList();
 		return resultado;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Periodo> buscarEnProceso() {
+		List<Periodo> resultado; 
+		Query query = getEntityManager().createNamedQuery("Periodo.buscarEnProceso");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		resultado = (List<Periodo>) query.getResultList();
+		return resultado;
+	}
 }

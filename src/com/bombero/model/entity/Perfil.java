@@ -4,13 +4,12 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the perfil database table.
- * 
- */
 @Entity
-@NamedQuery(name="Perfil.buscarPorPatron", query="SELECT p FROM Perfil p where lower(p.perfil) like lower(:patron)")
+@Table(name="perfil")
+@NamedQueries({
+	@NamedQuery(name="Perfil.buscarPorPatron", query="SELECT p FROM Perfil p where lower(p.perfil) like lower(:patron)"),
+	@NamedQuery(name="Perfil.buscarPerfilPorId", query="SELECT p FROM Perfil p where p.idPerfil = :idPerfil")
+})
 public class Perfil implements Serializable {
 	private static final long serialVersionUID = 1L;
 

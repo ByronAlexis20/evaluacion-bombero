@@ -12,8 +12,8 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Modulo.buscarPorPatron", query="SELECT m FROM Modulo m where lower(m.modulo) like lower(:patron)"),
-	@NamedQuery(name="Modulo.buscarSinAsignacion", query="SELECT m FROM Modulo m LEFT JOIN ModuloAsignado ma ON m.idModulo = ma.idAsignacion and "
-			+ "ma.periodo.idPeriodo = :idPeriodo and ma.estado = 'A' and m.estado = 'A' where ma.idAsignacion is null")
+	@NamedQuery(name="Modulo.buscarSinAsignacion", query="SELECT m FROM Modulo m LEFT JOIN ModuloAsignado ma ON m.idModulo = ma.modulo.idModulo where ma.modulo.idModulo is null and ma.periodo.idPeriodo = :idPeriodo"),
+	@NamedQuery(name="Modulo.buscarPorInstructor", query="SELECT m FROM Modulo m, ModuloAsignado ma where m.idModulo = ma.modulo.idModulo and m.estado = 'A' and ma.estado = 'A' and ma.instructor.idInstructor = :idInstructor"),
 })
 public class Modulo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +35,9 @@ public class Modulo implements Serializable {
 	@OneToMany(mappedBy="modulo")
 	private List<ModuloAsignado> moduloAsignados;
 
+	@OneToMany(mappedBy="modulo")
+	private List<Calificacion> calificacions;
+	
 	public Modulo() {
 	}
 
@@ -106,4 +109,31 @@ public class Modulo implements Serializable {
 		return moduloAsignado;
 	}
 
+	public List<Calificacion> getCalificacions() {
+		return this.calificacions;
+	}
+
+	public void setCalificacions(List<Calificacion> calificacions) {
+		this.calificacions = calificacions;
+	}
+
+	public Calificacion addCalificacion(Calificacion calificacion) {
+		getCalificacions().add(calificacion);
+		calificacion.setModulo(this);
+
+		return calificacion;
+	}
+
+	public Calificacion removeCalificacion(Calificacion calificacion) {
+		getCalificacions().remove(calificacion);
+		calificacion.setModulo(null);
+
+		return calificacion;
+	}
+
+	@Override
+	public String toString() {
+		return "Modulo \n[idModulo=" + idModulo + ", \nestado=" + estado + ", \nmodulo=" + modulo + ", \nevaluacions="
+				+ evaluacions + ", \nmoduloAsignados=" + moduloAsignados + ", \ncalificacions=" + calificacions + "]";
+	}
 }

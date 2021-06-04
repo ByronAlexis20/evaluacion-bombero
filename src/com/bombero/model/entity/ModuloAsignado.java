@@ -1,12 +1,24 @@
 package com.bombero.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="modulo_asignado")
-@NamedQuery(name="ModuloAsignado.buscarAsignacionesPorPeriodo", query="SELECT m FROM ModuloAsignado m where m.periodo.idPeriodo = :idPeriodo and m.estado = 'A'")
+@NamedQueries({
+	@NamedQuery(name="ModuloAsignado.buscarAsignacionesPorPeriodo", query="SELECT m FROM ModuloAsignado m where m.periodo.idPeriodo = :idPeriodo and m.estado = 'A'"),
+	@NamedQuery(name="ModuloAsignado.buscarAsignacionesPorInstructorPeriodo", query="SELECT m FROM ModuloAsignado m where m.periodo.idPeriodo = :idPeriodo and m.instructor.idInstructor = :idInstructor and m.estado = 'A'"),
+})
 public class ModuloAsignado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -16,10 +28,6 @@ public class ModuloAsignado implements Serializable {
 	private Integer idAsignacion;
 
 	private String estado;
-
-	//bi-directional many-to-one association to Calificacion
-	@OneToMany(mappedBy="moduloAsignado")
-	private List<Calificacion> calificacions;
 
 	//bi-directional many-to-one association to Modulo
 	@ManyToOne
@@ -55,28 +63,6 @@ public class ModuloAsignado implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<Calificacion> getCalificacions() {
-		return this.calificacions;
-	}
-
-	public void setCalificacions(List<Calificacion> calificacions) {
-		this.calificacions = calificacions;
-	}
-
-	public Calificacion addCalificacion(Calificacion calificacion) {
-		getCalificacions().add(calificacion);
-		calificacion.setModuloAsignado(this);
-
-		return calificacion;
-	}
-
-	public Calificacion removeCalificacion(Calificacion calificacion) {
-		getCalificacions().remove(calificacion);
-		calificacion.setModuloAsignado(null);
-
-		return calificacion;
-	}
-
 	public Modulo getModulo() {
 		return this.modulo;
 	}
@@ -99,6 +85,12 @@ public class ModuloAsignado implements Serializable {
 
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
+	}
+
+	@Override
+	public String toString() {
+		return "ModuloAsignado \n[idAsignacion=" + idAsignacion + ", \nestado=" + estado + ", \nmodulo=" + modulo
+				+ ", \ninstructor=" + instructor + ", \nperiodo=" + periodo + "]";
 	}
 
 }

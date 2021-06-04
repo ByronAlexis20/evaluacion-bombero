@@ -177,6 +177,7 @@ public class PreguntaEditarC {
 	public void agregarRespuesta(){
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
+			System.out.println(pregunta.toString());
 			params.put("Pregunta", pregunta);
 			Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/evaluacion/preguntas/respuesta.zul", null, params);
 			ventanaCargar.doModal();
@@ -188,14 +189,9 @@ public class PreguntaEditarC {
 	public void quitarRespuesta() {
 		try {
 			if(respuestaSeleccionada == null) {
-				Messagebox.show("Debe seleccionar una respuesta a eliminar");
+				Clients.showNotification("Debe seleccionar una respuesta a eliminar");
 				return;
 			}
-			RespuestaDAO respuestaDAO = new RespuestaDAO();
-			for(Respuesta item : listaRespuestas) {
-				System.out.println(item.toString());
-			}
-			System.out.println("Seleccionada"); System.out.println("selecionada a: " + respuestaSeleccionada.toString());
 			EventListener<ClickEvent> clickListener = new EventListener<Messagebox.ClickEvent>() {
 				public void onEvent(ClickEvent event) throws Exception {
 					if(Messagebox.Button.YES.equals(event.getButton())) {
@@ -220,6 +216,7 @@ public class PreguntaEditarC {
 	}
 	@Command
 	public void salir() {
+		BindUtils.postGlobalCommand(null, null, "Pregunta.buscarPorPeriodoYModulo", null);
 		winPregunta.detach();
 	}
 	public Respuesta getRespuestaSeleccionada() {

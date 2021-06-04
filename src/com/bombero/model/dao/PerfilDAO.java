@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import com.bombero.model.entity.Perfil;
 
 public class PerfilDAO extends ClaseDAO {
+	
 	@SuppressWarnings("unchecked")
 	public List<Perfil> getPerfilesPorDescripcion(String value) {
 		List<Perfil> resultado; 
@@ -22,5 +23,14 @@ public class PerfilDAO extends ClaseDAO {
 		query.setParameter("patron", patron);
 		resultado = (List<Perfil>) query.getResultList();
 		return resultado;
+	}
+	
+	public Perfil obtenerPerfilPorId(Integer idPerfil) {
+		Perfil perfil; 
+		Query consulta;
+		consulta = getEntityManager().createNamedQuery("Perfil.buscarPerfilPorId");
+		consulta.setParameter("idPerfil", idPerfil);
+		perfil = (Perfil) consulta.getSingleResult();
+		return perfil;
 	}
 }

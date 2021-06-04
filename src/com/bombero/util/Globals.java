@@ -21,4 +21,12 @@ public class Globals {
 	
 	public static String RESPUESTA_CORRECTA = "C";
 	public static String RESPUESTA_INCORRECTA = "I";
+	
+	//codigos de usuarios
+	public static Integer CODIGO_USUARIO_SISTEMAS = 1;
+	public static Integer CODIGO_USUARIO_ADMINISTRADOR = 2;
+	public static Integer CODIGO_USUARIO_ASPIRANTE = 3;
+	public static Integer CODIGO_USUARIO_INSTRUCTOR = 4;
+	
+	public static Integer NOTA_MINIMA_APROBACION = 70;
 }

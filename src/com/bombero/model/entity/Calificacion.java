@@ -3,20 +3,20 @@ package com.bombero.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the calificacion database table.
- * 
- */
 @Entity
-@NamedQuery(name="Calificacion.findAll", query="SELECT c FROM Calificacion c")
+@Table(name="calificacion")
+@NamedQueries({
+	@NamedQuery(name="Calificacion.obtenerCalificacionPorMatriculaYModulo", query="SELECT c FROM Calificacion c where c.modulo.idModulo = :idModulo and c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),
+	@NamedQuery(name="Calificacion.buscarPorAspirante", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),
+	@NamedQuery(name="Calificacion.buscarPorMatriculaYModulo", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.modulo.idModulo = :idModulo and c.estado = 'A'")
+})
 public class Calificacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_calificacion")
-	private int idCalificacion;
+	private Integer idCalificacion;
 
 	private String estado;
 
@@ -39,8 +39,8 @@ public class Calificacion implements Serializable {
 
 	//bi-directional many-to-one association to ModuloAsignado
 	@ManyToOne
-	@JoinColumn(name="id_asignacion")
-	private ModuloAsignado moduloAsignado;
+	@JoinColumn(name="id_modulo")
+	private Modulo modulo;
 
 	@ManyToOne
 	@JoinColumn(name="id_matricula")
@@ -49,11 +49,11 @@ public class Calificacion implements Serializable {
 	public Calificacion() {
 	}
 
-	public int getIdCalificacion() {
+	public Integer getIdCalificacion() {
 		return this.idCalificacion;
 	}
 
-	public void setIdCalificacion(int idCalificacion) {
+	public void setIdCalificacion(Integer idCalificacion) {
 		this.idCalificacion = idCalificacion;
 	}
 
@@ -113,12 +113,12 @@ public class Calificacion implements Serializable {
 		this.notaFinal = notaFinal;
 	}
 
-	public ModuloAsignado getModuloAsignado() {
-		return this.moduloAsignado;
+	public Modulo getModulo() {
+		return modulo;
 	}
 
-	public void setModuloAsignado(ModuloAsignado moduloAsignado) {
-		this.moduloAsignado = moduloAsignado;
+	public void setModulo(Modulo modulo) {
+		this.modulo = modulo;
 	}
 
 	public Matricula getMatricula() {
@@ -128,4 +128,12 @@ public class Calificacion implements Serializable {
 	public void setMatricula(Matricula matricula) {
 		this.matricula = matricula;
 	}
+
+	@Override
+	public String toString() {
+		return "Calificacion \n[idCalificacion=" + idCalificacion + ", \nestado=" + estado + ", \nexamen=" + examen
+				+ ", \nnota1=" + nota1 + ", \nnota2=" + nota2 + ", \nnota3=" + nota3 + ", \nnota4=" + nota4
+				+ ", \nnotaFinal=" + notaFinal + ", \nmodulo=" + modulo + ", \nmatricula=" + matricula + "]";
+	}
+	
 }

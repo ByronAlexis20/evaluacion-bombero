@@ -1,0 +1,46 @@
+<?page title="Calificar" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winCalificar" width="455px" vflex="1"
+		apply="org.zkoss.bind.BindComposer" border="none" position="center"
+		mode="overlapped" class="modal-title"
+		viewModel="@id('vm') @init('com.bombero.control.evaluacion.CalificacarC')">
+		<caption label="Ingrese calificaciones" height="25px" class="modal-title-letters"/>
+		<vlayout>
+			<grid>
+				<columns>
+					<column align="right" hflex="min" />
+					<column align="left" hflex="1" />
+				</columns>
+				<rows>
+					<row>
+						<label value="Nota 1: " class="label-form"/>
+						<textbox id="txtNota1" hflex="1" readonly="true"/>
+					</row>
+					<row>
+						<label value="Nota 2: " class="label-form"/>
+						<textbox id="txtNota2" multiline="true" height="30px" hflex="1"/>
+					</row>
+					<row>
+						<label value="Nota 3: " class="label-form"/>
+						<textbox id="txtNota3" hflex="1" multiline="true" height="50px"/>
+					</row>
+					<row>
+						<label value="Nota 4: " class="label-form"/>
+						<textbox id="txtNota4" hflex="1" multiline="true" height="50px" />
+					</row>
+				</rows>
+			</grid>
+			<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+			<vbox hflex="1" align="center" sclass="modal-title" height="35px" pack="center">
+				<div hflex="1" align="center">
+					<button id="grabar" label="Grabar"
+						iconSclass="z-icon-save" zclass="btn-modal"
+						onClick="@command('grabar')" />
+					<button id="salir" label="Salir"
+						iconSclass="z-icon-sign-out" zclass="btn-modal"
+						onClick="@command('salir')" />
+				</div>
+			</vbox>
+		</vlayout>
+	</window>
+</zk>

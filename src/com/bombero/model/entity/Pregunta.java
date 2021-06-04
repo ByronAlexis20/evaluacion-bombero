@@ -91,4 +91,10 @@ public class Pregunta implements Serializable {
 		return respuesta;
 	}
 
+	@Override
+	public String toString() {
+		return "Pregunta \n[idPregunta=" + idPregunta + ", \nestado=" + estado + ", \npregunta=" + pregunta
+				+ ", \nevaluacion=" + evaluacion + ", \nrespuestas=" + respuestas + "]";
+	}
+
 }

@@ -16,4 +16,14 @@ public class ModuloAsignadoDAO extends ClaseDAO {
 		resultado = (List<ModuloAsignado>) query.getResultList();
 		return resultado;
 	}
+	@SuppressWarnings("unchecked")
+	public List<ModuloAsignado> buscarAsignacionesPorInstructorPeriodo(Integer idInstructor, Integer idPeriodo) {
+		List<ModuloAsignado> resultado; 
+		Query query = getEntityManager().createNamedQuery("ModuloAsignado.buscarAsignacionesPorInstructorPeriodo");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idInstructor", idInstructor);
+		query.setParameter("idPeriodo", idPeriodo);
+		resultado = (List<ModuloAsignado>) query.getResultList();
+		return resultado;
+	}
 }

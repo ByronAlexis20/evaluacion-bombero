@@ -2,6 +2,9 @@ package com.bombero.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.bombero.util.Globals;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +17,8 @@ import java.util.List;
 @Table(name="periodo")
 @NamedQueries({
 	@NamedQuery(name="Periodo.buscarPorPatron", query="SELECT p FROM Periodo p where lower(p.descripcion) like lower(:patron)"),
-	@NamedQuery(name="Periodo.buscarActivos", query="SELECT p FROM Periodo p where p.estado = 'A' ORDER BY p.estadoPeriodo ")
+	@NamedQuery(name="Periodo.buscarActivos", query="SELECT p FROM Periodo p where p.estado = 'A' ORDER BY p.estadoPeriodo "),
+	@NamedQuery(name="Periodo.buscarEnProceso", query="SELECT p FROM Periodo p where p.estado = 'A' and p.estadoPeriodo = '" + Globals.ESTADO_PERIODO_EN_PROCESO + "'")
 })
 public class Periodo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -166,6 +170,14 @@ public class Periodo implements Serializable {
 
 	public void setEstadoPeriodo(String estadoPeriodo) {
 		this.estadoPeriodo = estadoPeriodo;
+	}
+
+	@Override
+	public String toString() {
+		return "Periodo \n[idPeriodo=" + idPeriodo + ", \ndescripcion=" + descripcion + ", \nestado=" + estado
+				+ ", \nfechaFin=" + fechaFin + ", \nfechaInicio=" + fechaInicio + ", \nestadoPeriodo=" + estadoPeriodo
+				+ ", \nevaluacions=" + evaluacions + ", \nmatriculas=" + matriculas + ", \nmoduloAsignados="
+				+ moduloAsignados + "]";
 	}
 
 }

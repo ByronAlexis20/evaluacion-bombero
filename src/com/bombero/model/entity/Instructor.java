@@ -168,4 +168,12 @@ public class Instructor implements Serializable {
 		return usuario;
 	}
 
+	@Override
+	public String toString() {
+		return "Instructor \n[idInstructor=" + idInstructor + ", \napellido=" + apellido + ", \ncargo=" + cargo
+				+ ", \ncedula=" + cedula + ", \ncodigo=" + codigo + ", \nestado=" + estado + ", \ngrado=" + grado
+				+ ", \nnombre=" + nombre + ", \ntipoSangre=" + tipoSangre + ", \nmoduloAsignados=" + moduloAsignados
+				+ ", \nusuarios=" + usuarios + "]";
+	}
+
 }

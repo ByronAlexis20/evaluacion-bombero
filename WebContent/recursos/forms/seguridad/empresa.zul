@@ -72,7 +72,7 @@
 										<vbox hflex="1" align="center" height="35px">
 											<div hflex="1" align="center">
 												<button id="grabar" label="Grabar" style="font-size: 16px;font-style: normal;"
-													iconSclass="z-icon-save" zclass="btn-modal" height="30px"
+													iconSclass="z-icon-save" zclass="btn btn-outline-primary btn-sm"
 													onClick="@command('grabar')" />
 											</div>
 										</vbox>

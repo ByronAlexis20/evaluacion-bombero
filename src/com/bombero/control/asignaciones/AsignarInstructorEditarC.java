@@ -1,6 +1,7 @@
 package com.bombero.control.asignaciones;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.BindUtils;
@@ -97,10 +98,24 @@ public class AsignarInstructorEditarC {
 		this.periodo = periodo;
 	}
 	public List<Modulo> getModulos() {
-		return moduloDAO.buscarSinAsignacionPorPeriodo(periodo.getIdPeriodo());
+		List<Modulo> lista = moduloDAO.getModuloPorDescripcion("");
+		List<Modulo> listaRetornar = new ArrayList<>();
+		List<ModuloAsignado> listaAsignados = moduloAsignadoDAO.obtenerAsignacionesPorPeriodo(periodo.getIdPeriodo());
+		boolean band = false;
+		for(Modulo mod : lista) {
+			band = false;
+			for(ModuloAsignado asig : listaAsignados) {
+				if(mod.getIdModulo() == asig.getModulo().getIdModulo()) {
+					band = true;
+				}
+			}
+			if(band == false)
+				listaRetornar.add(mod);
+		}
+		return listaRetornar;
 	}
 	public List<Instructor> getInstructores() {
-		return instructorDAO.buscarSinAsignacionPorPeriodo(periodo.getIdPeriodo());
+		return instructorDAO.buscarPorNombreApellido("");
 	}
 	public Modulo getModuloSeleccionado() {
 		return moduloSeleccionado;

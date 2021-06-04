@@ -20,10 +20,14 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import com.bombero.model.dao.InstructorDAO;
+import com.bombero.model.dao.PerfilDAO;
 import com.bombero.model.dao.TipoSangreDAO;
+import com.bombero.model.dao.UsuarioDAO;
 import com.bombero.model.entity.Instructor;
 import com.bombero.model.entity.TipoSangre;
+import com.bombero.model.entity.Usuario;
 import com.bombero.util.ControllerHelper;
+import com.bombero.util.Globals;
 
 public class InstructorEditarC {
 	@Wire private Window winInstructorEditar;
@@ -39,6 +43,8 @@ public class InstructorEditarC {
 	TipoSangre tipoSangreSeleccionado;
 	ControllerHelper helper = new ControllerHelper();
 	InstructorDAO instructorDAO = new InstructorDAO();
+	UsuarioDAO usuarioDAO = new UsuarioDAO();
+	PerfilDAO perfilDAO = new PerfilDAO();
 	
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
@@ -70,6 +76,22 @@ public class InstructorEditarC {
 							instructorDAO.getEntityManager().persist(instructor);
 						}else{
 							instructor = (Instructor) instructorDAO.getEntityManager().merge(instructor);
+						}
+						//grabar como usuario
+						//primero validar si existe el usuario por cedula
+						List<Usuario> listaUsuario = usuarioDAO.getValidarUsuarioExistente(txtCedula.getText().toString());
+						if(listaUsuario.size() == 0) {
+							Usuario usuario = new Usuario();
+							usuario.setApellidos(txtApellidos.getText());
+							usuario.setInstructor(instructor);
+							usuario.setCedula(txtCedula.getText());
+							usuario.setClave(helper.encriptar(txtCedula.getText()));
+							usuario.setEstado("A");
+							usuario.setIdUsuario(null);
+							usuario.setNombres(txtNombres.getText());
+							usuario.setPerfil(perfilDAO.obtenerPerfilPorId(Globals.CODIGO_USUARIO_INSTRUCTOR));
+							usuario.setUsuario(txtCedula.getText());
+							instructorDAO.getEntityManager().persist(usuario);
 						}
 						instructorDAO.getEntityManager().getTransaction().commit();
 						Clients.showNotification("Proceso Ejecutado con exito.");

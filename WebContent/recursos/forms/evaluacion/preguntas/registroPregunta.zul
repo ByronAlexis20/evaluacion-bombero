@@ -10,7 +10,8 @@
 			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
 			<hbox hflex="1" vflex="1" align="center">
 				<vbox vflex="1" width="70%">
-					<listbox id="lstPeriodo" hflex="1" vflex="1" model="@load(vm.periodoLista)" selectedItem="@bind(vm.periodoSeleccionado)">
+					<listbox id="lstPeriodo" hflex="1" vflex="1" model="@load(vm.periodoLista)" selectedItem="@bind(vm.periodoSeleccionado)"
+						onSelect="@command('seleccionarPeriodo')">
 						<listhead>
 							<listheader label="Periodos" class="lb-listheader"/>
 						</listhead>
@@ -84,7 +85,7 @@
 													iconSclass="z-icon-trash-o" label="Eliminar"/>
 											</div>
 											<listbox id="lstPreguntas" hflex="1" model="@load(vm.listaPregunta)"
-												vflex="1" >
+												vflex="1" selectedItem="@bind(vm.preguntaSeleccionada)">
 												<listhead>
 													<listheader label="Pregunta" class="lb-listheader"/>
 													<listheader label="Respuesta Correcta" class="lb-listheader"/>

@@ -1,0 +1,32 @@
+<?page title="ver calificaciones" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		viewModel="@id('vm') @init('com.bombero.control.evaluacion.VerCalificacionC')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<label value="Calificaciones" style="font-size:15px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<div hflex="1">
+				<vlayout hflex="1">
+					<hlayout>
+						<label value="Periodo: " style="font-size: 10px; font-family: sans-serif; font-weight: bold;"></label>
+						<label value="@load(vm.periodo.descripcion)" style="font-size: 10px; font-family: sans-serif"/>
+						<label value=" " style="font-size: 10px; font-family: sans-serif"/>
+						<label value="Duración: " style="font-size: 10px; font-family: sans-serif; font-weight: bold;"></label>
+						<label value="@load(vm.periodo.fechaInicio) @converter('formatedDate',format='dd/MM/yyyy')" style="font-size: 10px; font-family: sans-serif"/>
+						<label value="@load(vm.periodo.fechaFin) @converter('formatedDate',format='dd/MM/yyyy')" style="font-size: 10px; font-family: sans-serif"/>
+					</hlayout>
+					<hlayout>
+						<label value="Aspirante: " style="font-size: 10px; font-family: sans-serif; font-weight: bold;"></label>
+						<label value="@load(vm.aspirante.nombres)" style="font-size: 10px; font-family: sans-serif"/>
+						<label value=" " style="font-size: 10px; font-family: sans-serif"/>
+						<label value="@load(vm.aspirante.apellidos)" style="font-size: 10px; font-family: sans-serif"/>
+					</hlayout>
+				</vlayout>
+			</div>
+			<vlayout vflex="1" hflex="1" id="hlayoutCal"/>
+		</vlayout>
+	</window>
+</zk>
