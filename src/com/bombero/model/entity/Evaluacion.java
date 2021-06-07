@@ -26,6 +26,9 @@ public class Evaluacion implements Serializable {
 
 	private String descripcion;
 
+	@Column(name="estado_evaluacion")
+	private String estadoEvaluacion;
+	
 	private String estado;
 
 	//bi-directional many-to-one association to Modulo
@@ -131,6 +134,14 @@ public class Evaluacion implements Serializable {
 		resultadoEvaluacion.setEvaluacion(null);
 
 		return resultadoEvaluacion;
+	}
+
+	public String getEstadoEvaluacion() {
+		return estadoEvaluacion;
+	}
+
+	public void setEstadoEvaluacion(String estadoEvaluacion) {
+		this.estadoEvaluacion = estadoEvaluacion;
 	}
 
 }
