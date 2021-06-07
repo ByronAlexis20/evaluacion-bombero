@@ -28,15 +28,13 @@
 				<listbox id="lstPerfiles" model="@load(vm.perfilLista)" autopaging="true"
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
-						<listheader label="Código" align="center" width="15%" class="lb-listheader"/>
-						<listheader label="Perfil" align="center" width="15%" class="lb-listheader"/>
+						<listheader label="Perfil" width="15%" class="lb-listheader"/>
 						<listheader label="Descripción" class="lb-listheader"/>
-						<listheader label="Estado" width="7%" align="center" class="lb-listheader"/>
-						<listheader label="Acción" width="min" align="center" class="lb-listheader"/>
+						<listheader label="Estado" width="7%" class="lb-listheader"/>
+						<listheader label="Acción" width="min" class="lb-listheader"/>
 					</listhead>
 					<template name="model">
 						<listitem>
-							<listcell label="@load(each.idPerfil)" class="lb-listcell"/>
 							<listcell label="@load(each.perfil)" class="lb-listcell"/>
 							<listcell label="@load(each.descripcion)" class="lb-listcell"/>
 							<listcell label="@load(each.estado)" class="lb-listcell"/>

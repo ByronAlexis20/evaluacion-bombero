@@ -11,14 +11,16 @@ import java.util.List;
  */
 @Entity
 @Table(name="resultado_evaluacion")
-@NamedQuery(name="ResultadoEvaluacion.findAll", query="SELECT r FROM ResultadoEvaluacion r")
+@NamedQueries({
+	@NamedQuery(name="ResultadoEvaluacion.buscarPorEvaluacionYAspirante", query="SELECT r FROM ResultadoEvaluacion r where r.evaluacion.idEvaluacion = :idEvaluacion and r.matricula.idMatricula = :idMatricula and r.estado = 'A'")
+})
 public class ResultadoEvaluacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_resultado_evaluacion")
-	private int idResultadoEvaluacion;
+	private Integer idResultadoEvaluacion;
 
 	private float calificacion;
 
@@ -41,11 +43,11 @@ public class ResultadoEvaluacion implements Serializable {
 	public ResultadoEvaluacion() {
 	}
 
-	public int getIdResultadoEvaluacion() {
+	public Integer getIdResultadoEvaluacion() {
 		return this.idResultadoEvaluacion;
 	}
 
-	public void setIdResultadoEvaluacion(int idResultadoEvaluacion) {
+	public void setIdResultadoEvaluacion(Integer idResultadoEvaluacion) {
 		this.idResultadoEvaluacion = idResultadoEvaluacion;
 	}
 

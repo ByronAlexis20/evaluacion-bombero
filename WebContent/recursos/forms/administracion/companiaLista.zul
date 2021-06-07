@@ -28,7 +28,6 @@
 				<listbox id="lstCompanias" model="@load(vm.companiaLista)" autopaging="true"
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
-						<listheader label="Código" width="10%" class="lb-listheader"/>
 						<listheader label="Nombre" class="lb-listheader"/>
 						<listheader label="Dirección" class="lb-listheader"/>
 						<listheader label="Estado" width="15%" class="lb-listheader"/>
@@ -36,7 +35,6 @@
 					</listhead>
 					<template name="model">
 						<listitem>
-							<listcell label="@load(each.idCompania)" class="lb-listcell"/>
 							<listcell label="@load(each.nombre)" class="lb-listcell"/>
 							<listcell label="@load(each.direccion)" class="lb-listcell"/>
 							<listcell label="@load(each.estado)" class="lb-listcell"/>

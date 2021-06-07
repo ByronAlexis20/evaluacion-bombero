@@ -34,6 +34,7 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -101,6 +102,9 @@ public class AspiranteEditarC {
 	@Wire private Combobox cboInstruccion;
 	@Wire private Combobox cboProfesion;	
 	
+	@Wire private Tab tabDatosPersonales;
+	@Wire private Tab tabFichaMedica;
+	@Wire private Tab tabDocumentos;
 	PaisDAO paisDAO = new PaisDAO();
 	GeneroDAO generoDAO = new GeneroDAO();
 	TipoSangreDAO tipoSangreDAO = new TipoSangreDAO();
@@ -190,6 +194,7 @@ public class AspiranteEditarC {
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
+		
 		matricula = (Matricula) Executions.getCurrent().getArg().get("Matricula");
 		periodo = (Periodo) Executions.getCurrent().getArg().get("Periodo");
 		if (matricula == null) {

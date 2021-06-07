@@ -36,4 +36,24 @@ public class EvaluacionDAO extends ClaseDAO {
 		resultado = (List<Evaluacion>) query.getResultList();
 		return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Evaluacion> recuperarPorPeriodo(Integer idPeriodo) {
+		List<Evaluacion> resultado = new ArrayList<Evaluacion>(); 
+		Query query = getEntityManager().createNamedQuery("Evaluacion.buscarPorPeriodo");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idPeriodo", idPeriodo);
+		resultado = (List<Evaluacion>) query.getResultList();
+		return resultado;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Evaluacion> buscarPorEstadoEvaluacion(String estado) {
+		List<Evaluacion> resultado = new ArrayList<Evaluacion>(); 
+		Query query = getEntityManager().createNamedQuery("Evaluacion.buscarPorEstadoEvaluacion");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("estado", estado);
+		resultado = (List<Evaluacion>) query.getResultList();
+		return resultado;
+	}
 }

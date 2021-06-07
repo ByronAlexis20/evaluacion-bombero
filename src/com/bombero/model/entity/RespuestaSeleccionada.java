@@ -17,7 +17,7 @@ public class RespuestaSeleccionada implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_respuesta_seleccionada")
-	private int idRespuestaSeleccionada;
+	private Integer idRespuestaSeleccionada;
 
 	private String estado;
 
@@ -35,11 +35,11 @@ public class RespuestaSeleccionada implements Serializable {
 	public RespuestaSeleccionada() {
 	}
 
-	public int getIdRespuestaSeleccionada() {
+	public Integer getIdRespuestaSeleccionada() {
 		return this.idRespuestaSeleccionada;
 	}
 
-	public void setIdRespuestaSeleccionada(int idRespuestaSeleccionada) {
+	public void setIdRespuestaSeleccionada(Integer idRespuestaSeleccionada) {
 		this.idRespuestaSeleccionada = idRespuestaSeleccionada;
 	}
 

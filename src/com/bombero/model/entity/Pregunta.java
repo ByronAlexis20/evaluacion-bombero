@@ -11,7 +11,8 @@ import java.util.List;
 			+ "AND p.evaluacion.modulo.idModulo = :idModulo AND p.estado = 'A' AND p.evaluacion.estado = 'A' AND "
 			+ "p.evaluacion.periodo.estado = 'A' AND p.evaluacion.modulo.estado = 'A'"),
 	@NamedQuery(name="Pregunta.buscarPorId", query="SELECT p FROM Pregunta p where p.idPregunta = :idPregunta"),
-	@NamedQuery(name="Pregunta.buscarUltimo", query="SELECT p FROM Pregunta p where p.estado = 'A' order by p.idPregunta desc")
+	@NamedQuery(name="Pregunta.buscarUltimo", query="SELECT p FROM Pregunta p where p.estado = 'A' order by p.idPregunta desc"),
+	@NamedQuery(name="Pregunta.buscarPorEvaluacion", query="SELECT p FROM Pregunta p where p.evaluacion.idEvaluacion = :idEvaluacion and p.estado = 'A'")
 })
 public class Pregunta implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -36,4 +36,14 @@ public class PreguntaDAO extends ClaseDAO {
 		resultado = (List<Pregunta>) query.getResultList();
 		return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Pregunta> buscarPorEvaluacion(Integer idEvaluacion) {
+		List<Pregunta> resultado = new ArrayList<Pregunta>(); 
+		Query query = getEntityManager().createNamedQuery("Pregunta.buscarPorEvaluacion");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idEvaluacion", idEvaluacion);
+		resultado = (List<Pregunta>) query.getResultList();
+		return resultado;
+	}
 }

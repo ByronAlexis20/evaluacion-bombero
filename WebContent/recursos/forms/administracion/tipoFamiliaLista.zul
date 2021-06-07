@@ -28,14 +28,12 @@
 				<listbox id="lstTipoFamiliar" model="@load(vm.tipoFamiliarLista)" autopaging="true"
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
-						<listheader label="Código" width="10%" class="lb-listheader"/>
 						<listheader label="Parentesco" class="lb-listheader"/>
 						<listheader label="Estado" width="15%" class="lb-listheader"/>
 						<listheader label="Acción" width="15%" align="center" class="lb-listheader"/>
 					</listhead>
 					<template name="model">
 						<listitem>
-							<listcell label="@load(each.idTipoFamiliar)" class="lb-listcell"/>
 							<listcell label="@load(each.tipoFamiliar)" class="lb-listcell"/>
 							<listcell label="@load(each.estado)" class="lb-listcell"/>
 							<listcell>

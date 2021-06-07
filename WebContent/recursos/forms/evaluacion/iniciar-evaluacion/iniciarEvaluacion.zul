@@ -57,14 +57,14 @@
 								</div>
 							</vlayout>
 							<hlayout hflex="1">
-								<button zclass="btn btn-outline-primary btn-sm" onClick="@command('nuevaPregunta')"
+								<button zclass="btn btn-outline-primary btn-sm" onClick="@command('iniciarEvaluacion')"
 									iconSclass="z-icon-plus" label="Iniciar Evaluación"/>
-								<button zclass="btn btn-outline-danger btn-sm" onClick="@command('eliminarPregunta')"
+								<button zclass="btn btn-outline-danger btn-sm" onClick="@command('terminarEvaluacion')"
 									iconSclass="z-icon-trash-o" label="Terminar Evaluación"/>
 							</hlayout>
 							<hlayout hflex="1" vflex="1">
-								<listbox id="lstEvaluacion" hflex="1" vflex="1" onSelect="@command('cargarPreguntas')"
-									model="@load(vm.listaEvaluacion)" selectedItem="@bind(vm.evaluacionSeleccionado)">
+								<listbox id="lstEvaluacion" hflex="1" vflex="1" model="@load(vm.listaEvaluacion)" 
+									selectedItem="@bind(vm.evaluacionSeleccionado)">
 									<listhead>
 										<listheader label="Módulo" class="lb-listheader"/>
 										<listheader label="Descripción" class="lb-listheader"/>

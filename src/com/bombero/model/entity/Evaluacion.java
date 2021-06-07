@@ -15,6 +15,8 @@ import java.util.List;
 	@NamedQuery(name="Evaluacion.buscarPorModuloYPeriodo", query="SELECT e FROM Evaluacion e where e.periodo.idPeriodo = :idPeriodo AND e.modulo.idModulo = :idModulo and e.estado = 'A'"),
 	@NamedQuery(name="Evaluacion.buscarPorId", query="SELECT e FROM Evaluacion e where e.idEvaluacion = :idEvaluacion"),
 	@NamedQuery(name="Evaluacion.buscarUltimo", query="SELECT e FROM Evaluacion e where e.estado = 'A' ORDER BY e.idEvaluacion desc"),
+	@NamedQuery(name="Evaluacion.buscarPorPeriodo", query="SELECT e FROM Evaluacion e where e.periodo.idPeriodo = :idPeriodo AND e.estado = 'A'"),
+	@NamedQuery(name="Evaluacion.buscarPorEstadoEvaluacion", query="SELECT e FROM Evaluacion e where e.estadoEvaluacion = :estado AND e.estado = 'A'")
 })
 public class Evaluacion implements Serializable {
 	private static final long serialVersionUID = 1L;

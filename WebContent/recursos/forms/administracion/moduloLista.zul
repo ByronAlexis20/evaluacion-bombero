@@ -28,14 +28,12 @@
 				<listbox id="lstModulos" model="@load(vm.moduloLista)" autopaging="true"
 					mold="paging" hflex="1" vflex="1">
 					<listhead>
-						<listheader label="Código" width="10%" class="lb-listheader"/>
 						<listheader label="Descripcion" class="lb-listheader"/>
 						<listheader label="Estado" width="15%" class="lb-listheader"/>
 						<listheader label="Acción" width="15%" align="center" class="lb-listheader"/>
 					</listhead>
 					<template name="model">
 						<listitem>
-							<listcell label="@load(each.idModulo)" class="lb-listcell"/>
 							<listcell label="@load(each.modulo)" class="lb-listcell"/>
 							<listcell label="@load(each.estado)" class="lb-listcell"/>
 							<listcell>

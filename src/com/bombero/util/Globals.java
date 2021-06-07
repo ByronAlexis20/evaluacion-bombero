@@ -29,4 +29,10 @@ public class Globals {
 	public static Integer CODIGO_USUARIO_INSTRUCTOR = 4;
 	
 	public static Integer NOTA_MINIMA_APROBACION = 70;
+	
+	public static String EVALUACION_INICIADA = "INICIADO";
+	public static String EVALUACION_NO_INICIADA = "NO INICIADO";
+	public static String EVALUACION_TERMINADA = "TERMINADO";
+	
+	public static Integer CANTIDAD_PREGUNTAS = 10;
 }
