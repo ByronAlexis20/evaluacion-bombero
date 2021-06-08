@@ -102,9 +102,6 @@ public class AspiranteEditarC {
 	@Wire private Combobox cboInstruccion;
 	@Wire private Combobox cboProfesion;	
 	
-	@Wire private Tab tabDatosPersonales;
-	@Wire private Tab tabFichaMedica;
-	@Wire private Tab tabDocumentos;
 	PaisDAO paisDAO = new PaisDAO();
 	GeneroDAO generoDAO = new GeneroDAO();
 	TipoSangreDAO tipoSangreDAO = new TipoSangreDAO();
@@ -191,6 +188,7 @@ public class AspiranteEditarC {
 	FamiliarDAO familiarDAO = new FamiliarDAO();
 	CirugiaDAO cirugiaDAO = new CirugiaDAO();
 	
+	@Wire Tab tabDatosPersonales;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
