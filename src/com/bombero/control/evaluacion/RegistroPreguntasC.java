@@ -66,6 +66,7 @@ public class RegistroPreguntasC {
 		List<Pregunta> lista = preguntaDAO.buscarPreguntaPorPeriodoYModulo(periodoSeleccionado.getIdPeriodo(), moduloSeleccionado.getIdModulo());
 		List<PreguntaPresentar> lstPres = new ArrayList<>();
 		boolean validador = false;
+		int cont = 1;
 		for(Pregunta prg : lista) {
 			validador = false;
 			PreguntaPresentar obj = new PreguntaPresentar();
@@ -81,7 +82,9 @@ public class RegistroPreguntasC {
 			if(validador == false) {
 				obj.setRespuesta("No se ha registrado respuesta correcta!");
 			}
+			obj.setItem(cont);
 			lstPres.add(obj);
+			cont ++;
 		}
 		listaPregunta = lstPres;
 	}
@@ -190,6 +193,7 @@ public class RegistroPreguntasC {
 		this.moduloLista = moduloLista;
 	}
 	public class PreguntaPresentar {
+		private int item;
 		private Pregunta pregunta;
 		private String respuesta;
 		public Pregunta getPregunta() {
@@ -203,6 +207,12 @@ public class RegistroPreguntasC {
 		}
 		public void setRespuesta(String respuesta) {
 			this.respuesta = respuesta;
+		}
+		public int getItem() {
+			return item;
+		}
+		public void setItem(int item) {
+			this.item = item;
 		};	
 	}
 }

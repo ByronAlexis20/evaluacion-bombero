@@ -20,12 +20,16 @@ public class PreguntaDAO extends ClaseDAO {
 	}
 	
 	public Pregunta buscarPreguntaPorId(Integer idPregunta) {
-		Pregunta pregunta; 
-		Query consulta;
-		consulta = getEntityManager().createNamedQuery("Pregunta.buscarPorId");
-		consulta.setParameter("idPregunta", idPregunta);
-		pregunta = (Pregunta) consulta.getSingleResult();
-		return pregunta;
+		try {
+			Pregunta pregunta; 
+			Query consulta;
+			consulta = getEntityManager().createNamedQuery("Pregunta.buscarPorId");
+			consulta.setParameter("idPregunta", idPregunta);
+			pregunta = (Pregunta) consulta.getSingleResult();
+			return pregunta;
+		}catch(Exception ex) {
+			return null;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

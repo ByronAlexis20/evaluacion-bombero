@@ -21,6 +21,8 @@
 									<vlayout>
 										<hbox>
 											<label value="@load(each.descripcion)"/>
+										</hbox>
+										<hbox>
 											<label value=" ("/>
 											<label value="@load(each.estadoPeriodo)"/>
 											<label value=")"/>
@@ -61,12 +63,10 @@
 									<listbox id="lstModulos" hflex="1" vflex="1" onSelect="@command('cargarPreguntas')"
 										model="@load(vm.moduloLista)" selectedItem="@bind(vm.moduloSeleccionado)">
 										<listhead>
-											<listheader label="Código" width="60px" class="lb-listheader"/>
 											<listheader label="Módulo" class="lb-listheader"/>
 										</listhead>
 										<template name="model">
 											<listitem>
-												<listcell label="@load(each.idModulo)" class="lb-listcell"/>
 												<listcell label="@load(each.modulo)" class="lb-listcell"/>
 											</listitem>
 										</template>
@@ -87,11 +87,13 @@
 											<listbox id="lstPreguntas" hflex="1" model="@load(vm.listaPregunta)"
 												vflex="1" selectedItem="@bind(vm.preguntaSeleccionada)">
 												<listhead>
+													<listheader label="Item" width="40px" class="lb-listheader"/>
 													<listheader label="Pregunta" class="lb-listheader"/>
 													<listheader label="Respuesta Correcta" class="lb-listheader"/>
 												</listhead>
 												<template name="model">
 													<listitem>
+														<listcell label="@load(each.item)" class="lb-listcell"/>
 														<listcell label="@load(each.pregunta.pregunta)" class="lb-listcell"/>
 														<listcell label="@load(each.respuesta)" class="lb-listcell"/>
 													</listitem>

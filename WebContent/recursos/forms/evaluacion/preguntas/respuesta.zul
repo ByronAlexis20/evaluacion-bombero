@@ -21,7 +21,7 @@
 					<row>
 						<cell sclass="row-title">Respuesta:</cell>
 						<cell>
-							<textbox id="txtRespuesta" width="100%" multiline="true"/>
+							<textbox id="txtRespuesta" width="100%" multiline="true" height="150px"/>
 						</cell>
 					</row>
 				</rows>

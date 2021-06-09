@@ -35,4 +35,10 @@ public class Globals {
 	public static String EVALUACION_TERMINADA = "TERMINADO";
 	
 	public static Integer CANTIDAD_PREGUNTAS = 10;
+	public static float PUNTAJE_POR_PREGUNTA = 0;
+	public static float PUNTAJE_EXAMEN = 35;
+	public static float PUNTAJE_NOTA1 = 15;
+	public static float PUNTAJE_NOTA2 = 15;
+	public static float PUNTAJE_NOTA3 = 15;
+	public static float PUNTAJE_NOTA4 = 20;
 }

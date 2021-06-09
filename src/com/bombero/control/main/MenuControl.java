@@ -30,13 +30,16 @@ import org.zkoss.zul.Treechildren;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.Treerow;
 
+import com.bombero.model.dao.EmpresaDAO;
 import com.bombero.model.dao.MenuDAO;
 import com.bombero.model.dao.PermisoDAO;
 import com.bombero.model.dao.UsuarioDAO;
+import com.bombero.model.entity.Empresa;
 import com.bombero.model.entity.Menu;
 import com.bombero.model.entity.Permiso;
 import com.bombero.model.entity.Usuario;
 import com.bombero.util.FileUtil;
+import com.bombero.util.Globals;
 import com.bombero.util.SecurityUtil;
 
 public class MenuControl {
@@ -47,6 +50,7 @@ public class MenuControl {
 	UsuarioDAO usuarioDAO = new UsuarioDAO();
 	PermisoDAO permisoDAO = new PermisoDAO();
 	MenuDAO menuDAO = new MenuDAO();
+	EmpresaDAO empresaDAO = new EmpresaDAO();
 	List<Menu> listaPermisosPadre = new ArrayList<Menu>();
 	List<Permiso> listaPermisosHijo = new ArrayList<Permiso>();
 	
@@ -54,9 +58,16 @@ public class MenuControl {
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException, MessagingException{
 		Selectors.wireComponents(view, this, false);
 		loadTree();
+		cargarDatosConfiguracion();
 		//startLongOperation();
 	}
-	
+	public void cargarDatosConfiguracion(){
+		List<Empresa> lista = empresaDAO.obtenerListaEmpresa();
+		if(lista.size() > 0) {
+			Globals.CANTIDAD_PREGUNTAS = lista.get(0).getCantidadPreguntas();
+			Globals.PUNTAJE_POR_PREGUNTA = lista.get(0).getPuntaje();
+		}
+	}
 	public void loadTree() throws IOException{		
 		Usuario usuario = usuarioDAO.getUsuario(SecurityUtil.getUser().getUsername().trim()); 
 		if (usuario != null){

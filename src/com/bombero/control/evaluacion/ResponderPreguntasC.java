@@ -108,7 +108,7 @@ public class ResponderPreguntasC {
 						Integer i = 1;
 						for(Pregunta pre : preguntasPresentar) {
 							establecerPregunta(String.valueOf(pre.getIdPregunta()),i,pre.getPregunta(),pre.getRespuestas());
-							i += 1;
+							i ++;
 						}
 					}
 				}
@@ -130,7 +130,7 @@ public class ResponderPreguntasC {
 		vRespuestas.getChildren().add(lblNoPregunta);
 		//pregunta
 		Label lblPregunta = new Label();
-		lblPregunta.setValue(pregunta);
+		lblPregunta.setValue("P" + pregunta);
 		lblPregunta.setId(idPregunta);
 		vRespuestas.getChildren().add(lblPregunta);
 		//respuestas
@@ -138,7 +138,7 @@ public class ResponderPreguntasC {
 			if(res.getEstado().equals("A")) {
 				Radio rRes = new Radio();
 				rRes.setRadiogroup("grupo" + item);
-				rRes.setId(String.valueOf(res.getIdRespuesta()));
+				rRes.setId("R" + String.valueOf(res.getIdRespuesta()));
 				rRes.setLabel(res.getRespuesta());
 				vRespuestas.getChildren().add(rRes);
 			}
@@ -171,7 +171,7 @@ public class ResponderPreguntasC {
 											//la tercera es Label de la pregunta
 											if(h == 2) {
 												Label pregunta = (Label) vbox.getChildren().get(h);
-												respuestaSeleccionada.setIdPregunta(Integer.parseInt(pregunta.getId()));
+												respuestaSeleccionada.setIdPregunta(Integer.parseInt(pregunta.getId().substring(1, pregunta.getId().length())));
 												Pregunta lstPregunta = preguntaDAO.buscarPreguntaPorId(Integer.parseInt(pregunta.getId()));
 												if(lstPregunta != null) {
 													bandera = false;
@@ -186,12 +186,9 @@ public class ResponderPreguntasC {
 											}else {
 												//las demas posiciones son Radio de respuestas
 												Radio respuesta = (Radio) vbox.getChildren().get(h);
-												System.out.print("Id Respuesta: " + respuesta.getId() + " Respuesta: " + respuesta.getLabel());
 												if(respuesta.isSelected()) {
-													System.out.print(" <-- Seleccionada");
-													respuestaSeleccionada.setIdSelecionada(Integer.parseInt(respuesta.getId()));
+													respuestaSeleccionada.setIdSelecionada(Integer.parseInt(respuesta.getId().substring(1, respuesta.getId().length())));
 												}
-												System.out.println("");
 											}
 										}
 									}
@@ -199,17 +196,17 @@ public class ResponderPreguntasC {
 								listaRespuestas.add(respuestaSeleccionada);
 							}
 						}
-						Integer total = 0;
+						float total = 0;
 						for(Integer ev : listaEvaluacion) {
 							Evaluacion evaluacion = evaluacionDAO.buscarEvaluacionPorId(ev);
 							if(evaluacion != null) {
 								ResultadoEvaluacion resultados = new ResultadoEvaluacion();
 								resultados.setEstado("A");
 								//proceso para calcular las respuestas
-								Integer suma = 0;
+								float suma = 0;
 								for(PreguntaRespuesta res : listaRespuestas) {
 									if(res.getIdEvaluacion() == ev) {
-										Integer califica = calificacion(res.getIdPregunta(),res.getIdSelecionada());
+										float califica = calificacion(res.getIdPregunta(),res.getIdSelecionada());
 										suma = suma + califica;
 										total = total + califica;
 									}
@@ -261,16 +258,16 @@ public class ResponderPreguntasC {
 			System.out.println(ex.getMessage());
 		}
 	}
-	private Integer calificacion(Integer idPregunta, Integer idRespuesta) {
+	private float calificacion(Integer idPregunta, Integer idRespuesta) {
 		try {
-			Integer cali = 0;
+			float cali = 0;
 			Pregunta preg = preguntaDAO.buscarPreguntaPorId(idPregunta);
 			if(preg != null) {
 				for(Respuesta res : preg.getRespuestas()) {
 					if(res.getEstado().equals("A")) {
 						if(res.getCorrecta().equals(Globals.RESPUESTA_CORRECTA)) {
 							if(idRespuesta.equals(res.getIdRespuesta()))
-								cali = 1;
+								cali = Globals.PUNTAJE_POR_PREGUNTA;
 						}
 					}
 				}

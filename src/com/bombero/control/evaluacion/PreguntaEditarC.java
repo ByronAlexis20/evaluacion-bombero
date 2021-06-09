@@ -36,6 +36,7 @@ import com.bombero.model.entity.Modulo;
 import com.bombero.model.entity.Periodo;
 import com.bombero.model.entity.Pregunta;
 import com.bombero.model.entity.Respuesta;
+import com.bombero.util.Globals;
 
 public class PreguntaEditarC {
 	@Wire Listbox lstRespuestas;
@@ -120,15 +121,18 @@ public class PreguntaEditarC {
 							pregunta.setIdPregunta(null);
 							pregunta.setPregunta(txtPregunta.getText());
 							pregunta.setEvaluacion(evaluacion);
-							if(evaluacion.getPreguntas().size() > 0) {//si es mayor a cero tiene preguntas entre sus registros
-								evaluacion.addPregunta(pregunta);
-							}else {//no tiene preguntas y se crea una lista
+							if(evaluacion.getPreguntas().size() == 0) {
+								//no tiene preguntas y se crea una lista
 								List<Pregunta> listaPreg = new ArrayList<>();
 								listaPreg.add(pregunta);
 								evaluacion.setPreguntas(listaPreg);
 							}
 							evaluacionDAO.getEntityManager().getTransaction().begin();
-							evaluacionDAO.getEntityManager().merge(evaluacion);
+							if(evaluacion.getPreguntas().size() > 0) {
+								evaluacionDAO.getEntityManager().persist(pregunta);
+							}else {
+								evaluacionDAO.getEntityManager().merge(evaluacion);
+							}
 							evaluacionDAO.getEntityManager().getTransaction().commit();
 							evaluacion = evaluacionDAO.buscarEvaluacionPorId(evaluacion.getIdEvaluacion());
 							pregunta = preguntaDAO.buscarPreguntaPorId(pregunta.getIdPregunta());
@@ -138,6 +142,7 @@ public class PreguntaEditarC {
 							evaluacion.setDescripcion("Evaluacion del periodo " + periodo.getDescripcion() + " Modulo " + modulo.getModulo());
 							evaluacion.setModulo(modulo);
 							evaluacion.setPeriodo(periodo);
+							evaluacion.setEstadoEvaluacion(Globals.EVALUACION_NO_INICIADA);
 							evaluacion.setIdEvaluacion(null);
 							
 							pregunta.setEstado("A");
