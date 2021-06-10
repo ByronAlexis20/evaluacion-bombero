@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptBancoPreguntas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="978505ec-1c57-4cf9-aec2-fec14181b767">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="evaluacion_bombero"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[cHJlZ3VudGEgLDIxNCwxNSwxZTNhN2ZkNS01Y2E0LTQ1NjItOTBlYS02ZTA1MmY3MzI5Zjk7cmVz
+cHVlc3RhICwxNSwxNSwyZTMzMGQ1Ny00MjkzLTQ5ZmYtOTFkNC1lMGQ5ZTM3YzkwOWU7ZXZhbHVh
+Y2lvbiAsMTEwLDE1LDMzYWEwZjI3LTJhNGQtNDhhZC1iOTYxLTA1YmRiNjIzZDgwNzs=]]>
+	</property>
+	<style name="miestilo" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correcta}.equals("I")]]></conditionExpression>
+			<style forecolor="#000000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correcta}.equals("C")]]></conditionExpression>
+			<style forecolor="#000000" backcolor="#FFF700"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="TITULO_REPORTE" class="java.lang.String"/>
+	<parameter name="MODULO_PERIODO" class="java.lang.String"/>
+	<parameter name="ID_PERIODO" class="java.lang.Integer"/>
+	<parameter name="ID_MODULO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select p.id_pregunta,p.pregunta,r.id_respuesta,r.respuesta,r.correcta
+from evaluacion e,pregunta p,respuesta r 
+where e.id_evaluacion = p.id_evaluacion and p.id_pregunta = r.id_pregunta 
+and e.estado = 'A' and p.estado = 'A' and r.estado = 'A'
+and e.id_periodo = $P{ID_PERIODO} and e.id_modulo = $P{ID_MODULO} ]]>
+	</queryString>
+	<field name="id_pregunta" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_pregunta"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_pregunta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pregunta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pregunta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pregunta"/>
+		<property name="com.jaspersoft.studio.field.label" value="pregunta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pregunta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_respuesta" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_respuesta"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_respuesta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="respuesta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="respuesta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="respuesta"/>
+		<property name="com.jaspersoft.studio.field.label" value="respuesta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="respuesta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correcta" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="correcta"/>
+		<property name="com.jaspersoft.studio.field.label" value="correcta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="respuesta"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Pregunta" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{id_pregunta}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField textAdjust="StretchHeight">
+					<reportElement x="20" y="0" width="500" height="14" uuid="9aad797c-a1df-401e-b8f4-957f7a2665f3">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pregunta}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="141" splitType="Stretch">
+			<image>
+				<reportElement x="242" y="-1" width="48" height="51" uuid="fd1cdb3c-1bcc-4cb6-a79c-740b19680143"/>
+				<imageExpression><![CDATA["cb_logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="50" width="550" height="18" forecolor="#DE0404" uuid="fa4f4232-9de4-4aeb-af42-45e5de820040">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUERPO DE BOMBEROS DE LA LIBERTAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="68" width="550" height="18" forecolor="#DE0404" uuid="1b8e4090-5436-4b89-a14a-2df7743971ba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“JOSUE ROBLES BODERO”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="86" width="550" height="18" forecolor="#DE0404" uuid="ceb4ff19-eed0-4bd9-99eb-b85de842e49a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LA LIBERTAD – SANTA ELENA. ECUADOR]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="1" y="107" width="550" height="16" uuid="9c4a1ec6-f2b7-4192-b03e-b488eed4aab4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO_REPORTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="17" y="127" width="333" height="13" uuid="f668e459-8d92-4b57-8b51-c4f7deb12412">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{MODULO_PERIODO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="8" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="miestilo" x="40" y="0" width="480" height="14" uuid="d6d2acaf-f86a-47d7-b5ce-8e6ac7aa7fb0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d58320a4-79d5-4d71-99a9-0f42bc53db8d"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{respuesta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="29" y="0" width="10" height="14" uuid="710788e8-e9b7-4310-8e82-914db9ff0ce0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[*]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

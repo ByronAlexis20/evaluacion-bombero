@@ -26,7 +26,7 @@
 					</hlayout>
 				</vlayout>
 			</div>
-			<vlayout vflex="1" hflex="1" id="hlayoutCal"/>
+			<vlayout vflex="1" hflex="1" id="hlayoutCal" style="overflow: auto;" />
 		</vlayout>
 	</window>
 </zk>

@@ -27,7 +27,7 @@ public class ResultadoEvaluacion implements Serializable {
 	private String estado;
 
 	//bi-directional many-to-one association to RespuestaSeleccionada
-	@OneToMany(mappedBy="resultadoEvaluacion")
+	@OneToMany(mappedBy="resultadoEvaluacion", cascade = CascadeType.ALL)
 	private List<RespuestaSeleccionada> respuestaSeleccionadas;
 
 	//bi-directional many-to-one association to Evaluacion

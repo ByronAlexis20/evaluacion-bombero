@@ -130,8 +130,8 @@ public class ResponderPreguntasC {
 		vRespuestas.getChildren().add(lblNoPregunta);
 		//pregunta
 		Label lblPregunta = new Label();
-		lblPregunta.setValue("P" + pregunta);
-		lblPregunta.setId(idPregunta);
+		lblPregunta.setValue(pregunta);
+		lblPregunta.setId("P" + idPregunta);
 		vRespuestas.getChildren().add(lblPregunta);
 		//respuestas
 		for(Respuesta res : respuestas) {
@@ -172,7 +172,7 @@ public class ResponderPreguntasC {
 											if(h == 2) {
 												Label pregunta = (Label) vbox.getChildren().get(h);
 												respuestaSeleccionada.setIdPregunta(Integer.parseInt(pregunta.getId().substring(1, pregunta.getId().length())));
-												Pregunta lstPregunta = preguntaDAO.buscarPreguntaPorId(Integer.parseInt(pregunta.getId()));
+												Pregunta lstPregunta = preguntaDAO.buscarPreguntaPorId(Integer.parseInt(pregunta.getId().substring(1, pregunta.getId().length())));
 												if(lstPregunta != null) {
 													bandera = false;
 													respuestaSeleccionada.setIdEvaluacion(lstPregunta.getEvaluacion().getIdEvaluacion());
@@ -242,6 +242,8 @@ public class ResponderPreguntasC {
 								Calificacion calificacion = calificacionDAO.obtenerCalificacionPorMatriculaYModulo(evaluacion.getIdEvaluacion(), matric.getIdMatricula());
 								evaluacionDAO.getEntityManager().getTransaction().begin();
 								evaluacionDAO.getEntityManager().persist(resultados);
+								System.out.println("calificacion " + total);
+								System.out.println("puntaje por pregunta " + Globals.PUNTAJE_POR_PREGUNTA);
 								if(calificacion != null) {
 									calificacion.setExamen(total);
 									evaluacionDAO.getEntityManager().merge(calificacion);
