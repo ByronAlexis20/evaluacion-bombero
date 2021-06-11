@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNominaInstructor" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd03d2ae-ea2c-46d7-9043-fb946ece7cc9">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="evaluacion_bombero"/>
 	<property name="com.jaspersoft.studio.data.sql.tables">
@@ -8,12 +8,13 @@ X2FzaWduYWRvICwxMTYsMTUsMTMxMGE2OTAtYmI5ZC00NjU3LWI1YzktMmRhYTA4NTQyZTAzO2lu
 c3RydWN0b3IgLDI2MywxNSxhODE2YzdmZS1hYmUwLTRmNDctODM1Ni00ZjFkZWVjN2FhMmM7]]>
 	</property>
 	<parameter name="ID_PERIODO" class="java.lang.Integer"/>
+	<parameter name="TITULO_REPORTE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select i.id_instructor,i.cedula, CONCAT(i.nombre , ' ' , i.apellido) as instructor,i.grado, mo.modulo
 from modulo_asignado m, instructor i, modulo mo
 where m.id_instructor = i.id_instructor and m.id_modulo = mo.id_modulo
 and m.estado = 'A' and i.estado = 'A' and mo.estado = 'A'
-and m.id_periodo =  $P{ID_PERIODO} ]]>
+and m.id_periodo =  $P{ID_PERIODO}]]>
 	</queryString>
 	<field name="id_instructor" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id_instructor"/>
@@ -47,16 +48,123 @@ and m.id_periodo =  $P{ID_PERIODO} ]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="129" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="107" width="550" height="16" uuid="ffd5320f-d855-4cb0-9a5e-78d7d89dc6c8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO_REPORTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="86" width="550" height="18" forecolor="#DE0404" uuid="64aa8acb-f8ee-4a4b-815e-ae2fa8c58466">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LA LIBERTAD – SANTA ELENA. ECUADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="68" width="550" height="18" forecolor="#DE0404" uuid="73e7b1d8-1e28-4275-a352-6110253e7d2b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“JOSUE ROBLES BODERO”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="550" height="18" forecolor="#DE0404" uuid="cc7d2678-6389-41fc-bcfb-f206b696af91">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUERPO DE BOMBEROS DE LA LIBERTAD]]></text>
+			</staticText>
+			<image>
+				<reportElement x="242" y="-1" width="48" height="51" uuid="41d9e76c-305c-44b4-a390-da5825fa0a09"/>
+				<imageExpression><![CDATA["cb_logo.png"]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="50" height="20" uuid="b886e35a-3991-4fcb-88a8-e125426d9fce">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="50f44400-770b-4360-9ae5-817d94f296bd"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="0" width="224" height="20" uuid="6e9153bc-a2ab-4718-802d-beb648aa311c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33d1cd82-8bd9-4b13-bb30-6c1803721330"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instructor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="0" width="100" height="20" uuid="268ce9ec-f675-41f1-8c38-f902f1b701c5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85be10ef-908e-43a9-b58d-54e1ab4e580d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="100" height="20" uuid="2af907c7-1436-45ea-8ec7-40eb7bf867a7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a64b9fc-c98a-4b90-a649-e085b904bca8"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Módulo]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="22" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="50" height="20" uuid="56e7f1b3-b004-4694-b443-554602052685">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="50f44400-770b-4360-9ae5-817d94f296bd"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="0" width="220" height="20" uuid="22ba70a7-29d7-4736-8ff3-3e2016a1bd1d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33d1cd82-8bd9-4b13-bb30-6c1803721330"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{instructor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="306" y="0" width="100" height="20" uuid="21f76364-ac13-4183-9566-050ed31f31a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85be10ef-908e-43a9-b58d-54e1ab4e580d"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{grado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="445" y="0" width="100" height="20" uuid="48aa8a53-837b-402e-8090-bdb97df65f0a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6a64b9fc-c98a-4b90-a649-e085b904bca8"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{modulo}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

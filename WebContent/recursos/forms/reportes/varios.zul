@@ -14,7 +14,6 @@
 				        <tab label="Banco de Preguntas" />
 				        <tab label="Nómina de Instructores" />
 				        <tab label="Nómina de Aspirantes a bomberos" />
-				        <tab label="Ficha de Inscripción de aspirantes" />
 				        <tab label="Lista de módulos" />
 				        <tab label="Calificaciones por periodo y módulo" />
 				    </tabs>
@@ -40,9 +39,6 @@
 								<button id="btnImprimirBancoPreguntas" zclass="btn btn-outline-primary btn-sm" label="Imprimir"
 									iconSclass="z-icon-plus" onClick="@command('imprimirBancoPreguntas')" />
 				        	</vlayout>
-				        </tabpanel>
-				        <tabpanel>
-				            
 				        </tabpanel>
 				        <tabpanel>
 				            

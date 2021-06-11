@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptListaModulo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7e220c07-4c9c-4f29-8aeb-5ccfec78cce0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="evaluacion_bombero"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="TITULO_REPORTE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select @rownum:=@rownum+1 as item, m.modulo
+from modulo m, (SELECT @rownum:=0) r
+where m.estado = 'A']]>
+	</queryString>
+	<field name="item" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="item"/>
+		<property name="com.jaspersoft.studio.field.label" value="item"/>
+	</field>
+	<field name="modulo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modulo"/>
+		<property name="com.jaspersoft.studio.field.label" value="modulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="modulo"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<image>
+				<reportElement x="242" y="-1" width="48" height="51" uuid="2e1f6bd8-9d5c-46e4-9fa1-9f396e405dd9"/>
+				<imageExpression><![CDATA["cb_logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="50" width="550" height="18" forecolor="#DE0404" uuid="72616775-252c-4c3e-acf0-82b333e01783">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUERPO DE BOMBEROS DE LA LIBERTAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="68" width="550" height="18" forecolor="#DE0404" uuid="8afaef77-b81b-4c2a-ac48-3b93faee301e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“JOSUE ROBLES BODERO”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="86" width="550" height="18" forecolor="#DE0404" uuid="c3ad80e8-d6c6-4ad9-87a6-cfbabe577c13">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LA LIBERTAD – SANTA ELENA. ECUADOR]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="107" width="550" height="16" uuid="b917c828-823e-4463-9b88-fa779a11cb2c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO_REPORTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="102" y="2" width="39" height="14" uuid="f534e508-db09-4af4-84d1-759049f0b718">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b9c9b8c-81fc-4e4a-a7ff-2b536337fdba"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="2" width="290" height="14" uuid="e67c0c1a-81bd-4841-a2d2-1066d6ac430b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="467c5c5b-182e-43ba-9666-b5c465e62124"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Módulo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="102" y="0" width="39" height="14" uuid="8dd96cdc-d352-484b-93c4-df3716d9c20a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b9c9b8c-81fc-4e4a-a7ff-2b536337fdba"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{item}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="0" width="290" height="14" uuid="402d843e-2acf-4446-ae63-66a1d18f2c50">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="467c5c5b-182e-43ba-9666-b5c465e62124"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{modulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

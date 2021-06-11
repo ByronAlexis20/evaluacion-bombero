@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNominaAspirantes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="86ffaca1-0d3d-4c00-a2ca-551cddb893bb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="evaluacion_bombero"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<parameter name="ID_PERIODO" class="java.lang.Integer"/>
+	<parameter name="TITULO_REPORTE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.cedula, concat(a.nombres , ' ' , a.apellidos) as aspirante, a.celular,a.correo, m.id_matricula
+from aspirante a, matricula m
+where a.id_aspirante = m.id_aspirante and a.estatura = 'A' and m.estado = 'A'
+and m.id_periodo = $P{ID_PERIODO} ]]>
+	</queryString>
+	<field name="cedula" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cedula"/>
+		<property name="com.jaspersoft.studio.field.label" value="cedula"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aspirante"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="aspirante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="aspirante"/>
+		<property name="com.jaspersoft.studio.field.label" value="aspirante"/>
+	</field>
+	<field name="celular" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="celular"/>
+		<property name="com.jaspersoft.studio.field.label" value="celular"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aspirante"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="correo"/>
+		<property name="com.jaspersoft.studio.field.label" value="correo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="aspirante"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_matricula" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_matricula"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_matricula"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="matricula"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="134" splitType="Stretch">
+			<image>
+				<reportElement x="242" y="-1" width="48" height="51" uuid="05a27bcf-5b68-4f5e-8586-3c6eae3342a6"/>
+				<imageExpression><![CDATA["cb_logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="50" width="550" height="18" forecolor="#DE0404" uuid="fc307a84-d238-480a-9aff-0bc3ae6d5e10">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUERPO DE BOMBEROS DE LA LIBERTAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="68" width="550" height="18" forecolor="#DE0404" uuid="a7ab715f-5a86-4468-b9f6-a7817cdab631">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[“JOSUE ROBLES BODERO”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="86" width="550" height="18" forecolor="#DE0404" uuid="2f264da2-4d64-4c90-aa41-4775ba187351">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LA LIBERTAD – SANTA ELENA. ECUADOR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="107" width="550" height="16" uuid="3c863d76-e98b-4c82-b7e4-5a65cefe1487">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO_REPORTE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="0" width="52" height="14" uuid="c09a8b73-1960-44d4-b2d0-55da772478c0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0b7c8c5-80fe-49f3-9eb0-adcc2ca8dfec"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="230" height="14" uuid="25c81b3c-d054-43d5-8502-b0e35a2ce183">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c128c66-4f22-4c4e-aa2b-cb13c40bc680"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aspirante]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="326" y="0" width="54" height="14" uuid="e721db98-a16a-41f6-8a08-f65447a56cb9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71c97a52-80e2-4855-99f3-3018e772b0b4"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="0" width="139" height="14" uuid="a4554765-2b70-411b-a192-82e22f5b52df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3735ba2-480c-4ec2-a383-fee0445748af"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="21" y="0" width="52" height="14" uuid="c16b69d9-987c-47c2-98c3-77410053038f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f0b7c8c5-80fe-49f3-9eb0-adcc2ca8dfec"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="80" y="0" width="230" height="14" uuid="c6690491-81ee-4499-ae9e-f5ba11ef9d5c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c128c66-4f22-4c4e-aa2b-cb13c40bc680"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aspirante}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="326" y="0" width="54" height="14" uuid="39968649-b3c5-4ba0-88c8-ba25350e1e55">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="71c97a52-80e2-4855-99f3-3018e772b0b4"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{celular}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="391" y="0" width="139" height="14" uuid="ca503532-1b9f-4a52-bb5f-23e3190ca10d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e3735ba2-480c-4ec2-a383-fee0445748af"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
