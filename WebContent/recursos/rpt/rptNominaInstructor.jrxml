@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNominaInstructor" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd03d2ae-ea2c-46d7-9043-fb946ece7cc9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="evaluacion_bombero"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[bW9kdWxvICwxNSwxNSw3M2E2ZDNiMy0xNGNmLTQ1NzgtODQxMS04ODkzMzRjYjlmZmY7bW9kdWxv
+X2FzaWduYWRvICwxMTYsMTUsMTMxMGE2OTAtYmI5ZC00NjU3LWI1YzktMmRhYTA4NTQyZTAzO2lu
+c3RydWN0b3IgLDI2MywxNSxhODE2YzdmZS1hYmUwLTRmNDctODM1Ni00ZjFkZWVjN2FhMmM7]]>
+	</property>
+	<parameter name="ID_PERIODO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select i.id_instructor,i.cedula, CONCAT(i.nombre , ' ' , i.apellido) as instructor,i.grado, mo.modulo
+from modulo_asignado m, instructor i, modulo mo
+where m.id_instructor = i.id_instructor and m.id_modulo = mo.id_modulo
+and m.estado = 'A' and i.estado = 'A' and mo.estado = 'A'
+and m.id_periodo =  $P{ID_PERIODO} ]]>
+	</queryString>
+	<field name="id_instructor" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_instructor"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_instructor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="instructor"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cedula"/>
+		<property name="com.jaspersoft.studio.field.label" value="cedula"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="instructor"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="instructor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="instructor"/>
+		<property name="com.jaspersoft.studio.field.label" value="instructor"/>
+	</field>
+	<field name="grado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="grado"/>
+		<property name="com.jaspersoft.studio.field.label" value="grado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="instructor"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="modulo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modulo"/>
+		<property name="com.jaspersoft.studio.field.label" value="modulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="modulo"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -38,7 +38,7 @@
 									</template>
 								</combobox>
 								<button id="btnImprimirBancoPreguntas" zclass="btn btn-outline-primary btn-sm" label="Imprimir"
-									iconSclass="z-icon-plus" onClick="@command('nuevaAsignacion')" />
+									iconSclass="z-icon-plus" onClick="@command('imprimirBancoPreguntas')" />
 				        	</vlayout>
 				        </tabpanel>
 				        <tabpanel>
