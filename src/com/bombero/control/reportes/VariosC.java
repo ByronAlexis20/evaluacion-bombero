@@ -24,10 +24,16 @@ import com.bombero.util.PrintReport;
 public class VariosC {
 	@Wire Combobox cboPeriodo;
 	@Wire Combobox cboModulo;
+	@Wire Combobox cboPeriodoInstructor;
+	@Wire Combobox cboPeriodoAspirante;
+	@Wire Combobox cboPeriodoCalificacion;
+	@Wire Combobox cboModulo;
 	PeriodoDAO periodoDAO = new PeriodoDAO();
 	ModuloDAO moduloDAO = new ModuloDAO();
 	Periodo periodoSeleccionado;
 	Modulo moduloSeleccionado;
+	Periodo periodoInstructorSeleccionado;
+	Periodo periodoAspiranteSeleccionado;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
@@ -50,7 +56,44 @@ public class VariosC {
 		PrintReport obj = new PrintReport();
 		obj.crearReporte("/recursos/rpt/rptBancoPreguntas.jasper", periodoDAO, params);
 	}
+	@Command
+	public void imprimirInstructor() {
+		if(periodoInstructorSeleccionado == null) {
+			Clients.showNotification("Debe seleccionar el periodo","info",cboPeriodoInstructor,"end_center",2000);
+			return;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("TITULO_REPORTE","NÓMINA DE INSTRUCTORES");
+		params.put("ID_PERIODO",periodoInstructorSeleccionado.getIdPeriodo());
+		PrintReport obj = new PrintReport();
+		obj.crearReporte("/recursos/rpt/rptNominaInstructor.jasper", periodoDAO, params);
+	}
+	@Command
+	public void imprimirAspirante() {
+		if(periodoAspiranteSeleccionado == null) {
+			Clients.showNotification("Debe seleccionar el periodo","info",cboPeriodoAspirante,"end_center",2000);
+			return;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("TITULO_REPORTE","NÓMINA DE ASPIRANTE");
+		params.put("ID_PERIODO",periodoAspiranteSeleccionado.getIdPeriodo());
+		PrintReport obj = new PrintReport();
+		obj.crearReporte("/recursos/rpt/rptNominaAspirantes.jasper", periodoDAO, params);
+	}
+	@Command
+	public void imprimirListaModulo() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("TITULO_REPORTE","LISTADO DE MÓDULOS");
+		PrintReport obj = new PrintReport();
+		obj.crearReporte("/recursos/rpt/rptListaModulo.jasper", periodoDAO, params);
+	}
 	public List<Periodo> getPeriodos(){
+		return periodoDAO.buscarActivos();
+	}
+	public List<Periodo> getPeriodosInstructores(){
+		return periodoDAO.buscarActivos();
+	}
+	public List<Periodo> getPeriodosAspirante(){
 		return periodoDAO.buscarActivos();
 	}
 	public List<Modulo> getModulos(){
@@ -67,5 +110,17 @@ public class VariosC {
 	}
 	public void setModuloSeleccionado(Modulo moduloSeleccionado) {
 		this.moduloSeleccionado = moduloSeleccionado;
+	}
+	public Periodo getPeriodoInstructorSeleccionado() {
+		return periodoInstructorSeleccionado;
+	}
+	public void setPeriodoInstructorSeleccionado(Periodo periodoInstructorSeleccionado) {
+		this.periodoInstructorSeleccionado = periodoInstructorSeleccionado;
+	}
+	public Periodo getPeriodoAspiranteSeleccionado() {
+		return periodoAspiranteSeleccionado;
+	}
+	public void setPeriodoAspiranteSeleccionado(Periodo periodoAspiranteSeleccionado) {
+		this.periodoAspiranteSeleccionado = periodoAspiranteSeleccionado;
 	}
 }

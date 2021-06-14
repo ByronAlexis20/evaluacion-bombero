@@ -21,36 +21,79 @@
 				        <tabpanel>
 				        	<vlayout hflex="1">
 				        		<label value="Seleccione Periodo"/>
-								<combobox placeholder="Seleccione periodo" id="cboPeriodo"
-										model="@load(vm.periodos)" 
-										selectedItem="@bind(vm.periodoSeleccionado)">
+								<combobox placeholder="Seleccione periodo" model="@load(vm.periodos)" 
+										selectedItem="@bind(vm.periodoSeleccionado)" id="cboPeriodo">
 									<template name="model">
 										<comboitem label="@load(each.descripcion)"/>
 									</template>
 								</combobox>
 								<label value="Seleccione Módulo"/>
-								<combobox placeholder="Seleccione módulo" id="cboModulo"
-										model="@load(vm.modulos)" 
+								<combobox placeholder="Seleccione módulo" 
+										model="@load(vm.modulos)" id="cboModulo"
 										selectedItem="@bind(vm.moduloSeleccionado)">
 									<template name="model">
 										<comboitem label="@load(each.modulo)"/>
 									</template>
 								</combobox>
-								<button id="btnImprimirBancoPreguntas" zclass="btn btn-outline-primary btn-sm" label="Imprimir"
+								<button zclass="btn btn-outline-primary btn-sm" label="Imprimir"
 									iconSclass="z-icon-plus" onClick="@command('imprimirBancoPreguntas')" />
 				        	</vlayout>
 				        </tabpanel>
 				        <tabpanel>
-				            
+				            <vlayout hflex="1">
+				        		<label value="Seleccione Periodo"/>
+								<combobox placeholder="Seleccione periodo" id="cboPeriodoInstructor"
+										model="@load(vm.periodosInstructores)" 
+										selectedItem="@bind(vm.periodoInstructorSeleccionado)">
+									<template name="model">
+										<comboitem label="@load(each.descripcion)"/>
+									</template>
+								</combobox>
+								<button zclass="btn btn-outline-primary btn-sm" label="Imprimir"
+									iconSclass="z-icon-plus" onClick="@command('imprimirInstructor')" />
+				        	</vlayout>
 				        </tabpanel>
 				        <tabpanel>
-				            
+				            <vlayout hflex="1">
+				        		<label value="Seleccione Periodo"/>
+								<combobox placeholder="Seleccione periodo" id="cboPeriodoAspirante"
+										model="@load(vm.periodosAspirante)" 
+										selectedItem="@bind(vm.periodoAspiranteSeleccionado)">
+									<template name="model">
+										<comboitem label="@load(each.descripcion)"/>
+									</template>
+								</combobox>
+								<button zclass="btn btn-outline-primary btn-sm" label="Imprimir"
+									iconSclass="z-icon-plus" onClick="@command('imprimirAspirante')" />
+				        	</vlayout>
 				        </tabpanel>
 				        <tabpanel>
-				            
+				            <vlayout hflex="1">
+								<button zclass="btn btn-outline-primary btn-sm" label="Imprimir"
+									iconSclass="z-icon-plus" onClick="@command('imprimirListaModulo')" />
+				        	</vlayout>
 				        </tabpanel>
 				        <tabpanel>
-				            
+				            <vlayout hflex="1">
+				        		<label value="Seleccione Periodo"/>
+								<combobox placeholder="Seleccione periodo" id="cboPeriodoCalificacion"
+										model="@load(vm.periodosInstructores)" 
+										selectedItem="@bind(vm.periodoInstructorSeleccionado)">
+									<template name="model">
+										<comboitem label="@load(each.descripcion)"/>
+									</template>
+								</combobox>
+								<label value="Seleccione Módulo"/>
+								<combobox placeholder="Seleccione módulo" 
+										model="@load(vm.modulos)" id="cboModuloCalificacion"
+										selectedItem="@bind(vm.moduloSeleccionado)">
+									<template name="model">
+										<comboitem label="@load(each.modulo)"/>
+									</template>
+								</combobox>
+								<button zclass="btn btn-outline-primary btn-sm" label="Imprimir"
+									iconSclass="z-icon-plus" onClick="@command('imprimirInstructor')" />
+				        	</vlayout>
 				        </tabpanel>
 				    </tabpanels>
 				</tabbox>
