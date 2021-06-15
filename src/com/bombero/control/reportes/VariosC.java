@@ -19,6 +19,7 @@ import com.bombero.model.dao.ModuloDAO;
 import com.bombero.model.dao.PeriodoDAO;
 import com.bombero.model.entity.Modulo;
 import com.bombero.model.entity.Periodo;
+import com.bombero.util.Globals;
 import com.bombero.util.PrintReport;
 
 public class VariosC {
@@ -27,13 +28,15 @@ public class VariosC {
 	@Wire Combobox cboPeriodoInstructor;
 	@Wire Combobox cboPeriodoAspirante;
 	@Wire Combobox cboPeriodoCalificacion;
-	@Wire Combobox cboModulo;
+	@Wire Combobox cboModuloCalificacion;
 	PeriodoDAO periodoDAO = new PeriodoDAO();
 	ModuloDAO moduloDAO = new ModuloDAO();
 	Periodo periodoSeleccionado;
 	Modulo moduloSeleccionado;
+	Modulo moduloCalificacionSeleccionado;
 	Periodo periodoInstructorSeleccionado;
 	Periodo periodoAspiranteSeleccionado;
+	Periodo periodoCalificacionSeleccionado;
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException{
 		Selectors.wireComponents(view, this, false);
@@ -87,6 +90,24 @@ public class VariosC {
 		PrintReport obj = new PrintReport();
 		obj.crearReporte("/recursos/rpt/rptListaModulo.jasper", periodoDAO, params);
 	}
+	@Command
+	public void imprimirCalificaciones() {
+		if(periodoCalificacionSeleccionado == null) {
+			Clients.showNotification("Debe seleccionar el periodo","info",cboPeriodoCalificacion,"end_center",2000);
+			return;
+		}
+		if(moduloCalificacionSeleccionado == null) {
+			Clients.showNotification("Debe seleccionar el módulo","info",cboModuloCalificacion,"end_center",2000);
+			return;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("TITULO_REPORTE","LISTADO DE MÓDULOS");
+		params.put("NOTA_MINIMA",Globals.NOTA_MINIMA_APROBACION);
+		params.put("ID_PERIODO",periodoCalificacionSeleccionado.getIdPeriodo());
+		params.put("ID_MODULO",moduloCalificacionSeleccionado.getIdModulo());
+		PrintReport obj = new PrintReport();
+		obj.crearReporte("/recursos/rpt/rptCalificaciones.jasper", periodoDAO, params);
+	}
 	public List<Periodo> getPeriodos(){
 		return periodoDAO.buscarActivos();
 	}
@@ -96,7 +117,13 @@ public class VariosC {
 	public List<Periodo> getPeriodosAspirante(){
 		return periodoDAO.buscarActivos();
 	}
+	public List<Periodo> getPeriodosCalificaciones(){
+		return periodoDAO.buscarActivos();
+	}
 	public List<Modulo> getModulos(){
+		return moduloDAO.getModuloPorDescripcion("");
+	}
+	public List<Modulo> getModulosCalificacion(){
 		return moduloDAO.getModuloPorDescripcion("");
 	}
 	public Periodo getPeriodoSeleccionado() {
@@ -122,5 +149,17 @@ public class VariosC {
 	}
 	public void setPeriodoAspiranteSeleccionado(Periodo periodoAspiranteSeleccionado) {
 		this.periodoAspiranteSeleccionado = periodoAspiranteSeleccionado;
+	}
+	public Periodo getPeriodoCalificacionSeleccionado() {
+		return periodoCalificacionSeleccionado;
+	}
+	public void setPeriodoCalificacionSeleccionado(Periodo periodoCalificacionSeleccionado) {
+		this.periodoCalificacionSeleccionado = periodoCalificacionSeleccionado;
+	}
+	public Modulo getModuloCalificacionSeleccionado() {
+		return moduloCalificacionSeleccionado;
+	}
+	public void setModuloCalificacionSeleccionado(Modulo moduloCalificacionSeleccionado) {
+		this.moduloCalificacionSeleccionado = moduloCalificacionSeleccionado;
 	}
 }

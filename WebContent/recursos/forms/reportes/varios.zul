@@ -78,21 +78,21 @@
 				        		<label value="Seleccione Periodo"/>
 								<combobox placeholder="Seleccione periodo" id="cboPeriodoCalificacion"
 										model="@load(vm.periodosInstructores)" 
-										selectedItem="@bind(vm.periodoInstructorSeleccionado)">
+										selectedItem="@bind(vm.periodoCalificacionSeleccionado)">
 									<template name="model">
 										<comboitem label="@load(each.descripcion)"/>
 									</template>
 								</combobox>
 								<label value="Seleccione Módulo"/>
 								<combobox placeholder="Seleccione módulo" 
-										model="@load(vm.modulos)" id="cboModuloCalificacion"
-										selectedItem="@bind(vm.moduloSeleccionado)">
+										model="@load(vm.modulosCalificacion)" id="cboModuloCalificacion"
+										selectedItem="@bind(vm.moduloCalificacionSeleccionado)">
 									<template name="model">
 										<comboitem label="@load(each.modulo)"/>
 									</template>
 								</combobox>
 								<button zclass="btn btn-outline-primary btn-sm" label="Imprimir"
-									iconSclass="z-icon-plus" onClick="@command('imprimirInstructor')" />
+									iconSclass="z-icon-plus" onClick="@command('imprimirCalificaciones')" />
 				        	</vlayout>
 				        </tabpanel>
 				    </tabpanels>
