@@ -1,0 +1,62 @@
+<?page title="Calificar" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window border="none" hflex="1" vflex="1"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.bombero.control.evaluacion.CertificadoAprobacionC')">
+		<vlayout hflex="1" vflex="1">
+			<div style="margin-top:10px">
+				<label value="Certificados"
+					style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<groupbox hflex="1" vflex="1">
+				<vlayout hflex="1" vflex="1">
+					<hbox align="center" hflex="1" pack="center">
+						<label value="Seleccione Periodo" style="font-size:14px;font-weight:bold;"/>
+					</hbox>
+					<hbox align="center" hflex="1" pack="center">
+						<combobox placeholder="Seleccione periodo" width="500px" id="cboPeriodo"
+								model="@load(vm.periodos)" onSelect="@command('seleccionarPersonas')"
+								selectedItem="@bind(vm.periodoSeleccionado)">
+							<template name="model">
+								<comboitem label="${each.descripcion}"/>
+							</template>
+						</combobox>
+					</hbox>
+					<groupbox hflex="1" vflex="1">
+						<listbox id="lstPersonas" hflex="1" vflex="1"
+								model="@load(vm.listaPersonas)">
+							<listhead>
+									<listheader label="Cedula" class="lb-listheader"/>
+									<listheader label="Nombres" class="lb-listheader"/>
+									<listheader label="Tipo de Sangre" class="lb-listheader"/>
+									<listheader label="Genero" class="lb-listheader"/>
+									<listheader label="Fecha Nacimiento" class="lb-listheader"/>
+									<listheader label="Acción" class="lb-listheader"/>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="@load(each.aspirante.cedula)" class="lb-listcell"/>
+										<listcell class="lb-listcell">
+											<label value="@load(each.aspirante.nombres)"/>
+											<label value=" "/>
+											<label value="@load(each.aspirante.apellidos)"/>
+										</listcell>
+										<listcell label="@load(each.aspirante.tipoSangre.tipoSangre)" class="lb-listcell"/>
+										<listcell label="@load(each.aspirante.genero.genero)" class="lb-listcell"/>
+										<listcell label="@load(each.aspirante.fechaNacimiento) @converter('formatedDate',format='dd/MM/yyyy')" class="lb-listcell"/>
+										<listcell>
+											<div align="center">
+												<button label="Imprimir" iconSclass="z-icon-pencil" zclass="btn-editar btn-size"
+													onClick="@command('imprimir',matricula=each)" />
+											</div>
+										</listcell>
+									</listitem>
+								</template>
+						</listbox>
+					</groupbox>
+				</vlayout>
+			</groupbox>
+		</vlayout>
+	</window>
+</zk>

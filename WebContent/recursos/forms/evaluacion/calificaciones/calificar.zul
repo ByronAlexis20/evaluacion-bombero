@@ -14,19 +14,19 @@
 				<rows>
 					<row>
 						<label value="Nota 1: " class="label-form"/>
-						<textbox id="txtNota1" hflex="1" readonly="true"/>
+						<decimalbox id="txtNota1" hflex="1" />
 					</row>
 					<row>
 						<label value="Nota 2: " class="label-form"/>
-						<textbox id="txtNota2" multiline="true" height="30px" hflex="1"/>
+						<decimalbox id="txtNota2" hflex="1"/>
 					</row>
 					<row>
 						<label value="Nota 3: " class="label-form"/>
-						<textbox id="txtNota3" hflex="1" multiline="true" height="50px"/>
+						<decimalbox id="txtNota3" hflex="1" />
 					</row>
 					<row>
 						<label value="Nota 4: " class="label-form"/>
-						<textbox id="txtNota4" hflex="1" multiline="true" height="50px" />
+						<decimalbox id="txtNota4" hflex="1" />
 					</row>
 				</rows>
 			</grid>

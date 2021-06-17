@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptNominaInstructor" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd03d2ae-ea2c-46d7-9043-fb946ece7cc9">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="evaluacion_bombero"/>
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[bW9kdWxvICwxNSwxNSw3M2E2ZDNiMy0xNGNmLTQ1NzgtODQxMS04ODkzMzRjYjlmZmY7bW9kdWxv
-X2FzaWduYWRvICwxMTYsMTUsMTMxMGE2OTAtYmI5ZC00NjU3LWI1YzktMmRhYTA4NTQyZTAzO2lu
-c3RydWN0b3IgLDI2MywxNSxhODE2YzdmZS1hYmUwLTRmNDctODM1Ni00ZjFkZWVjN2FhMmM7]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="ID_PERIODO" class="java.lang.Integer"/>
 	<parameter name="TITULO_REPORTE" class="java.lang.String"/>
 	<queryString>

@@ -2,6 +2,9 @@ package com.bombero.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.bombero.util.Globals;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +20,8 @@ import java.util.List;
 			+ " and m.aspirante.cedula = :cedula and m.idMatricula <> :idMatricula and m.estado = 'A'"),
 	@NamedQuery(name="Matricula.buscarPorAspiranteYPeriodo", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
 			+ " and m.aspirante.idAspirante = :idAspirante and m.estado = 'A'"),
+	@NamedQuery(name="Matricula.buscarPorPeriodoTerminado", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
+			+ "and m.periodo.estadoPeriodo = '" + Globals.ESTADO_PERIODO_FINALIZADO + "' and m.estado = 'A'"),
 })
 public class Matricula implements Serializable {
 	private static final long serialVersionUID = 1L;

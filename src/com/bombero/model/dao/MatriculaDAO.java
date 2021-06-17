@@ -48,4 +48,13 @@ public class MatriculaDAO extends ClaseDAO {
 		resultado = (List<Matricula>) query.getResultList();
 		return resultado;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Matricula> buscarPorPeriodoTerminado(Integer idPeriodo) {
+		List<Matricula> resultado; 
+		Query query = getEntityManager().createNamedQuery("Matricula.buscarPorPeriodoTerminado");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idPeriodo", idPeriodo);
+		resultado = (List<Matricula>) query.getResultList();
+		return resultado;
+	}
 }

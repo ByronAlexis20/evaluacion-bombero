@@ -28,7 +28,7 @@ public class Globals {
 	public static Integer CODIGO_USUARIO_ASPIRANTE = 3;
 	public static Integer CODIGO_USUARIO_INSTRUCTOR = 4;
 	
-	public static Integer NOTA_MINIMA_APROBACION = 70;
+	public static float NOTA_MINIMA_APROBACION = 70;
 	
 	public static String EVALUACION_INICIADA = "INICIADO";
 	public static String EVALUACION_NO_INICIADA = "NO INICIADO";
