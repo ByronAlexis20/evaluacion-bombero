@@ -42,6 +42,16 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.3.0</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.mpobjects.jasperreports.font</groupId>
+		    <artifactId>jasperreports-fonts-liberation</artifactId>
+		    <version>2.00.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.sf.barcode4j</groupId>
+		    <artifactId>barcode4j</artifactId>
+		    <version>2.1</version>
+		</dependency>
 		<!-- nuevos -->
 		<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge -->
 		<dependency>

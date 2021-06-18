@@ -35,11 +35,6 @@ public class Empresa implements Serializable {
 	private String ruc;
 
 	private String telefono;
-	
-	private float puntaje;
-	
-	@Column(name="cantidad_preguntas")
-	private Integer cantidadPreguntas;
 
 	public Empresa() {
 	}
@@ -115,21 +110,4 @@ public class Empresa implements Serializable {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
-	public Integer getCantidadPreguntas() {
-		return cantidadPreguntas;
-	}
-
-	public void setCantidadPreguntas(Integer cantidadPreguntas) {
-		this.cantidadPreguntas = cantidadPreguntas;
-	}
-
-	public float getPuntaje() {
-		return puntaje;
-	}
-
-	public void setPuntaje(float puntaje) {
-		this.puntaje = puntaje;
-	}
-
 }

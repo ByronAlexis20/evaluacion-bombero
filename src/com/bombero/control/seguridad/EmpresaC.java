@@ -21,7 +21,6 @@ import org.zkoss.zul.Textbox;
 import com.bombero.model.dao.EmpresaDAO;
 import com.bombero.model.entity.Empresa;
 import com.bombero.util.ControllerHelper;
-import com.bombero.util.Globals;
 
 public class EmpresaC {
 	@Wire Textbox txtRuc;
@@ -64,11 +63,6 @@ public class EmpresaC {
 				public void onEvent(Event event) throws Exception {
 					if (event.getName().equals("onYes")) {		
 						try {		
-							empresaDAO.getEntityManager().getTransaction().begin();
-							if(empresa.getCantidadPreguntas() != null) {
-								float puntaje = Globals.PUNTAJE_EXAMEN / empresa.getCantidadPreguntas();
-								empresa.setPuntaje(puntaje);
-							}
 							if (empresa.getIdEmpresa() == null) {
 								empresaDAO.getEntityManager().persist(empresa);
 							}else{
@@ -77,8 +71,6 @@ public class EmpresaC {
 							empresaDAO.getEntityManager().getTransaction().commit();
 							Clients.showNotification("Proceso Ejecutado con exito.");
 							BindUtils.postGlobalCommand(null, null, "Empresa.findAll", null);
-							Globals.CANTIDAD_PREGUNTAS = empresa.getCantidadPreguntas();
-							Globals.PUNTAJE_POR_PREGUNTA = empresa.getPuntaje();
 						} catch (Exception e) {
 							e.printStackTrace();
 							empresaDAO.getEntityManager().getTransaction().rollback();

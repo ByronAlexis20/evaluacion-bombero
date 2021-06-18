@@ -41,4 +41,11 @@ public class Globals {
 	public static float PUNTAJE_NOTA2 = 15;
 	public static float PUNTAJE_NOTA3 = 15;
 	public static float PUNTAJE_NOTA4 = 20;
+	//para la firma de los certificados
+	public static String NOMBRE_PRIMER_JEFE = "";
+	public static String CARGO_PRIMER_JEFE = "";
+	public static String NOMBRE_SEGUNDO_JEFE = "";
+	public static String CARGO_SEGUNDO_JEFE = "";
+	public static String NOMBRE_CAPITAN = "";
+	public static String CARGO_CAPITAN = "";
 }

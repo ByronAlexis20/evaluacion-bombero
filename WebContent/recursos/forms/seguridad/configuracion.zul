@@ -1,0 +1,108 @@
+<?page title="Institución" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer" border="none"
+		viewModel="@id('vm') @init('com.bombero.control.seguridad.ConfiguracionC')"
+		hflex="1" vflex="1">
+		<vlayout vflex="1">
+			<div style="margin-top:10px">
+				<label value="Configuraciones inciales" style="font-size:25px;font-weight: bold;" />
+			</div>
+			<separator hflex="1" style="border-color: #dd4e3c;border-width:0.1px;border-style: solid; margin-bottom:10px;" height="1px"/>
+			<vlayout hflex="1">
+				<vbox hflex="1" align="center">
+					<div width="70%" align="left">
+						<grid hflex="1">
+							<columns>
+								<column align="left" hflex="min"/>
+								<column align="left" hflex="1"/>
+							</columns>
+							<rows>
+								<row>
+									<cell colspan="2" align="center">
+										<label value="Datos del Primer Jefe"/>
+									</cell>
+								</row>
+								<row>
+									<label value="Nombre: " class="label-form"/>
+									<textbox id="txtNombreJefe" value="@bind(vm.configuracion.nombrePrimerJefe)" hflex="1"/>
+								</row>
+								<row>
+									<label value="Cargo: " class="label-form"/>
+									<textbox id="txtCargoJefe" value="@bind(vm.configuracion.cargoPrimerJefe)" hflex="1"/>
+								</row>
+								<row>
+									<cell colspan="2" align="center">
+										<label value="Datos del Segundo Jefe"/>
+									</cell>
+								</row>
+								<row>
+									<label value="Nombre: " class="label-form"/>
+									<textbox id="txtNombreSegundoJefe" value="@bind(vm.configuracion.nombreSegundoJefe)" hflex="1"/>
+								</row>
+								<row>
+									<label value="Cargo: " class="label-form"/>
+									<textbox id="txtCargoSegundoJefe" value="@bind(vm.configuracion.cargoSegundoJefe)" hflex="1"/>
+								</row>
+								<row>
+									<cell colspan="2" align="center">
+										<label value="Datos del Capitan encargado del curso"/>
+									</cell>
+								</row>
+								<row>
+									<label value="Nombre: " class="label-form"/>
+									<textbox id="txtNombreCapitan" value="@bind(vm.configuracion.nombreCapitan)" hflex="1"/>
+								</row>
+								<row>
+									<label value="Cargo: " class="label-form"/>
+									<textbox id="txtCargoCapitan" value="@bind(vm.configuracion.cargoCapitan)" hflex="1"/>
+								</row>
+								<row>
+									<cell colspan="2" align="center">
+										<label value="Datos Adicionales de configuración"/>
+									</cell>
+								</row>
+								<row>
+									<label value="Cantidad de Preguntas" class="label-form"/>
+									<textbox id="txtCantPreguntas" hflex="1" xmlns:w="client" value="@bind(vm.empresa.cantidadPreguntas)">
+										<attribute w:name="doKeyDown_"><![CDATA[
+											function (evt) {
+												var keyCode = event.keyCode;
+												if( keyCode == 8 // back space
+													|| keyCode == 13 // enter
+													|| keyCode == 16 // enter
+													|| (keyCode >= 35 && keyCode <= 40) // home, end, arrows
+													|| keyCode == 46) { // Delete
+													this.$doKeyDown_(evt);
+												} else if ( !evt.shiftKey &&  // only do without shift key
+													(keyCode >= 48 && keyCode <= 57)
+													|| (keyCode >= 96 && keyCode <= 105)) {// number range
+													this.$doKeyDown_(evt);
+												} else {
+													evt.stop();
+													return;
+												}
+											}
+										]]></attribute>
+									</textbox>
+								</row>
+								<row>
+									<cell colspan="2">
+										<!-- Los iconos listados con iconSclass son de: http://fontawesome.io/icons/ -->
+										<vbox hflex="1" align="center" height="35px">
+											<div hflex="1" align="center">
+												<button id="grabar" label="Grabar" style="font-size: 16px;font-style: normal;"
+													iconSclass="z-icon-save" zclass="btn btn-outline-primary btn-sm"
+													onClick="@command('grabar')" />
+											</div>
+										</vbox>
+									</cell>
+								</row>
+							</rows>
+						</grid>
+						
+					</div>
+				</vbox>
+			</vlayout>
+		</vlayout>
+	</window>
+</zk>

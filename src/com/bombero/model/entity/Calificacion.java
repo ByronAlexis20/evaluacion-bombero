@@ -8,7 +8,8 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="Calificacion.obtenerCalificacionPorMatriculaYModulo", query="SELECT c FROM Calificacion c where c.modulo.idModulo = :idModulo and c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),
 	@NamedQuery(name="Calificacion.buscarPorAspirante", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),
-	@NamedQuery(name="Calificacion.buscarPorMatriculaYModulo", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.modulo.idModulo = :idModulo and c.estado = 'A'")
+	@NamedQuery(name="Calificacion.buscarPorMatriculaYModulo", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.modulo.idModulo = :idModulo and c.estado = 'A'"),
+	@NamedQuery(name="Calificacion.buscarPorMatricula", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),
 })
 public class Calificacion implements Serializable {
 	private static final long serialVersionUID = 1L;

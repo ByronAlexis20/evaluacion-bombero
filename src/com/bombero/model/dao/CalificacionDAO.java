@@ -33,4 +33,14 @@ public class CalificacionDAO extends ClaseDAO {
 		resultado = (List<Calificacion>) query.getResultList();
 		return resultado;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Calificacion> buscarPorMatricula(Integer idMatricula) {
+		List<Calificacion> resultado = new ArrayList<Calificacion>(); 
+		Query query = getEntityManager().createNamedQuery("Calificacion.buscarPorMatricula");
+		query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+		query.setParameter("idMatricula", idMatricula);
+		resultado = (List<Calificacion>) query.getResultList();
+		return resultado;
+	}
 }

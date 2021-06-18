@@ -1,6 +1,7 @@
 package com.bombero.control.administracion;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,20 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.bombero.model.dao.CalificacionDAO;
+import com.bombero.model.dao.MatriculaDAO;
 import com.bombero.model.dao.PeriodoDAO;
+import com.bombero.model.entity.Calificacion;
+import com.bombero.model.entity.Matricula;
 import com.bombero.model.entity.Periodo;
+import com.bombero.model.entity.PersonalAutorizado;
 import com.bombero.util.Globals;
 
 public class PeriodoListaC {
 	public String textoBuscar;
 	PeriodoDAO periodoDAO = new PeriodoDAO();
+	MatriculaDAO matriculaDAO = new MatriculaDAO();
+	CalificacionDAO calificacionDAO = new CalificacionDAO();
 	List<Periodo> periodoLista;
 	@Wire private Listbox lstPeriodos;
 	
@@ -105,7 +113,9 @@ public class PeriodoListaC {
 			public void onEvent(Event event) throws Exception {
 				if (event.getName().equals("onYes")) {
 					try {
+						//antes de finalizar el periodo hay q sacar si los aspirantes aprobaron
 						periodoDAO.getEntityManager().getTransaction().begin();
+						aprobarAspirantes(periodoSeleccionado.getIdPeriodo());
 						periodoSeleccionado.setEstadoPeriodo(Globals.ESTADO_PERIODO_FINALIZADO);
 						periodoDAO.getEntityManager().merge(periodoSeleccionado);
 						periodoDAO.getEntityManager().getTransaction().commit();;
@@ -119,7 +129,31 @@ public class PeriodoListaC {
 			}
 		});
 	}
-	
+	private void aprobarAspirantes(Integer idPeriodo) {
+		try {
+			List<Matricula> listaMatricula = matriculaDAO.obtenerAspirantesPorIdPeriodo(idPeriodo);
+			int cont = 0;
+			for(Matricula mat : listaMatricula) {
+				cont = 0;
+				List<Calificacion> calificacionMatricula = calificacionDAO.buscarPorMatricula(mat.getIdMatricula());
+				for(Calificacion cal : calificacionMatricula) {
+					float sumaTotalModulo = cal.getNota1() + cal.getNota2() + cal.getNota3() + cal.getNota4() + cal.getExamen();
+					if(sumaTotalModulo == Globals.NOTA_MINIMA_APROBACION)
+						cont ++;
+				}
+				if(cont == calificacionMatricula.size()) {//aprobo todos los modulos
+					PersonalAutorizado personal = new PersonalAutorizado();
+					personal.setIdPersonal(null);
+					personal.setEstado("A");
+					personal.setFechaIngreso(new Date());
+					personal.setAspirante(mat.getAspirante());
+					periodoDAO.getEntityManager().persist(personal);
+				}
+			}
+		}catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	public void eliminar(@BindingParam("periodo") Periodo periodoSeleccionado){

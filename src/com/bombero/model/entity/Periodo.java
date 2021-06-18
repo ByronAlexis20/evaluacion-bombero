@@ -18,7 +18,8 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Periodo.buscarPorPatron", query="SELECT p FROM Periodo p where lower(p.descripcion) like lower(:patron)"),
 	@NamedQuery(name="Periodo.buscarActivos", query="SELECT p FROM Periodo p where p.estado = 'A' ORDER BY p.estadoPeriodo "),
-	@NamedQuery(name="Periodo.buscarEnProceso", query="SELECT p FROM Periodo p where p.estado = 'A' and p.estadoPeriodo = '" + Globals.ESTADO_PERIODO_EN_PROCESO + "'")
+	@NamedQuery(name="Periodo.buscarEnProceso", query="SELECT p FROM Periodo p where p.estado = 'A' and p.estadoPeriodo = '" + Globals.ESTADO_PERIODO_EN_PROCESO + "'"),
+	@NamedQuery(name="Periodo.buscarTerminados", query="SELECT p FROM Periodo p where p.estado = 'A' and p.estadoPeriodo = '" + Globals.ESTADO_PERIODO_FINALIZADO + "'")
 })
 public class Periodo implements Serializable {
 	private static final long serialVersionUID = 1L;

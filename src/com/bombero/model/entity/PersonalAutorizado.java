@@ -19,7 +19,7 @@ public class PersonalAutorizado implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_personal")
-	private int idPersonal;
+	private Integer idPersonal;
 
 	private String estado;
 
@@ -39,11 +39,11 @@ public class PersonalAutorizado implements Serializable {
 	public PersonalAutorizado() {
 	}
 
-	public int getIdPersonal() {
+	public Integer getIdPersonal() {
 		return this.idPersonal;
 	}
 
-	public void setIdPersonal(int idPersonal) {
+	public void setIdPersonal(Integer idPersonal) {
 		this.idPersonal = idPersonal;
 	}
 
