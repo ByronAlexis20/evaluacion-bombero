@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<!-- Created with Jaspersoft Studio version 6.16.0.final using JasperReports Library version 6.16.0-48579d909b7943b64690c65c71e07e0b80981928  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptCertificado" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c3f3f07-7b32-41d8-8e4a-b066e4da76fe">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -14,6 +14,12 @@
 	<parameter name="NOMBRE_ASPIRANTE" class="java.lang.String"/>
 	<parameter name="DESCRIPCION" class="java.lang.String"/>
 	<parameter name="FECHA" class="java.lang.String"/>
+	<parameter name="NOMBRE_PRIMER_JEFE" class="java.lang.String"/>
+	<parameter name="CARGO_PRIMER_JEFE" class="java.lang.String"/>
+	<parameter name="NOMBRE_SEGUNDO_JEFE" class="java.lang.String"/>
+	<parameter name="CARGO_SEGUNDO_JEFE" class="java.lang.String"/>
+	<parameter name="NOMBRE_CAPITAN" class="java.lang.String"/>
+	<parameter name="CARGO_CAPITAN" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -21,23 +27,23 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="98" splitType="Stretch">
+		<band height="133" splitType="Stretch">
 			<image>
-				<reportElement x="660" y="0" width="70" height="70" uuid="fa02404d-b3de-4385-8f4f-8cf3b448fecd">
+				<reportElement x="660" y="18" width="70" height="70" uuid="fa02404d-b3de-4385-8f4f-8cf3b448fecd">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA["cb_logo.png"]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="65" y="0" width="70" height="70" uuid="02fba772-9628-49f8-93af-27fff32c8198">
+				<reportElement x="65" y="14" width="70" height="70" uuid="02fba772-9628-49f8-93af-27fff32c8198">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA["escudo_ecuador.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="135" y="7" width="525" height="33" uuid="bc76c805-bf2b-4e36-99dd-5050bf496f5f">
+				<reportElement x="135" y="27" width="525" height="33" uuid="bc76c805-bf2b-4e36-99dd-5050bf496f5f">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
@@ -46,7 +52,7 @@
 				<text><![CDATA[El cuerpo de Bomberos de La Libertad,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="40" width="525" height="33" uuid="ebd07b30-f369-4cf4-b424-cc25aeb9f01a">
+				<reportElement x="135" y="60" width="525" height="33" uuid="ebd07b30-f369-4cf4-b424-cc25aeb9f01a">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -56,7 +62,7 @@
 				<text><![CDATA[y, en su nombre, La primera Jefatura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="75" width="525" height="20" uuid="514d59b8-91e2-45ff-8f20-8927655c4e4c">
+				<reportElement x="135" y="95" width="525" height="20" uuid="514d59b8-91e2-45ff-8f20-8927655c4e4c">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -101,7 +107,7 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="198" splitType="Stretch">
+		<band height="159" splitType="Stretch">
 			<textField>
 				<reportElement x="460" y="0" width="250" height="20" uuid="e0116806-6972-46c6-aa7f-ba083e0bbdb8">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -110,6 +116,78 @@
 					<font fontName="Times New Roman" size="16" isItalic="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="135" y="30" width="525" height="20" uuid="4eff3921-553e-44e6-b295-3c4fd3315678">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ABNEGACIÓN Y DISCIPLINA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="90" width="200" height="20" uuid="2a0b00ac-9a18-467d-b786-3536b89b2f57">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE_PRIMER_JEFE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="90" width="200" height="20" uuid="0d0884a9-3296-47e6-8223-f89612be6d78">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE_SEGUNDO_JEFE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="509" y="90" width="200" height="20" uuid="80d292c7-8403-4b6d-bcaf-b225e223fff7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE_CAPITAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="110" width="200" height="20" uuid="09a841e0-df3d-4baa-bab3-99439c02d904">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CARGO_PRIMER_JEFE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="110" width="200" height="20" uuid="4c6b2d3b-0608-41f8-b97d-742ea58072a1">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CARGO_SEGUNDO_JEFE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="509" y="110" width="200" height="20" uuid="7cafa51e-75cb-421f-adf3-2ffdc0faa440">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CARGO_CAPITAN}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
