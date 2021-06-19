@@ -63,7 +63,7 @@
 								</row>
 								<row>
 									<label value="Cantidad de Preguntas" class="label-form"/>
-									<textbox id="txtCantPreguntas" hflex="1" xmlns:w="client" value="@bind(vm.empresa.cantidadPreguntas)">
+									<textbox id="txtCantPreguntas" hflex="1" xmlns:w="client" value="@bind(vm.configuracion.cantidadPreguntas)">
 										<attribute w:name="doKeyDown_"><![CDATA[
 											function (evt) {
 												var keyCode = event.keyCode;

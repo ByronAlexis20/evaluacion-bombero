@@ -62,7 +62,8 @@ public class EmpresaC {
 				@Override
 				public void onEvent(Event event) throws Exception {
 					if (event.getName().equals("onYes")) {		
-						try {		
+						try {
+							empresaDAO.getEntityManager().getTransaction().begin();
 							if (empresa.getIdEmpresa() == null) {
 								empresaDAO.getEntityManager().persist(empresa);
 							}else{

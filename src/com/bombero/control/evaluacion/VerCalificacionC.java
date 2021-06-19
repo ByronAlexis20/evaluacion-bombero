@@ -137,7 +137,7 @@ public class VerCalificacionC {
 								cellNota4.getChildren().add(labelNota4);
 								row.getChildren().add(cellNota4);
 								
-								Label labelExamen = new Label(String.valueOf(listaCalificacion.get(0).getNota4()));
+								Label labelExamen = new Label(String.valueOf(listaCalificacion.get(0).getExamen()));
 								cellExamen.getChildren().add(labelExamen);
 								row.getChildren().add(cellExamen);
 								
