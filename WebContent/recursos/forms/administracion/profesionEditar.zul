@@ -17,7 +17,7 @@
 						<textbox id="txtCodigo" hflex="1" readonly="true" value="@bind(vm.profesion.idProfesion)" />
 					</row>
 					<row>
-						<label value="Tipo de Sangre " class="label-form"/>
+						<label value="Profesión: " class="label-form"/>
 						<textbox id="txtProfesion" hflex="1" value="@bind(vm.profesion.profesion)" />
 					</row>
 				</rows>

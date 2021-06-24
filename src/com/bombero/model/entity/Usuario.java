@@ -1,7 +1,17 @@
 package com.bombero.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="usuario")
@@ -10,7 +20,8 @@ import javax.persistence.*;
 	@NamedQuery(name="Usuario.buscaUsuario", 
 	query="SELECT u FROM Usuario u WHERE u.usuario = :nombreUsuario and u.estado = 'A'"),
 	@NamedQuery(name="Usuario.buscarPorPatron", query="SELECT u FROM Usuario u where (lower(u.nombres) "
-			+ "like(:patron) or lower(u.apellidos) like(:patron)) and u.estado = 'A'"),
+			+ "like(:patron) or lower(u.apellidos) like(:patron)) and u.estado = 'A' and "
+			+ "(u.perfil.idPerfil = 1 or u.perfil.idPerfil = 2 )"),
 	@NamedQuery(name="Usuario.buscarPorCedula", query="SELECT u FROM Usuario u where u.cedula = :cedula and u.estado = 'A'"),
 	@NamedQuery(name="Usuario.buscarPorCedulaDiferenteAlUsuarioActual", query="SELECT u FROM Usuario u where u.cedula = :cedula and u.estado = 'A' "
 			+ "and u.idUsuario <> :idUsuario"),
