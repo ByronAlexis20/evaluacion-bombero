@@ -30,6 +30,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Doublebox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -86,7 +87,7 @@ public class AspiranteEditarC {
 	@Wire private Textbox txtApellidos;
 	@Wire private Datebox dtpFechaNacimiento;
 	@Wire private Textbox txtNoLibretaMilitar;
-	@Wire private Textbox txtEstatura;
+	@Wire private Doublebox txtEstatura;
 	@Wire private Textbox txtUltimoAnio;
 	@Wire private Textbox txtNomnbreConyuge;
 	@Wire private Textbox txtCantidadHijos;
