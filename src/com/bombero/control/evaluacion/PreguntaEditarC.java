@@ -182,8 +182,7 @@ public class PreguntaEditarC {
 	public void agregarRespuesta(){
 		try {
 			Map<String, Object> params = new HashMap<String, Object>();
-			System.out.println(pregunta.toString());
-			params.put("Pregunta", pregunta);
+			params.put("Pregunta", pregunta.getIdPregunta());
 			Window ventanaCargar = (Window) Executions.createComponents("/recursos/forms/evaluacion/preguntas/respuesta.zul", null, params);
 			ventanaCargar.doModal();
 		}catch(Exception ex) {

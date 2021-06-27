@@ -31,7 +31,7 @@ public class CertificadoAprobacionC {
 	MatriculaDAO matriculaDAO = new MatriculaDAO();
 	Periodo periodoSeleccionado;
 	List<Matricula> listaPersonas;
-
+	SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
 	@AfterCompose
 	public void aferCompose(@ContextParam(ContextType.VIEW) Component view) throws IOException {
 		Selectors.wireComponents(view, this, false);
@@ -51,7 +51,8 @@ public class CertificadoAprobacionC {
 			return;
 		}
 		String descripcion = "Por haber ASISTIDO Y APROBADO satisfactoriamente al curso de ASPIRANTES A BOMBEROS dictado en "
-				+ "las instalaciones del Cuerpo de Bomberos de La Libertad, iniciado desde 10/01/2021 al 10/05/2021.";
+				+ "las instalaciones del Cuerpo de Bomberos de La Libertad, iniciado desde " + formateador.format(mat.getPeriodo().getFechaInicio()) 
+				+ " al " + formateador.format(mat.getPeriodo().getFechaFin());
 		
 		SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", new Locale("MX"));
 		Date fechaDate = new Date();
@@ -59,6 +60,7 @@ public class CertificadoAprobacionC {
 		String fecha = dateFormatter("yyyy-MM-dd hh:mm:ss","d 'de' MMMM 'del' yyyy", fechaSistema);
 		
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("ID_ASPIRANTE", mat.getAspirante().getIdAspirante());
 		params.put("NOMBRE_ASPIRANTE", mat.getAspirante().getNombres() + " " + mat.getAspirante().getApellidos());
 		params.put("DESCRIPCION", descripcion);
 		params.put("FECHA", "La Libertad, " + fecha);

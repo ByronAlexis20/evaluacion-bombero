@@ -239,16 +239,19 @@ public class ResponderPreguntasC {
 								}
 								resultados.setRespuestaSeleccionadas(seleccionados);
 								//tambien se actualiza la calificacion en la seccion de examen
-								Calificacion calificacion = calificacionDAO.obtenerCalificacionPorMatriculaYModulo(evaluacion.getIdEvaluacion(), matric.getIdMatricula());
+								Calificacion calificacion = calificacionDAO.obtenerCalificacionPorMatriculaYModulo(evaluacion.getModulo().getIdModulo(), matric.getIdMatricula());
 								evaluacionDAO.getEntityManager().getTransaction().begin();
 								evaluacionDAO.getEntityManager().persist(resultados);
 								System.out.println("calificacion " + total);
 								System.out.println("puntaje por pregunta " + Globals.PUNTAJE_POR_PREGUNTA);
 								if(calificacion != null) {
+									System.out.println("si hay calificacion");
 									calificacion.setExamen(total);
 									evaluacionDAO.getEntityManager().merge(calificacion);
 								}
 								evaluacionDAO.getEntityManager().getTransaction().commit();
+								vlRealizado.setVisible(true);
+								vlPreguntas.setVisible(false);
 							}
 						}
 					}
