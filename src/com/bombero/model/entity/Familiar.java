@@ -3,12 +3,8 @@ package com.bombero.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the familiar database table.
- * 
- */
 @Entity
+@Table(name="tbl_familiar")
 @NamedQuery(name="Familiar.buscarPorFichaMedica", query="SELECT f FROM Familiar f where f.fichaMedica.idFichaMedica = :id and f.estado = 'A'")
 public class Familiar implements Serializable {
 	private static final long serialVersionUID = 1L;

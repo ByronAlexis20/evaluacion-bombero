@@ -4,12 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the modulo database table.
- * 
- */
 @Entity
+@Table(name="tbl_modulo")
 @NamedQueries({
 	@NamedQuery(name="Modulo.buscarPorPatron", query="SELECT m FROM Modulo m where lower(m.modulo) like lower(:patron)"),
 	@NamedQuery(name="Modulo.buscarSinAsignacion", query="SELECT m FROM Modulo m LEFT JOIN ModuloAsignado ma ON m.idModulo = ma.modulo.idModulo where ma.modulo.idModulo is null and ma.periodo.idPeriodo = :idPeriodo"),

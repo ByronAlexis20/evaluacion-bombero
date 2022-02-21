@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name="matricula")
+@Table(name="tbl_matricula")
 @NamedQueries({
 	@NamedQuery(name="Matricula.buscarAspirantePorPeriodo", query="SELECT m FROM Matricula m where m.periodo.idPeriodo = :idPeriodo "
 			+ " and m.estado = 'A'"),

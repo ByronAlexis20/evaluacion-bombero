@@ -3,13 +3,8 @@ package com.bombero.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the detalle_asignar_equipo database table.
- * 
- */
 @Entity
-@Table(name="detalle_asignar_equipo")
+@Table(name="tbl_detalle_asignar_equipo")
 @NamedQuery(name="DetalleAsignarEquipo.findAll", query="SELECT d FROM DetalleAsignarEquipo d")
 public class DetalleAsignarEquipo implements Serializable {
 	private static final long serialVersionUID = 1L;

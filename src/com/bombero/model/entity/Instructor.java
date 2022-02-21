@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="instructor")
+@Table(name="tbl_instructor")
 @NamedQueries({
 	@NamedQuery(name="Instructor.buscarPorPatron", query="SELECT i FROM Instructor i where (lower(i.nombre) like(:patron) or "
 		+ "lower(i.apellido) like(:patron)) and i.estado = 'A'"),

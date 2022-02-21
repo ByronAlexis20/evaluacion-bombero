@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name="calificacion")
+@Table(name="tbl_calificacion")
 @NamedQueries({
 	@NamedQuery(name="Calificacion.obtenerCalificacionPorMatriculaYModulo", query="SELECT c FROM Calificacion c where c.modulo.idModulo = :idModulo and c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),
 	@NamedQuery(name="Calificacion.buscarPorAspirante", query="SELECT c FROM Calificacion c where c.matricula.idMatricula = :idMatricula and c.estado = 'A'"),

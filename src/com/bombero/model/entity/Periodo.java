@@ -8,13 +8,8 @@ import com.bombero.util.Globals;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the periodo database table.
- * 
- */
 @Entity
-@Table(name="periodo")
+@Table(name="tbl_periodo")
 @NamedQueries({
 	@NamedQuery(name="Periodo.buscarPorPatron", query="SELECT p FROM Periodo p where lower(p.descripcion) like lower(:patron)"),
 	@NamedQuery(name="Periodo.buscarActivos", query="SELECT p FROM Periodo p where p.estado = 'A' ORDER BY p.estadoPeriodo "),

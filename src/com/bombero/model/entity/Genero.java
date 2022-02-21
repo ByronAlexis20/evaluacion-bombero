@@ -4,12 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the genero database table.
- * 
- */
 @Entity
+@Table(name="tbl_genero")
 @NamedQuery(name="Genero.buscarGenero", query="SELECT g FROM Genero g where g.estado = 'A'")
 public class Genero implements Serializable {
 	private static final long serialVersionUID = 1L;

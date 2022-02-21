@@ -10,13 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-
-/**
- * The persistent class for the compania database table.
- * 
- */
 @Entity
+@Table(name="tbl_compania")
 @NamedQuery(name="Compania.buscarPorPatron", query="SELECT c FROM Compania c where lower(c.nombre) like lower(:patron)")
 public class Compania implements Serializable {
 	private static final long serialVersionUID = 1L;

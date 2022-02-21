@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="instruccion")
+@Table(name="tbl_instruccion")
 @NamedQuery(name="Instruccion.buscarInstruccion", query="SELECT i FROM Instruccion i where i.estado = 'A'")
 public class Instruccion implements Serializable {
 

@@ -4,12 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the canton database table.
- * 
- */
 @Entity
+@Table(name="tbl_canton")
 @NamedQuery(name="Canton.buscarPorProvincia", query="SELECT c FROM Canton c where c.provincia.idProvincia = :idProvincia")
 public class Canton implements Serializable {
 	private static final long serialVersionUID = 1L;

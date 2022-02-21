@@ -3,12 +3,8 @@ package com.bombero.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the horario database table.
- * 
- */
 @Entity
+@Table(name="tbl_horario")
 @NamedQuery(name="Horario.findAll", query="SELECT h FROM Horario h")
 public class Horario implements Serializable {
 	private static final long serialVersionUID = 1L;

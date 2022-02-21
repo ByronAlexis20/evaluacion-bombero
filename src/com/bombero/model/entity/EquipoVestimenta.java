@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the equipo_vestimenta database table.
- * 
- */
 @Entity
-@Table(name="equipo_vestimenta")
+@Table(name="tbl_equipo_vestimenta")
 @NamedQuery(name="EquipoVestimenta.buscarPorPatron", query="SELECT e FROM EquipoVestimenta e where lower(e.descripcion) like lower(:patron)")
 public class EquipoVestimenta implements Serializable {
 	private static final long serialVersionUID = 1L;

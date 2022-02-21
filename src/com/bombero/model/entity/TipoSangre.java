@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the tipo_sangre database table.
- * 
- */
 @Entity
-@Table(name="tipo_sangre")
+@Table(name="tbl_tipo_sangre")
 @NamedQuery(name="TipoSangre.buscarPorPatron", query="SELECT t FROM TipoSangre t where lower(t.tipoSangre) like lower(:patron) and t.estado = 'A'")
 public class TipoSangre implements Serializable {
 	private static final long serialVersionUID = 1L;

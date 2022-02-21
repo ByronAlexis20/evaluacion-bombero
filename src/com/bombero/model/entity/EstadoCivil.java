@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the estado_civil database table.
- * 
- */
 @Entity
-@Table(name="estado_civil")
+@Table(name="tbl_estado_civil")
 @NamedQuery(name="EstadoCivil.buscarEstadoCivil", query="SELECT e FROM EstadoCivil e where e.estado = 'A'")
 public class EstadoCivil implements Serializable {
 	private static final long serialVersionUID = 1L;

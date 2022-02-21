@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the tipo_familiar database table.
- * 
- */
 @Entity
-@Table(name="tipo_familiar")
+@Table(name="tbl_tipo_familiar")
 @NamedQueries({
 	@NamedQuery(name="TipoFamiliar.buscarPorPatron", query="SELECT t FROM TipoFamiliar t where lower(t.tipoFamiliar) like lower(:patron)"),
 	@NamedQuery(name="TipoFamiliar.buscarPorEstado", query="SELECT t FROM TipoFamiliar t where t.estado = :estado")

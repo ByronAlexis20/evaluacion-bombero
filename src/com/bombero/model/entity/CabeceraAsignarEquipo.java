@@ -5,13 +5,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the cabecera_asignar_equipo database table.
- * 
- */
 @Entity
-@Table(name="cabecera_asignar_equipo")
+@Table(name="tbl_cabecera_asignar_equipo")
 @NamedQuery(name="CabeceraAsignarEquipo.findAll", query="SELECT c FROM CabeceraAsignarEquipo c")
 public class CabeceraAsignarEquipo implements Serializable {
 	private static final long serialVersionUID = 1L;

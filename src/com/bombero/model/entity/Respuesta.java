@@ -3,12 +3,8 @@ package com.bombero.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the respuesta database table.
- * 
- */
 @Entity
+@Table(name="tbl_respuesta")
 @NamedQuery(name="Respuesta.buscarPorPregunta", query="SELECT r FROM Respuesta r where r.pregunta.idPregunta = :idPregunta AND r.estado = 'A'")
 public class Respuesta implements Serializable {
 	private static final long serialVersionUID = 1L;

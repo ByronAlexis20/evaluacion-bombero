@@ -6,7 +6,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name="menu")
+@Table(name="seg_menu")
 @NamedQueries({
 	@NamedQuery(name="Menu.findAll", query="SELECT s FROM Menu s where s.estado='A' order by s.posicion asc"),
 	@NamedQuery(name="Menu.buscarHijos", query="SELECT s FROM Menu s where s.estado = 'A' and s.idMenuPadre = :idPadre order by s.posicion asc"),

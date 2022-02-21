@@ -5,13 +5,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the personal_autorizado database table.
- * 
- */
 @Entity
-@Table(name="personal_autorizado")
+@Table(name="tbl_personal_autorizado")
 @NamedQuery(name="PersonalAutorizado.findAll", query="SELECT p FROM PersonalAutorizado p where p.estado = 'A'")
 public class PersonalAutorizado implements Serializable {
 	private static final long serialVersionUID = 1L;

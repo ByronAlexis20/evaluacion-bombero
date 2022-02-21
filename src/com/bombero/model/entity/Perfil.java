@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="perfil")
+@Table(name="seg_perfil")
 @NamedQueries({
 	@NamedQuery(name="Perfil.buscarPorPatron", query="SELECT p FROM Perfil p where lower(p.perfil) like lower(:patron)"),
 	@NamedQuery(name="Perfil.buscarPerfilPorId", query="SELECT p FROM Perfil p where p.idPerfil = :idPerfil")

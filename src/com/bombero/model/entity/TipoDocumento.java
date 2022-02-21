@@ -12,13 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-/**
- * The persistent class for the tipo_documento database table.
- * 
- */
 @Entity
-@Table(name="tipo_documento")
+@Table(name="tbl_tipo_documento")
 @NamedQuery(name="TipoDocumento.buscarPorPatron", query="SELECT t FROM TipoDocumento t where lower(t.tipoDocumento) like lower(:patron)")
 public class TipoDocumento implements Serializable {
 	private static final long serialVersionUID = 1L;

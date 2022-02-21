@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="modulo_asignado")
+@Table(name="tbl_modulo_asignado")
 @NamedQueries({
 	@NamedQuery(name="ModuloAsignado.buscarAsignacionesPorPeriodo", query="SELECT m FROM ModuloAsignado m where m.periodo.idPeriodo = :idPeriodo and m.estado = 'A'"),
 	@NamedQuery(name="ModuloAsignado.buscarAsignacionesPorInstructorPeriodo", query="SELECT m FROM ModuloAsignado m where m.periodo.idPeriodo = :idPeriodo and m.instructor.idInstructor = :idInstructor and m.estado = 'A'"),

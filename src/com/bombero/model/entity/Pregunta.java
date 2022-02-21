@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="pregunta")
+@Table(name="tbl_pregunta")
 @NamedQueries({
 	@NamedQuery(name="Pregunta.buscarPorPeriodoYModulo", query="SELECT p FROM Pregunta p where p.evaluacion.periodo.idPeriodo = :idPeriodo "
 			+ "AND p.evaluacion.modulo.idModulo = :idModulo AND p.estado = 'A' AND p.evaluacion.estado = 'A' AND "

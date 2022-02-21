@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the resultado_evaluacion database table.
- * 
- */
 @Entity
-@Table(name="resultado_evaluacion")
+@Table(name="tbl_resultado_evaluacion")
 @NamedQueries({
 	@NamedQuery(name="ResultadoEvaluacion.buscarPorEvaluacionYAspirante", query="SELECT r FROM ResultadoEvaluacion r where r.evaluacion.idEvaluacion = :idEvaluacion and r.matricula.idMatricula = :idMatricula and r.estado = 'A'")
 })

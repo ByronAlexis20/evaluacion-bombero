@@ -4,12 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * The persistent class for the ficha_medica database table.
- * 
- */
 @Entity
-@Table(name = "ficha_medica")
+@Table(name = "tbl_ficha_medica")
 @NamedQuery(name = "FichaMedica.buscarPorAspirante", query = "SELECT f FROM FichaMedica f where f.aspirante.idAspirante = :id")
 public class FichaMedica implements Serializable {
 	private static final long serialVersionUID = 1L;

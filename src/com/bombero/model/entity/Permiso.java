@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name="permiso")
+@Table(name="seg_permiso")
 @NamedQueries({
 	@NamedQuery(name="Permiso.findAll", query="SELECT s FROM Permiso s"),
 	@NamedQuery(name="Permiso.buscarPadrePorPerfil", query="SELECT s FROM Permiso s "

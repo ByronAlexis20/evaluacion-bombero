@@ -3,12 +3,8 @@ package com.bombero.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-/**
- * The persistent class for the documento database table.
- * 
- */
 @Entity
+@Table(name="tbl_documento")
 @NamedQuery(name="Documento.buscarPorAspirante", query="SELECT d FROM Documento d where d.aspirante.idAspirante = :idAspirante and d.estado = 'A'")
 public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;

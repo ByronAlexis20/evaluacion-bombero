@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="tbl_provincia")
 @NamedQuery(name="Provincia.buscarPorPais", query="SELECT p FROM Provincia p where p.pai.idPais = :idPais and p.estado = 'A'")
 public class Provincia implements Serializable {
 	private static final long serialVersionUID = 1L;

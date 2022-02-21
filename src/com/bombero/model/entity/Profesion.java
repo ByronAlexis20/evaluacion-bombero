@@ -4,12 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the profesion database table.
- * 
- */
 @Entity
+@Table(name="tbl_profesion")
 @NamedQuery(name="Profesion.buscarPorPatron", query="SELECT p FROM Profesion p where lower(p.profesion) like lower(:patron)")
 public class Profesion implements Serializable {
 	private static final long serialVersionUID = 1L;

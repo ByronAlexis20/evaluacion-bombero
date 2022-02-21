@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="asignar_guardia")
+@Table(name="tbl_asignar_guardia")
 @NamedQueries({
 	@NamedQuery(name="AsignarGuardia.buscarPorCompania", query="SELECT a FROM AsignarGuardia a where a.estado = 'A' and a.compania.idCompania = :idCompania"),
 	@NamedQuery(name="AsignarGuardia.buscarAsignacion", query="SELECT a FROM AsignarGuardia a where a.estado = 'A'"),

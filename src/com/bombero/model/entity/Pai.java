@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the pais database table.
- * 
- */
 @Entity
-@Table(name="pais")
+@Table(name="tbl_pais")
 @NamedQuery(name="Pai.buscarPaises", query="SELECT p FROM Pai p where p.estado = 'A'")
 public class Pai implements Serializable {
 	private static final long serialVersionUID = 1L;

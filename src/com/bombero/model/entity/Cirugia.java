@@ -4,12 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 
-
-/**
- * The persistent class for the cirugia database table.
- * 
- */
 @Entity
+@Table(name="tbl_cirugia")
 @NamedQuery(name="Cirugia.buscarPorFichaMedica", query="SELECT c FROM Cirugia c where c.fichaMedica.idFichaMedica = :id and c.estado = 'A'")
 public class Cirugia implements Serializable {
 	private static final long serialVersionUID = 1L;

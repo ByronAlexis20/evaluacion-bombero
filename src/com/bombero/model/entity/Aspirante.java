@@ -5,12 +5,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the aspirante database table.
- * 
- */
 @Entity
+@Table(name="tbl_aspirante")
 @NamedQuery(name="Aspirante.findAll", query="SELECT a FROM Aspirante a")
 public class Aspirante implements Serializable {
 	private static final long serialVersionUID = 1L;

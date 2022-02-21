@@ -4,13 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the evaluacion database table.
- * 
- */
 @Entity
-@Table(name="evaluacion")
+@Table(name="tbl_evaluacion")
 @NamedQueries({
 	@NamedQuery(name="Evaluacion.buscarPorModuloYPeriodo", query="SELECT e FROM Evaluacion e where e.periodo.idPeriodo = :idPeriodo AND e.modulo.idModulo = :idModulo and e.estado = 'A'"),
 	@NamedQuery(name="Evaluacion.buscarPorId", query="SELECT e FROM Evaluacion e where e.idEvaluacion = :idEvaluacion"),
