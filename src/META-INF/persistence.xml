@@ -41,7 +41,11 @@
 		<class>com.bombero.model.entity.TipoSangre</class>
 		<class>com.bombero.model.entity.Usuario</class>
 		<properties>
+<<<<<<< HEAD
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/evaluacion-bombero?useSSL=false"/>
+=======
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/evaluacion-bombero"/>
+>>>>>>> 0e132ae5f4bc8136e6674f57d85d9ec317af798f
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="admin123"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
